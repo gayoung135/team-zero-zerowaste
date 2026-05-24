@@ -3,7 +3,7 @@ using UnityEngine;
 public class ItemController : MonoBehaviour
 {
     // 쓰레기 아이템이 하늘에서 아래로 떨어지는 기본 낙하 속도입니다.
-    public float dropSpeed = -0.015f; 
+    public float dropSpeed = -0.05f; 
 
     void Update()
     {

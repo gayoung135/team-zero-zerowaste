@@ -139,18 +139,31 @@ namespace Mediapipe.Unity.Sample.HandLandmarkDetection
     private void OnHandLandmarkDetectionOutput(HandLandmarkerResult result, Image image, long timestamp)
     {
       _handLandmarkerResultAnnotationController.DrawLater(result);
-      if (result.handLandmarks == null || result.handLandmarks.Count == 0) return;
-      var landmarks = result.handLandmarks[0];
-      var thumbTip = landmarks.landmarks[4];
-      var indexTip = landmarks.landmarks[8];
+      if (result.handLandmarks == null || result.handLandmarks.Count == 0) return; //손이 인식되지 않음
 
-      HandManager.Instance.UpdateHandData(
-        thumbTip.x,
-        thumbTip.y,
-        indexTip.x,
-        indexTip.y
-      );
-      Debug.Log($"Index Tip X: {indexTip.x}, Y: {indexTip.y}");
+      for(int i=0; i<result.handLandmarks.Count; i++)
+      {
+        var landmarks = result.handLandmarks[i];
+        var thumbTip = landmarks.landmarks[4]; //엄지 포인트
+        var indexTip = landmarks.landmarks[8]; //검지 포인트
+        var ringTip = landmarks.landmarks[16]; //약지 포인트
+        var wristTip = landmarks.landmarks[0]; //손목 포인트
+        var middle = landmarks.landmarks[9]; //중지-손바닥 연결 마디
+      
+        HandManager.Instance.UpdateHandData(
+          i,
+          thumbTip.x,
+          thumbTip.y,
+          indexTip.x,
+          indexTip.y,
+          ringTip.x,
+          ringTip.y,
+          wristTip.x,
+          wristTip.y,
+          middle.x,
+          middle.y
+        );
+      }
     }
   }
 }
