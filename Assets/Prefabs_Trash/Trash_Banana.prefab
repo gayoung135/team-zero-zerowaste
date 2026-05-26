@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1750056945740090342}
   m_Layer: 0
   m_Name: Trash_Banana
-  m_TagString: Trash
+  m_TagString: GeneralTrash
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
