@@ -18,7 +18,7 @@ namespace Mediapipe.Unity
 {
   public class WebCamSource : ImageSource
   {
-    private readonly int _preferableDefaultWidth = 1280;
+    private readonly int _preferableDefaultWidth = 640;
 
     private const string _TAG = nameof(WebCamSource);
 

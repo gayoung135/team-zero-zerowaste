@@ -32,13 +32,11 @@ public class GrabItem : MonoBehaviour
     //웹캠 상호작용
     public void OnGrab() //잡을때 신호
     {
-        Debug.Log($"{gameObject.name} 잡음");
         isDragging = true;
     }
 
     public void OnDrop() //놓을때 신호
     {
-        Debug.Log($"{gameObject.name} 놓음");
         isDragging = false;
     }
 
