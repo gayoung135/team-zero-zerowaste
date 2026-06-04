@@ -43,7 +43,6 @@ public class GrabItem : MonoBehaviour
     /*주석 추가함*/
     //사용자의 '손 쥐기' 제스처를 인식했을 때 외부 스크립트에서 호출하는 메서드
     {
-        Debug.Log($"{gameObject.name} 잡음");
         isDragging = true;
     }
 
@@ -51,7 +50,6 @@ public class GrabItem : MonoBehaviour
     /*주석 추가함*/
     //사용자의 '손 펴기' 제스처를 인식했을 때 외부 스크립트에서 호출하는 메서드
     {
-        Debug.Log($"{gameObject.name} 놓음");
         isDragging = false;
     }
 
