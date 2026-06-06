@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5632442667381846235}
   m_Layer: 0
   m_Name: Trash_BrownGlassBottle
-  m_TagString: Trash
+  m_TagString: Recyclable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -139,7 +139,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &7063083474251984778
 MonoBehaviour:
