@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -9045260185185320321}
   m_Layer: 0
   m_Name: Trash_Bone
-  m_TagString: GeneralTrash
+  m_TagString: Trash
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

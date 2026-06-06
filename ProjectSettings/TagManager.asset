@@ -6,8 +6,6 @@ TagManager:
   tags:
   - Global Resource
   - Trash
-  - Recyclable
-  - GeneralTrash
   layers:
   - Default
   - TransparentFX

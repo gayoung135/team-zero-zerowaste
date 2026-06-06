@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5632442667381846235}
   m_Layer: 0
   m_Name: Trash_BrownGlassBottle
-  m_TagString: Recyclable
+  m_TagString: Trash
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
