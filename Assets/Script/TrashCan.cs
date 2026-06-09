@@ -3,20 +3,25 @@ using TMPro;
 
 public class TrashCan : MonoBehaviour
 {
-
     // [1] 유니티 에디터의 Score_Num과 Timer_Num을 드래그앤드롭 할 구멍입니다.
     public TextMeshProUGUI scoreNumText; 
     public TextMeshProUGUI timerNumText;
 
+    // 유니티 에디터에서 GameOver_Canvas를 연결할 구멍입니다. (스펠링 정확히 매칭)
+    public GameObject gameOverCanvas;
+
     // [2] 실제 점수와 남은 시간을 계산해서 저장할 데이터 주머니입니다.
     private static int score = 0;
-    private float limitTime = 60f; // 1분 = 60초
+    private float limitTime = 60f; // 1분 = 60초 -> 60f
 
     [Header("이 쓰레기통이 정답으로 처리할 태그 입력 (Recyclable 또는 GeneralTrash)")]
     public string correctTag; 
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        // 시간 끝나면 더 이상 점수 계산이 안 되도록 안전장치 추가
+        if (limitTime <= 0) return;
+
         // 들어온 쓰레기의 태그가 이 쓰레기통의 정답 태그와 똑같은지 검사
         if (other.CompareTag(correctTag))
         {
@@ -41,6 +46,11 @@ public class TrashCan : MonoBehaviour
 
     void Start()
     {
+        //0으로 멈췄던 게임 시간을 다시 1배속으로 흐르게 합니다.
+        Time.timeScale = 1f;
+
+        //게임이 Replay로 다시 시작될 때 기존 점수를 0으로 깨끗하게 리셋합니다.
+        score = 0;
         scoreNumText.text = score.ToString();
     }
 
@@ -54,6 +64,12 @@ public class TrashCan : MonoBehaviour
         else
         {
             timerNumText.text = "0";
+
+            //0초가 되면 숨겨져 있던 결과창 캔버스를 화면에 탁 켭니다!
+            if (gameOverCanvas != null)
+            {
+                gameOverCanvas.SetActive(true);
+            }
 
             Time.timeScale = 0f; // 시간이 0초가 되면 게임 일시정지 시킵니다.
         }
