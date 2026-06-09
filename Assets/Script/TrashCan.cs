@@ -37,6 +37,9 @@ public class TrashCan : MonoBehaviour
 
             //오답일 때 점수 처리
             score -= 5; // 점수 5점 감점
+
+            if (score < 0) score = 0; // 점수가 0 미만으로 떨어지면 강제로 0으로 고정
+
             scoreNumText.text = score.ToString(); // 화면의 Score_Num에 반영
         }
 
