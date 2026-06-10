@@ -4,12 +4,12 @@ using TMPro;
 public class TrashCan : MonoBehaviour
 {
     // [1] 유니티 에디터의 Score_Num과 Timer_Num을 드래그앤드롭 할 구멍입니다.
-    public TextMeshProUGUI scoreNumText; 
+    public TextMeshProUGUI scoreNumText;
     public TextMeshProUGUI timerNumText;
 
     // 유니티 에디터에서 GameOver_Canvas를 연결할 구멍입니다. (스펠링 정확히 매칭)
     public GameObject gameOverCanvas;
-    
+
     [Header("사운드 설정")]
     public AudioSource audioSource;
     public AudioClip correctSound;
@@ -20,7 +20,7 @@ public class TrashCan : MonoBehaviour
     private float limitTime = 60f; // 1분 = 60초 -> 60f
 
     [Header("이 쓰레기통이 정답으로 처리할 태그 입력 (Recyclable 또는 GeneralTrash)")]
-    public string correctTag; 
+    public string correctTag;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -56,7 +56,7 @@ public class TrashCan : MonoBehaviour
             {
                 audioSource.PlayOneShot(incorrectSound);
             }
-        
+
         }
 
         // 판정이 끝난 쓰레기는 화면에서 삭제
