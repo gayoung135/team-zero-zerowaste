@@ -152,6 +152,7 @@ MonoBehaviour:
   mainCamera: {fileID: 1969388816}
   audioSource: {fileID: 79974309}
   grabTrashSound: {fileID: 8300000, guid: 475650f47c07e734d88db70c5a357d2c, type: 3}
+  bgmSource: {fileID: 0}
 --- !u!4 &79974308
 Transform:
   m_ObjectHideFlags: 0
@@ -681,6 +682,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db3b876b60f45ff44854489e6ea2612e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrashCan
+  scoreNumText: {fileID: 0}
+  timerNumText: {fileID: 0}
+  gameOverCanvas: {fileID: 0}
+  audioSource: {fileID: 0}
+  correctSound: {fileID: 0}
+  incorrectSound: {fileID: 0}
   correctTag: Recyclable
 --- !u!1001 &1006057040
 PrefabInstance:
@@ -1047,6 +1054,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db3b876b60f45ff44854489e6ea2612e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrashCan
+  scoreNumText: {fileID: 0}
+  timerNumText: {fileID: 0}
+  gameOverCanvas: {fileID: 0}
+  audioSource: {fileID: 0}
+  correctSound: {fileID: 0}
+  incorrectSound: {fileID: 0}
   correctTag: GeneralTrash
 --- !u!1 &1742908404
 GameObject:
