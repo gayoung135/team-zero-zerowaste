@@ -9,6 +9,11 @@ public class TrashCan : MonoBehaviour
 
     // 유니티 에디터에서 GameOver_Canvas를 연결할 구멍입니다. (스펠링 정확히 매칭)
     public GameObject gameOverCanvas;
+    
+    [Header("사운드 설정")]
+    public AudioSource audioSource;
+    public AudioClip correctSound;
+    public AudioClip incorrectSound;
 
     // [2] 실제 점수와 남은 시간을 계산해서 저장할 데이터 주머니입니다.
     private static int score = 0;
@@ -30,6 +35,11 @@ public class TrashCan : MonoBehaviour
             //정답일 때 점수 처리
             score += 10; // 점수 10점 더하기
             scoreNumText.text = score.ToString(); // 화면의 Score_Num에 반영
+
+            if (audioSource != null && correctSound != null)
+            {
+                audioSource.PlayOneShot(correctSound);
+            }
         }
         else
         {
@@ -41,6 +51,12 @@ public class TrashCan : MonoBehaviour
             if (score < 0) score = 0; // 점수가 0 미만으로 떨어지면 강제로 0으로 고정
 
             scoreNumText.text = score.ToString(); // 화면의 Score_Num에 반영
+
+            if (audioSource != null && incorrectSound != null)
+            {
+                audioSource.PlayOneShot(incorrectSound);
+            }
+        
         }
 
         // 판정이 끝난 쓰레기는 화면에서 삭제
