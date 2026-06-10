@@ -2075,7 +2075,11 @@ AudioSource:
   m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
+<<<<<<< feature/pgy
   Mute: 1
+=======
+  Mute: 0
+>>>>>>> local
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
@@ -3081,19 +3085,19 @@ PrefabInstance:
       objectReference: {fileID: 1957420338, guid: 2d9b96f9efaf17d48a4b899743bd0ebd, type: 3}
     - target: {fileID: 5158692485022354238, guid: 140d1d2c406167c50819d89f86d9092e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5158692485022354238, guid: 140d1d2c406167c50819d89f86d9092e, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5158692485022354238, guid: 140d1d2c406167c50819d89f86d9092e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 166
       objectReference: {fileID: 0}
     - target: {fileID: 5158692485022354238, guid: 140d1d2c406167c50819d89f86d9092e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 1170
       objectReference: {fileID: 0}
     - target: {fileID: 5158692485022354239, guid: 140d1d2c406167c50819d89f86d9092e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
