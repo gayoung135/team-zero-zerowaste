@@ -39,6 +39,7 @@ namespace Mediapipe.Unity.Sample.UI
     {
       if (_contents != null)
       {
+        Time.timeScale = 0f;
         modal.OpenAndPause(_contents); // 모달 매니저의 엔진 일시정지형 오픈 파이프라인 가동
       }
     }

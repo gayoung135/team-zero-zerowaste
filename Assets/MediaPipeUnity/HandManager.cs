@@ -9,6 +9,7 @@ public class HandManager : MonoBehaviour
         [Header("--- Sound Settings ---")]
     public AudioSource audioSource;     // 소리를 재생할 오디오 소스 컴포넌트
     public AudioClip grabTrashSound;    // 쓰레기를 잡을 때 재생할 사운드 에셋
+    public AudioSource bgmSource; // 배경음악 담는 변수
 
 
     private bool[] isDragging = new bool[2]; // 양손(0: 왼손, 1: 오른손) 각각 현재 오브젝트를 드래그 중인지 여부를 저장하는 플래그 배열
@@ -26,6 +27,20 @@ public class HandManager : MonoBehaviour
     // MediaPipe 스레드로부터 새롭게 계측 및 갱신된 비주얼 패킷 데이터가 존재할 경우 상호작용 연산을 실행
     void Update()
     {
+        if (bgmSource != null && bgmSource.isPlaying) // 게임오버 캔버스 화면에 뜸 -> 
+        {
+            GameObject gameOverCanvas = GameObject.Find("GameOver_Canvas");
+            if (gameOverCanvas != null)
+            {
+                // GameOver_Canvas 자식인 GameOver_Panel 켜졌는지?
+                Transform panel = gameOverCanvas.transform.Find("GameOver_Panel");
+                if (panel != null && panel.gameObject.activeSelf)
+                {
+                    bgmSource.Stop();
+                }
+            }
+        }
+        
         // 마우스 왼쪽 버튼을 "딱 누르는 순간" 마우스 커서 위치에 쓰레기가 있다면 소리 재생
         if (Input.GetMouseButtonDown(0))
         {
