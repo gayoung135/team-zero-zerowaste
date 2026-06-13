@@ -19,22 +19,13 @@ MonoBehaviour:
   _glogMinloglevel: 0
   _glogStderrthreshold: 2
   _glogV: 0
-  _preferredDefaultWebCamWidth: 1280
+  _preferredDefaultWebCamWidth: 640
   _defaultAvailableWebCamResolutions:
-  - width: 176
-    height: 144
-    frameRate: 30
-  - width: 320
-    height: 240
-    frameRate: 30
   - width: 424
     height: 240
     frameRate: 30
   - width: 640
     height: 360
-    frameRate: 30
-  - width: 640
-    height: 480
     frameRate: 30
   - width: 848
     height: 480
