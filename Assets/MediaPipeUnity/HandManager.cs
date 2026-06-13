@@ -1,12 +1,16 @@
 using UnityEngine;
 
-/*주석 추가함*/
 // MediaPipe 비전 태스크로부터 수신한 양손의 키포인트를 분석하여 
 // 인게임 오브젝트의 잡기(Grab), 드래그(Drag), 놓기(Drop) 상호작용을 처리하는 매니저 클래스
 public class HandManager : MonoBehaviour
 {
     public static HandManager Instance; // 어디서나 손 데이터 인터페이스에 접근할 수 있도록 보장하는 글로벌 전역 싱글톤 인스턴스
     public Camera mainCamera; // 화면 좌표(Screen Space)를 게임 월드 좌표(World Space)로 변환하기 위한 메인 레퍼런스 카메라
+        [Header("--- Sound Settings ---")]
+    public AudioSource audioSource;     // 소리를 재생할 오디오 소스 컴포넌트
+    public AudioClip grabTrashSound;    // 쓰레기를 잡을 때 재생할 사운드 에셋
+    public AudioSource bgmSource; // 배경음악 담는 변수
+
 
     private bool[] isDragging = new bool[2]; // 양손(0: 왼손, 1: 오른손) 각각 현재 오브젝트를 드래그 중인지 여부를 저장하는 플래그 배열
     private Transform[] targetObject = new Transform[2]; // 양손 각각 현재 고정하여 움켜쥐고 있는 타겟 물체의 트랜스폼 배열
@@ -19,11 +23,44 @@ public class HandManager : MonoBehaviour
         Application.targetFrameRate = 60; //임시 프레임제한
     }
     
-    /*주석 추가함*/
     // 매 프레임 왼손/오른손을 순회하며, 
     // MediaPipe 스레드로부터 새롭게 계측 및 갱신된 비주얼 패킷 데이터가 존재할 경우 상호작용 연산을 실행
     void Update()
     {
+        if (bgmSource != null && bgmSource.isPlaying) // 게임오버 캔버스 화면에 뜸 -> 
+        {
+            GameObject gameOverCanvas = GameObject.Find("GameOver_Canvas");
+            if (gameOverCanvas != null)
+            {
+                // GameOver_Canvas 자식인 GameOver_Panel 켜졌는지?
+                Transform panel = gameOverCanvas.transform.Find("GameOver_Panel");
+                if (panel != null && panel.gameObject.activeSelf)
+                {
+                    bgmSource.Stop();
+                }
+            }
+        }
+        
+        // 마우스 왼쪽 버튼을 "딱 누르는 순간" 마우스 커서 위치에 쓰레기가 있다면 소리 재생
+        if (Input.GetMouseButtonDown(0))
+        {
+            // 마우스 해상도 좌표를 게임 월드 좌표로 변환
+            Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10f));
+            mouseWorldPos.z = 0;
+
+            // 마우스 커서 위치에 충돌체(쓰레기 등)가 있는지 검사
+            Collider2D hit = Physics2D.OverlapPoint(mouseWorldPos);
+            if (hit != null)
+            {
+                // 쓰레기 아이템 스크립트(GrabItem)가 붙어있는 오브젝트인지 확인
+                if (hit.GetComponent<GrabItem>() != null && audioSource != null && grabTrashSound != null)
+                {
+                    audioSource.PlayOneShot(grabTrashSound);
+                }
+            }
+        }
+
+        // 기존 미디어파이프 카메라 인식 코드
         for (int i = 0; i < 2; i++)
         {
             if (!hasNewData[i]) continue;
@@ -32,7 +69,6 @@ public class HandManager : MonoBehaviour
         }
     }
 
-    /*주석 추가함*/
     // 외부 MediaPipe 결과 처리부(Output 패킷 핸들러)에서 추출한 핵심 5개 관절의 2D 정규화 좌표를 
     // 본 매니저 인프라에 주입하는 메서드
     public void UpdateHandData(
@@ -51,7 +87,6 @@ public class HandManager : MonoBehaviour
         hasNewData[handIndex] = true; // 새로운 데이터 도달 완료 플래그 활성화
     }
 
-    /*주석 추가함*/
     // 특정 손 인덱스의 제스처 상태(Pinch/Fist)를 계산하고, 
     // 유니티 2D 물리 엔진과 충돌체(Collider2D)를 연동해 조작 로직을 수행
     private void ProcessHand(int handIndex)
@@ -72,7 +107,6 @@ public class HandManager : MonoBehaviour
             return;
         }
 
-        /*주석 추가함*/
         // MediaPipe의 뷰포트 정규화 좌표(0~1)를 유니티 스크린 해상도 픽셀 좌표로 변환하고, 
         // 이를 다시 메인 카메라를 통해 게임 월드 좌표계로 투영
         Vector3 screenPos;
@@ -104,11 +138,17 @@ public class HandManager : MonoBehaviour
                     targetObject[handIndex] = hit.transform;
                     isDragging[handIndex] = true;
                     hit.GetComponent<GrabItem>()?.OnGrab();
+
+                    // 쓰레기를 실제로 '처음 딱 잡았을 때' 소리가 한 번 재생됩니다.
+                    if (audioSource != null && grabTrashSound != null)
+                    {
+                        audioSource.PlayOneShot(grabTrashSound);
+                    }
+
                 }
             }
         }
 
-        /*주석 추가함*/
         // 물체 선점이 완료되어 드래그 상태가 지속되는 동안, 
         // 매 프레임 갱신되는 마우스/손가락 월드 좌표를 추종하도록 이동 시그널을 주입
         if (isDragging[handIndex] && targetObject[handIndex] != null) targetObject[handIndex].GetComponent<GrabItem>()?.OnHandMove(worldPos);

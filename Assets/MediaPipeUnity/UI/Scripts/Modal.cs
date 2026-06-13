@@ -43,6 +43,7 @@ namespace Mediapipe.Unity.Sample.UI
     // 모달 창을 비활성화하고, 자식으로 붙어있던 가비지 UI 컨텐츠를 메모리에서 완전 소멸(Destroy)
     public void Close()
     {
+      Time.timeScale = 1f;
       gameObject.SetActive(false); // 팝업 시각 레이어 감추기
 
       if (_contents != null)

@@ -20,6 +20,9 @@
 * 화면 위에서 내려오는 가상 쓰레기를 손으로 잡아 올바른 분리수거 통에 드래그하여 골인시킵니다.
 * 제한 시간 내에 올바르게 분류하여 점수(Score)를 획득하는 아케이드 모드입니다.
 
+### 2. 웹캠 기반 쓰레기 분류 게임 2 - Swipe
+* 화면에서 컨베이어 벨트에서 나오는 가상 쓰레기를 좌우로 밀어서 올바른 분리수거 통으로 나눕니다.
+
 ### 2. 가상 정원 꾸미기 (Terrarium) & 에코 상점
 * 게임 플레이를 통해 획득한 재화(에코 포인트)를 활용합니다.
 * 에코 상점에서 식물, 돌, 유리병, 배경 등의 아이템을 구매합니다.
@@ -28,11 +31,12 @@
 ---
 
 ## 개발 환경 및 기술 스택 (Tech Stack)
-* **Engine:** Unity (Version: )
+* **Engine:** Unity (Version: 6000.3.10f1)
 * **Language:** C#
 * **Motion AI:** Google MediaPipe Studio (Hand Landmarker)
 * **OS:** Windows 10 / 11 최적화
 * **VCS:** GitHub (with Unity .gitignore)
+* **Art Tool:** Aseprite
 
 ---
 
