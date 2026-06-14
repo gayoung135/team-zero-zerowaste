@@ -95,12 +95,144 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: StartView_Button&Logo_0
+      rect:
+        serializedVersion: 2
+        x: 1954
+        y: 1244
+        width: 1936
+        height: 1247
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc1080433d659bf429e13d80a4aa2abf
+      internalID: -147636912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StartView_Button&Logo_1
+      rect:
+        serializedVersion: 2
+        x: 3102
+        y: 608
+        width: 788
+        height: 303
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 404c2e4585cc5034c80ea93f0f346b48
+      internalID: 174585536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StartView_Button&Logo_2
+      rect:
+        serializedVersion: 2
+        x: 3098
+        y: 223
+        width: 788
+        height: 303
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f00ee40e4e3aca0499f0e9c5cda57a3f
+      internalID: -891087322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StartView_Button&Logo_3
+      rect:
+        serializedVersion: 2
+        x: 4050
+        y: 595
+        width: 226
+        height: 233
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3acc6ce0dfb6d64e99aec4517bb168d
+      internalID: 209419131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StartView_Button&Logo_4
+      rect:
+        serializedVersion: 2
+        x: 4053
+        y: 322
+        width: 226
+        height: 233
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32c5af8fd90016b4a924907006705a05
+      internalID: 1471877000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StartView_Button&Logo_5
+      rect:
+        serializedVersion: 2
+        x: 4053
+        y: 56
+        width: 226
+        height: 233
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5207069ff525f7d43a27cd0273db6df7
+      internalID: -1478481290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 1e55c6f883486d043a63452fbe5f73c1
     internalID: 0
     vertices: []
     indices: 
@@ -109,7 +241,13 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      StartView_Button&Logo_0: -147636912
+      StartView_Button&Logo_1: 174585536
+      StartView_Button&Logo_2: -891087322
+      StartView_Button&Logo_3: 209419131
+      StartView_Button&Logo_4: 1471877000
+      StartView_Button&Logo_5: -1478481290
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -9,10 +9,6 @@ public class GrabItem : MonoBehaviour
 
     //마우스 상호작용
     private void OnMouseDown()
-<<<<<<< HEAD
-    /*주석 추가함*/ 
-=======
->>>>>>> f1b55caa1e6773514ba36061b30a1895e4afb8d2
     //마우스로 쓰레기를 클릭하는 순간 실행되는 메서드임.
     //클릭한 마우스의 좌표를 계산해서 드래그 상태를 활성화함.
     {
@@ -24,10 +20,6 @@ public class GrabItem : MonoBehaviour
     }
 
     private void OnMouseDrag()
-<<<<<<< HEAD
-    /*주석 추가함*/  
-=======
->>>>>>> f1b55caa1e6773514ba36061b30a1895e4afb8d2
     //마우스를 누른 채로 움직일때 실시간으로 실행되는 메서드임.
     //마우스 위치에 맞춰 쓰레기의 위치를 이동시킨다.
     {
@@ -38,10 +30,6 @@ public class GrabItem : MonoBehaviour
     }
 
     private void OnMouseUp()
-<<<<<<< HEAD
-    /*주석 추가함*/ 
-=======
->>>>>>> f1b55caa1e6773514ba36061b30a1895e4afb8d2
     //누르고 있던 마우스 버튼을 떼는 순간 실행되는 메서드임.
     //드래그 상태를 해제해,쓰레기를 제자리에 놓음.
     {
@@ -50,30 +38,18 @@ public class GrabItem : MonoBehaviour
 
     //웹캠 상호작용
     public void OnGrab() //잡을때 신호
-<<<<<<< HEAD
-    /*주석 추가함*/
-=======
->>>>>>> f1b55caa1e6773514ba36061b30a1895e4afb8d2
     //사용자의 '손 쥐기' 제스처를 인식했을 때 외부 스크립트에서 호출하는 메서드
     {
         isDragging = true;
     }
 
     public void OnDrop() //놓을때 신호
-<<<<<<< HEAD
-    /*주석 추가함*/
-=======
->>>>>>> f1b55caa1e6773514ba36061b30a1895e4afb8d2
     //사용자의 '손 펴기' 제스처를 인식했을 때 외부 스크립트에서 호출하는 메서드
     {
         isDragging = false;
     }
 
     public void OnHandMove(Vector3 worldPos) //움직임
-<<<<<<< HEAD
-    /*주석 추가함*/
-=======
->>>>>>> f1b55caa1e6773514ba36061b30a1895e4afb8d2
     //사용자의 실시간 손 위치(좌표)를 보내줄 때 실행되는 메서드
     {
         if (!isDragging) return;
