@@ -2809,7 +2809,7 @@ MonoBehaviour:
   audioSource: {fileID: 1892075095}
   correctSound: {fileID: 8300000, guid: 0af63c6e1e5f04445b4e7d32f54f51c0, type: 3}
   incorrectSound: {fileID: 8300000, guid: d0c6c6741c56b354099629e5b14e7c43, type: 3}
-  correctTag: Recyclable
+  correctTag: GeneralTrash
 --- !u!61 &1892075097
 BoxCollider2D:
   m_ObjectHideFlags: 0
