@@ -18,12 +18,10 @@ namespace Mediapipe.Unity.Sample.UI
   {
     /*주석 추가함*/
     // 프리랩 내부에 깊게 중첩된 하위 UI 컴포넌트를 정확히 조인하기 위한 고정 노드 경로 문자열
-    private const string _SourceTypePath = "Scroll View/Viewport/Contents/SourceType/Dropdown";
-    private const string _SourcePath = "Scroll View/Viewport/Contents/Source/Dropdown";
-    private const string _ResolutionPath = "Scroll View/Viewport/Contents/Resolution/Dropdown";
-    private const string _IsHorizontallyFlippedPath = "Scroll View/Viewport/Contents/IsHorizontallyFlipped/Toggle";
+    private const string _SourcePath = "Menu/Contents/Source/Dropdown";
+    private const string _ResolutionPath = "Menu/Contents/Resolution/Dropdown";
+    private const string _IsHorizontallyFlippedPath = "Menu/Contents/IsHorizontallyFlipped/Toggle";
 
-    private Dropdown _sourceTypeInput; // 웹캠, 비디오, 이미지 등 원천 소스 카테고리 지정 드롭다운
     private Dropdown _sourceInput; // 연결된 다중 웹캠 디바이스(내장 카메라, USB 캠 등) 리스트 선택 드롭다운
     private Dropdown _resolutionInput; // 해당 장치가 지원하는 해상도 포맷 목록 선택 드롭다운
     private Toggle _isHorizontallyFlippedInput; // 거울 모드 연출을 위한 가로축 좌우 반전 활성화 토글
@@ -47,40 +45,9 @@ namespace Mediapipe.Unity.Sample.UI
     // 연쇄적 오류 방지를 위해 하위 4대 옵션 UI 요소를 일제히 재초기화합니다.
     private void InitializeContents()
     {
-      InitializeSourceType();
       InitializeSource();
       InitializeResolution();
       InitializeIsHorizontallyFlipped();
-    }
-
-    /*주석 추가함*/
-    // 하드웨어 입력 모드 리스트를 열거형(Enum)에서 파싱하여 드롭다운에 실시간 주입
-    private void InitializeSourceType()
-    {
-      _sourceTypeInput = gameObject.transform.Find(_SourceTypePath).gameObject.GetComponent<Dropdown>();
-      _sourceTypeInput.ClearOptions(); // 기존 가비지 목록 제거
-      _sourceTypeInput.onValueChanged.RemoveAllListeners(); // 이벤트 중복 방지를 위한 기존 리스너 전면 소거
-
-      // ImageSourceType 에enum 목록 중 'Unknown'을 제외한 유효 옵션 명칭들을 
-      // 쿼리 스트링(Linq)으로 인출하여 UI 리스트화
-      var options = Enum.GetNames(typeof(ImageSourceType)).Where(x => x != ImageSourceType.Unknown.ToString()).ToList();
-      _sourceTypeInput.AddOptions(options);
-
-      var currentSourceType = ImageSourceProvider.CurrentSourceType; // 현재 가동 중인 소스 타입 정보 획득
-      var defaultValue = options.FindIndex(option => option == currentSourceType.ToString());
-
-      if (defaultValue >= 0)
-      {
-        _sourceTypeInput.value = defaultValue; // 현재 선택 값을 UI 인덱스로 연동
-      }
-
-      // 유저가 웹캠 -> 비디오 파일 등으로 소스 타입을 전면 교체하는 순간 작동할 이벤트 콜백 바인딩
-      _sourceTypeInput.onValueChanged.AddListener(delegate
-      {
-        ImageSourceProvider.Switch((ImageSourceType)_sourceTypeInput.value); // 시스템 글로벌 데이터 소스 구조 강제 스위칭
-        _isChanged = true;
-        InitializeContents(); // 하위 장치 및 해상도 인프라 구조가 바뀌므로 전체 UI 재배치 트리거
-      });
     }
 
     /*주석 추가함*/
