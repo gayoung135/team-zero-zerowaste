@@ -10,8 +10,9 @@ public class SceneChange : MonoBehaviour
         SceneManager.LoadScene("CatchandDrop");
     }
 
-    public void moveTerrarium()
+    //스와이프 게임 이동 함수 추가
+    public void moveSwipe()
     {
-        SceneManager.LoadScene("Terrarium");
+        SceneManager.LoadScene("Swipe");
     }
 }
