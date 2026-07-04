@@ -9,4 +9,10 @@ public class SceneChange : MonoBehaviour
     {
         SceneManager.LoadScene("CatchandDrop");
     }
+
+    //스와이프 게임 이동 함수 추가
+    public void moveSwipe()
+    {
+        SceneManager.LoadScene("Swipe");
+    }
 }
