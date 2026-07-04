@@ -9,4 +9,9 @@ public class SceneChange : MonoBehaviour
     {
         SceneManager.LoadScene("CatchandDrop");
     }
+
+    public void moveTerrarium()
+    {
+        SceneManager.LoadScene("Terrarium");
+    }
 }
