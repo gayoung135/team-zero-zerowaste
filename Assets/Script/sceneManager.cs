@@ -21,9 +21,8 @@ public class sceneManager : MonoBehaviour
     //Swipe로 이동
     public void onClickSwipe()
     {
-        // 현재 미작동, 방학에 구현
-        //SceneManager.LoadScene("Swipe");
-        Debug.Log("Swipe 이동버튼 클릭됨");
+        SceneManager.LoadScene("Swipe");
+        
     }
 
     //다시하기
@@ -34,9 +33,15 @@ public class sceneManager : MonoBehaviour
     }
 
     // [TERRARIUM] 테라리움 가기 버튼을 누르면 실행될 기능 (방학용 미리 만들기)
+    // 테라리움 이동
     public void OnClickTerrarium()
     {
-        // 지금은 작동 안 하고, 잘 눌리는지 콘솔창에 로그만 띄웁니다.
-        Debug.Log("테라리움 가기 버튼 클릭됨! (방학 때 구현할 예정입니다.)");
+        SceneManager.LoadScene("Terrarium");
+    }
+
+    //테라리움 씬에 있는 BackButton 누르면 모드선택 장면으로 이동
+    public void OnClickBackButton()
+    {
+        SceneManager.LoadScene("StartScene");
     }
 }
