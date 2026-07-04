@@ -12,12 +12,9 @@ EditorBuildSettings:
     path: Assets/Scene/CatchandDrop.unity
     guid: 0b504bc9648233947a07f10b9b2998f6
   - enabled: 1
-<<<<<<< HEAD
-=======
     path: Assets/Scene/Swipe.unity
     guid: dc7633a018f30ce4786839996e283044
   - enabled: 1
->>>>>>> 89a1d5419ef44c05345110a9bafb24762fcd9584
     path: Assets/Scene/TerrariumStore.unity
     guid: 292dca614e8fbda45ab2eb063095db56
   m_configObjects:
