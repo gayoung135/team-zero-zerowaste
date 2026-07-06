@@ -12,6 +12,12 @@ public class sceneManager : MonoBehaviour
         SceneManager.LoadScene("StartScene");
     }
 
+    //게임선택으로 이동
+    public void onClickGameMode()
+    {
+        SceneManager.LoadScene("GameMode");
+    }
+
     //Catch&Drop으로 이동
     public void onClickCatchandDrop()
     {

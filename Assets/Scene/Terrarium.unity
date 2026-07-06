@@ -727,7 +727,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1222966037}
         m_TargetAssemblyTypeName: sceneManager, Assembly-CSharp
-        m_MethodName: onClickMain
+        m_MethodName: onClickGameMode
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
