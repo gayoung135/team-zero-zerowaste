@@ -4633,7 +4633,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 372373768}
         m_TargetAssemblyTypeName: sceneManager, Assembly-CSharp
-        m_MethodName: onClickReplay
+        m_MethodName: onClickSwipe
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

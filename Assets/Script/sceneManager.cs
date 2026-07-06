@@ -25,23 +25,15 @@ public class sceneManager : MonoBehaviour
         
     }
 
-    //다시하기
-    public void onClickReplay()
-    {        
-        // 현재 인게임 화면을 처음부터 다시 시작합니다.
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    // [TERRARIUM] 테라리움 가기 버튼을 누르면 실행될 기능 (방학용 미리 만들기)
     // 테라리움 이동
     public void OnClickTerrarium()
     {
         SceneManager.LoadScene("Terrarium");
     }
 
-    //테라리움 씬에 있는 BackButton 누르면 모드선택 장면으로 이동
-    public void OnClickBackButton()
+    //테라리움 상점 이동
+    public void OnClickStore()
     {
-        SceneManager.LoadScene("StartScene");
+        SceneManager.LoadScene("TerrariumStore");
     }
 }
