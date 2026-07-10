@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/_Recovery/0.unity.meta
+guid: bf8c3dc6a4620f942a8577312a7b7f79
+=======
 guid: dc7633a018f30ce4786839996e283044
+>>>>>>> 89a1d5419ef44c05345110a9bafb24762fcd9584:Assets/Scene/Swipe.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
