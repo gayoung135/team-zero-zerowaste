@@ -7,6 +7,10 @@ public class TrashCan : MonoBehaviour
     public TextMeshProUGUI scoreNumText;
     public TextMeshProUGUI timerNumText;
 
+    // 보라색 프레임(HandFrame) 안에 넣은 텍스트를 연결할 구멍을 새로 만듭니다!
+    [Header("게임 오버 창의 최종 점수 텍스트")]
+    public TextMeshProUGUI totalScoreText;
+
     // 유니티 에디터에서 GameOver_Canvas를 연결할 구멍입니다. (스펠링 정확히 매칭)
     public GameObject gameOverCanvas;
 
@@ -22,11 +26,11 @@ public class TrashCan : MonoBehaviour
     [Header("이 쓰레기통이 정답으로 처리할 태그 입력 (Recyclable 또는 GeneralTrash)")]
     public string correctTag;
 
-    // 🔥 오답 유무와 상관없이 서버 전송용 쓰레기통 이름 받아옴 (예: "재활용 쓰레기통", "일반 쓰레기통")
+    //  오답 유무와 상관없이 서버 전송용 쓰레기통 이름 받아옴 (예: "재활용 쓰레기통", "일반 쓰레기통")
     [Header("이 쓰레기통의 이름 입력")]
     public string trashCanName;
 
-    // 🔥 게임 결과 한 번만 서버에 업로드되도록 방어해 주는 안전장치 변수
+    //  게임 결과 한 번만 서버에 업로드되도록 방어해 주는 안전장치 변수
     private static bool isGameOverUploaded = false;
 
     void OnTriggerEnter2D(Collider2D other)
@@ -34,13 +38,13 @@ public class TrashCan : MonoBehaviour
         // 시간 끝나면 더 이상 점수 계산이 안 되도록 안전장치 추가
         if (limitTime <= 0) return;
 
-        // 🔥 부딪힌 쓰레기 오브젝트의 진짜 이름 가져오기 (예: "찌그러진 페트병(Clone)" -> "찌그러진 페트병")
+        //  부딪힌 쓰레기 오브젝트의 진짜 이름 가져오기 (예: "찌그러진 페트병(Clone)" -> "찌그러진 페트병")
         string trashName = other.gameObject.name.Replace("(Clone)", "").Trim();
 
         // 들어온 쓰레기의 태그가 이 쓰레기통의 정답 태그와 똑같은지 검사
         bool isCorrect = other.CompareTag(correctTag);
 
-        // 🔥 오답일 때 보여줄 메시지
+        //  오답일 때 보여줄 메시지
         string correctBinKorean = (correctTag == "Recyclable") ? "재활용 쓰레기통" : "일반 쓰레기통";
         string tipMessage = isCorrect ? $"{trashName}은(는) [{correctBinKorean}]에 버려야 합니다." : "올바르게 분리배출 했습니다!";
 
@@ -75,7 +79,7 @@ public class TrashCan : MonoBehaviour
             }
         }
 
-        // 🔥 정/오답 데이터를 FirebaseManager의 임시 리스트에 쌓아둠
+        //  정/오답 데이터를 FirebaseManager의 임시 리스트에 쌓아둠
         if (FirebaseManager.Instance != null)
         {
             FirebaseManager.Instance.AddTrashLog(trashName, this.trashCanName, correctBinKorean, isCorrect, tipMessage);
@@ -94,7 +98,7 @@ public class TrashCan : MonoBehaviour
         score = 0;
         scoreNumText.text = score.ToString();
 
-        // 🔥 다시 시작할 때 데이터 초기화 및 업로드 방어막 해제
+        //  다시 시작할 때 데이터 초기화 및 업로드 방어막 해제
         isGameOverUploaded = false;
         if (FirebaseManager.Instance != null)
         {
@@ -114,13 +118,20 @@ public class TrashCan : MonoBehaviour
         {
             timerNumText.text = "0";
 
+            //  0초가 되면 보라색 프레임 안의 최종 점수 텍스트를 먼저 채워줍니다!
+            if (totalScoreText != null)
+            {
+                totalScoreText.text = $"SCORE: {score}"; 
+                // 숫자만 깔끔하게 띄우고 싶다면 totalScoreText.text = score.ToString(); 로 하셔도 됩니다.
+            }
+
             //0초가 되면 숨겨져 있던 결과창 캔버스를 화면에 탁 켭니다!
             if (gameOverCanvas != null)
             {
                 gameOverCanvas.SetActive(true);
             }
 
-            // 🔥 0초되는 순간 1번만 Firebase Manager에 이번 판 점수 넘겨 최종 업로드 실행
+            //  0초되는 순간 1번만 Firebase Manager에 이번 판 점수 넘겨 최종 업로드 실행
             if (!isGameOverUploaded)
             {
                 isGameOverUploaded = true;
