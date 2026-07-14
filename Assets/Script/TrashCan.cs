@@ -11,6 +11,15 @@ public class TrashCan : MonoBehaviour
     [Header("게임 오버 창의 최종 점수 텍스트")]
     public TextMeshProUGUI totalScoreText;
 
+    [Header("게임 오버 창의 얻은 재화(코인) 텍스트")]
+    public TextMeshProUGUI totalCoinText;
+
+    [Header("상세 로그 창의 점수 텍스트")]
+    public TextMeshProUGUI logScoreText;
+
+    [Header("상세 로그 창의 실제 기록(내용) 텍스트")]
+    public TextMeshProUGUI logContentText;
+
     // 유니티 에디터에서 GameOver_Canvas를 연결할 구멍입니다. (스펠링 정확히 매칭)
     public GameObject gameOverCanvas;
 
@@ -21,7 +30,7 @@ public class TrashCan : MonoBehaviour
 
     // [2] 실제 점수와 남은 시간을 계산해서 저장할 데이터 주머니입니다.
     private static int score = 0;
-    private float limitTime = 60f; // 1분 = 60초 -> 60f
+    private float limitTime = 30f; // 1분 = 60초 -> 60f
 
     [Header("이 쓰레기통이 정답으로 처리할 태그 입력 (Recyclable 또는 GeneralTrash)")]
     public string correctTag;
@@ -121,8 +130,30 @@ public class TrashCan : MonoBehaviour
             //  0초가 되면 보라색 프레임 안의 최종 점수 텍스트를 먼저 채워줍니다!
             if (totalScoreText != null)
             {
-                totalScoreText.text = $"SCORE: {score}"; 
+                totalScoreText.text = score.ToString();
+                //totalScoreText.text = $"SCORE: {score}"; 
                 // 숫자만 깔끔하게 띄우고 싶다면 totalScoreText.text = score.ToString(); 로 하셔도 됩니다.
+            }
+
+            if (logScoreText != null)
+            {
+                logScoreText.text = score.ToString(); // 로그창 점수도 똑같이 동기화!
+            }
+
+
+            if (logContentText != null && FirebaseManager.Instance != null)
+            {
+                logContentText.text = ""; // 1. 처음에 적혀있던 임의 테스트용 텍스트를 깨끗하게 비웁니다.
+
+                // 2. Firebase 리스트 주머니를 열어서 쌓여있는 기록을 하나씩 순서대로 꺼냅니다.
+                foreach (var log in FirebaseManager.Instance.currentSessionLogs)
+                {
+                    // 3. 맞았으면 [정답], 틀렸으면 [오답] 기호를 달아줍니다.
+                    string resultIcon = log.isCorrect ? "[정답]" : "[오답]";
+                    
+                    // 4. 문장 모양을 이쁘게 만들어서 화면 텍스트에 한 줄씩 차곡차곡 더해줍니다 (\n은 줄바꿈)
+                    logContentText.text += $"[{log.trashName}] {log.userAnswer} 선택 -> {resultIcon}\n";
+                }
             }
 
             //0초가 되면 숨겨져 있던 결과창 캔버스를 화면에 탁 켭니다!
