@@ -1010,7 +1010,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: da83b6cece93c6a4684fa29bfd982cad, type: 3}
+  m_Resource: {fileID: 8300000, guid: 7b0b95b1430de9c4ba39c9c013d38fbb, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -5086,7 +5086,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1074373055}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cdbfd6dcf1bd5124f96d7d77f55ac2b5, type: 3}
   m_Name: 
@@ -5094,7 +5094,6 @@ MonoBehaviour:
   mainCamera: {fileID: 2073252925}
   audioSource: {fileID: 1074373056}
   grabTrashSound: {fileID: 8300000, guid: 475650f47c07e734d88db70c5a357d2c, type: 3}
-  bgmSource: {fileID: 0}
 --- !u!4 &1074373059
 Transform:
   m_ObjectHideFlags: 0
