@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SwipeTrashMovement : MonoBehaviour  //이 스크립트 삭제하시면 안돼요
+public class SwipeTrashMovement : MonoBehaviour
 {
     private Vector3 moveDirection;
     private float moveSpeed;
