@@ -528,7 +528,6 @@ MonoBehaviour:
   mainCamera: {fileID: 1969388816}
   audioSource: {fileID: 79974309}
   grabTrashSound: {fileID: 8300000, guid: 475650f47c07e734d88db70c5a357d2c, type: 3}
-  bgmSource: {fileID: 0}
 --- !u!4 &79974308
 Transform:
   m_ObjectHideFlags: 0
@@ -3792,7 +3791,7 @@ GameObject:
   - component: {fileID: 1391619449}
   - component: {fileID: 1391619448}
   m_Layer: 0
-  m_Name: FirebaseManager
+  m_Name: UGSManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3807,9 +3806,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1391619447}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d5ad5a7d68c7b2468e271a6565cc6de, type: 3}
+  m_Script: {fileID: 11500000, guid: c0dd0ad555d2b2c41a361d45e9a4c84b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FirebaseManager
+  loginPopup: {fileID: 0}
+  emailInput: {fileID: 0}
+  idInput: {fileID: 0}
+  passwordInput: {fileID: 0}
+  confirmPasswordInput: {fileID: 0}
+  isLoggedIn: 0
+  currentCoins: 0
   currentSessionLogs: []
   gameScore: 0
 --- !u!4 &1391619449
