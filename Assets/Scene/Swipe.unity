@@ -9076,6 +9076,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d5ad5a7d68c7b2468e271a6565cc6de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FirebaseManager
+  loginPopup: {fileID: 0}
+  emailInput: {fileID: 0}
+  idInput: {fileID: 0}
+  passwordInput: {fileID: 0}
+  confirmPasswordInput: {fileID: 0}
+  isLoggedIn: 0
+  currentCoins: 0
   currentSessionLogs: []
   gameScore: 0
 --- !u!4 &2082309549
