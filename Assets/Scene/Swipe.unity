@@ -2814,13 +2814,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 399428913}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.25971046, w: 0.96568656}
-  m_LocalPosition: {x: -963.2, y: -538.51, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.1542715, w: 0.9880286}
+  m_LocalPosition: {x: -963.3, y: -538.08, z: 0}
   m_LocalScale: {x: 0.4762, y: 0.5233, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 550030272}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 30.106}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 17.749}
 --- !u!114 &399428916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2834,7 +2834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RobotReactionController
   robotImage: {fileID: 0}
-  robotRenderer: {fileID: 0}
+  robotRenderer: {fileID: 399428914}
   normalSprite: {fileID: 21300000, guid: 758800265d640e040b7fbfb0ed3375f4, type: 3}
   correctSprite: {fileID: 21300000, guid: dd96358559d602643bc2e51ea73cc8df, type: 3}
   comboCorrectSprite: {fileID: 21300000, guid: 07865a0dc8253ef4cad3f0b47144919f, type: 3}
@@ -3439,7 +3439,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: f2830ebb522e5964ba44634eab2a61a1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
