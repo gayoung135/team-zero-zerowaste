@@ -23,10 +23,19 @@ public class UGSManager : MonoBehaviour
 
     [Header("UI References (Signup/Login UI)")]
     public GameObject loginPopup;       // 팝업창 오브젝트 (Background_Panel)
-    public TMP_InputField emailInput;           // E-mail 입력창 (UGS 로그인시 ID로 활용)
-    public TMP_InputField idInput;              // ID 입력창 (닉네임 데이터용)
-    public TMP_InputField passwordInput;        // Password 입력창
-    public TMP_InputField confirmPasswordInput; // Confirm Password 입력창
+    public GameObject startUI;          // 메인 화면 StartUI 오브젝트  
+
+    [Space(10)]
+    [Header("[회원가입 전용 UI 입력창]")]
+    public TMP_InputField signupEmailInput;           // 회원가입창 E-mail
+    public TMP_InputField signupIdInput;              // 회원가입창 ID (닉네임)
+    public TMP_InputField signupPasswordInput;        // 회원가입창 Password
+    public TMP_InputField signupConfirmPasswordInput; // 회원가입창 Confirm Password
+
+    [Space(10)]
+    [Header("[로그인 전용 UI 입력창]")]
+    public TMP_InputField signinEmailInput;           // 로그인창 E-mail
+    public TMP_InputField signinPasswordInput;        // 로그인창 Password
 
     [Header("Remember My Account Status")]
     private bool isRememberMeOn = false; // 아이디 기억하기 토글 상태 체크용 변수
@@ -57,9 +66,9 @@ public class UGSManager : MonoBehaviour
         if (PlayerPrefs.HasKey("SavedEmail"))
         {
             string savedEmail = PlayerPrefs.GetString("SavedEmail");
-            if (emailInput != null)
+            if (signinEmailInput != null)
             {
-                emailInput.text = savedEmail;
+                signinEmailInput.text = savedEmail;
                 isRememberMeOn = true;
                 Debug.Log("기억된 이메일을 성공적으로 불러왔습니다: " + savedEmail);
             }
@@ -98,13 +107,13 @@ public class UGSManager : MonoBehaviour
     // 기존 UI의 작동 유지를 위해 안내 팝업 문구 혹은 에디터 테스트 코드로 대체함
     public void OnClickForgotPassword()
     {
-        string email = emailInput.text;
+        string email = signinEmailInput.text;
         if (string.IsNullOrEmpty(email))
         {
             Debug.LogError("비밀번호를 바꿀 이메일 주소를 입력창에 먼저 작성해 주세요!");
             return;
         }
-        
+
         Debug.Log($"[{email}] UGS Username/Password 방식은 대시보드 관리자나 별도 시스템을 통해 계정 관리가 가능합니다.");
     }
 
@@ -113,10 +122,10 @@ public class UGSManager : MonoBehaviour
     {
         if (!isUGSReady) return;
 
-        string email = emailInput.text; // UGS의 로그인 ID(Username) 역할을 함
-        string id = idInput.text;       // 프로필용 유저 닉네임
-        string password = passwordInput.text;
-        string confirmPassword = confirmPasswordInput.text;
+        string email = signupEmailInput.text;  // UGS의 로그인 ID(Username) 역할을 함
+        string id = signupIdInput.text;       // 프로필용 유저 닉네임
+        string password = signupPasswordInput.text;
+        string confirmPassword = signupConfirmPasswordInput.text;
 
         if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(id) || string.IsNullOrEmpty(password))
         {
@@ -134,13 +143,13 @@ public class UGSManager : MonoBehaviour
             // 유니티 공식 회원가입 API 호출
             await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(email, password);
             Debug.Log("회원가입 성공!");
-            
+
             isLoggedIn = true;
 
             // 가입 성공 시 기본 데이터베이스 구조 생성 및 세이브
             // 파이어베이스처럼 가입 직후 초기 데이터 {"username": id, "coins": 0} 구조 유지
             SaveUserDataOnRegister(id);
-            ToggleLoginPopup(false); 
+            ToggleLoginPopup(false);
         }
         catch (AuthenticationException e)
         {
@@ -153,9 +162,8 @@ public class UGSManager : MonoBehaviour
     {
         if (!isUGSReady) return;
 
-        string email = emailInput.text;
-        string password = passwordInput.text;
-
+        string email = signinEmailInput.text;
+        string password = signinPasswordInput.text;
         if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
         {
             Debug.LogError("이메일과 비밀번호를 모두 입력해주세요.");
@@ -167,7 +175,7 @@ public class UGSManager : MonoBehaviour
             // 유니티 공식 로그인 API 호출
             await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(email, password);
             Debug.Log("로그인 성공!");
-            
+
             isLoggedIn = true;
 
             // [아이디 기억하기 로컬 세이브 처리]
@@ -179,9 +187,14 @@ public class UGSManager : MonoBehaviour
             {
                 PlayerPrefs.DeleteKey("SavedEmail");
             }
-            PlayerPrefs.Save(); 
+            PlayerPrefs.Save();
 
-            ToggleLoginPopup(false);
+            ToggleLoginPopup(false); // 로그인 창 끄기
+            // 로그인 성공 시 메인 StartUI 강제 켬
+            if (startUI != null) 
+            {
+                startUI.SetActive(true); 
+            }
             LoadUserData(); // 데이터베이스에서 유저 데이터 원격 로드
         }
         catch (AuthenticationException e)
@@ -282,7 +295,7 @@ public class UGSManager : MonoBehaviour
             if (isLoggedIn)
             {
                 // 파이어베이스의 user.UserId 대신 UGS 고유 PlayerId를 데이터 구조에 추가
-                resultData.Add("userId", AuthenticationService.Instance.PlayerId); 
+                resultData.Add("userId", AuthenticationService.Instance.PlayerId);
             }
 
             // 이번 세션 쓰레기 기록 리스트 파싱
@@ -294,7 +307,7 @@ public class UGSManager : MonoBehaviour
                     { "trashName", log.trashName },
                     { "userAnswer", log.userAnswer },
                     { "correctAnswer", log.correctAnswer },
-                    { "isCorrect", log.isCorrect }, 
+                    { "isCorrect", log.isCorrect },
                     { "reason", log.reason }
                 };
                 logList.Add(doc);
