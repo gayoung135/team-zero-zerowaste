@@ -88,10 +88,10 @@ public class TrashCan : MonoBehaviour
             }
         }
 
-        //  정/오답 데이터를 FirebaseManager의 임시 리스트에 쌓아둠
-        if (FirebaseManager.Instance != null)
+        //  정/오답 데이터를 UGSManager의 임시 리스트에 쌓아둠
+        if (UGSManager.Instance != null)
         {
-            FirebaseManager.Instance.AddTrashLog(trashName, this.trashCanName, correctBinKorean, isCorrect, tipMessage);
+            UGSManager.Instance.AddTrashLog(trashName, this.trashCanName, correctBinKorean, isCorrect, tipMessage);
         }
 
         // 판정이 끝난 쓰레기는 화면에서 삭제
@@ -109,10 +109,10 @@ public class TrashCan : MonoBehaviour
 
         //  다시 시작할 때 데이터 초기화 및 업로드 방어막 해제
         isGameOverUploaded = false;
-        if (FirebaseManager.Instance != null)
+        if (UGSManager.Instance != null)
         {
-            FirebaseManager.Instance.currentSessionLogs.Clear();
-            FirebaseManager.Instance.gameScore = 0;
+            UGSManager.Instance.currentSessionLogs.Clear();
+            UGSManager.Instance.gameScore = 0;
         }
     }
 
@@ -141,12 +141,12 @@ public class TrashCan : MonoBehaviour
             }
 
 
-            if (logContentText != null && FirebaseManager.Instance != null)
+            if (logContentText != null && UGSManager.Instance != null)
             {
                 logContentText.text = ""; // 1. 처음에 적혀있던 임의 테스트용 텍스트를 깨끗하게 비웁니다.
 
                 // 2. Firebase 리스트 주머니를 열어서 쌓여있는 기록을 하나씩 순서대로 꺼냅니다.
-                foreach (var log in FirebaseManager.Instance.currentSessionLogs)
+                foreach (var log in UGSManager.Instance.currentSessionLogs)
                 {
                     // 3. 맞았으면 [정답], 틀렸으면 [오답] 기호를 달아줍니다.
                     string resultIcon = log.isCorrect ? "[정답]" : "[오답]";
@@ -166,10 +166,10 @@ public class TrashCan : MonoBehaviour
             if (!isGameOverUploaded)
             {
                 isGameOverUploaded = true;
-                if (FirebaseManager.Instance != null)
+                if (UGSManager.Instance != null)
                 {
-                    FirebaseManager.Instance.gameScore = score; // 최종 점수 동기화
-                    FirebaseManager.Instance.UploadGameResult(); // 서버로 전송!
+                    UGSManager.Instance.gameScore = score; // 최종 점수 동기화
+                    UGSManager.Instance.UploadGameResult(); // 서버로 전송!
                 }
             }
             

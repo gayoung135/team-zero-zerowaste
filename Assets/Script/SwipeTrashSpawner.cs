@@ -27,7 +27,9 @@ public class SwipeTrashSpawner : MonoBehaviour
 
         // 기획서 스크린샷의 컨베이어 벨트 높이에 맞춰 소폭 조정 가능 (현재는 중앙 Y축 기준 부근)
         // 씬 뷰를 보고 쓰레기통들 살짝 위(예: -1.0f 등)로 고정하고 싶다면 아래 spawnY를 고정값으로 바꾸셔도 됩니다.
-        spawnY = (bottomLeft.y + topRight.y) * 0.3f; 
+        //spawnY = (bottomLeft.y + topRight.y) * 0.3f; 
+
+        spawnY = -2.5f;
 
         if (leftToRight)
         {

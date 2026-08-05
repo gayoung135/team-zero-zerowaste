@@ -16,6 +16,9 @@ public class SwipeGestureController : MonoBehaviour
     private float lastGestureTime = 0f;
     private bool isGestureActive = false; 
 
+    // 강제 충돌 판정용 목표 쓰레기통 보관 변수
+    private GameObject currentTargetBinObj;
+
     // HandManager 리플렉션 접근용
     private FieldInfo handArrayField;
 
@@ -32,16 +35,16 @@ public class SwipeGestureController : MonoBehaviour
 
     void Update()
     {
-        // 1. 쓰레기가 중간에 사라지면 락 해제
+        // 1. 쓰레기가 중간에 파괴되어 사라지면 락 즉시 해제
         if (isFlying && currentTargetTrash == null)
         {
             isFlying = false;
         }
 
-        // 2. 날아가는 중이 아닐 때만 입력 및 제스처 처리
+        // 2. 날아가는 중이 아닐 때만 키보드 및 제스처 입력 처리
         if (!isFlying)
         {
-            // [A] 키보드 테스트 기능 (백업용)
+            // [A] 키보드 테스트 기능 (방향키 백업용)
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 TriggerSwipeLeft();
@@ -64,13 +67,23 @@ public class SwipeGestureController : MonoBehaviour
                 flySpeed * Time.deltaTime
             );
 
-            if (Vector3.Distance(currentTargetTrash.transform.position, targetBinPosition) < 0.5f)
+            // [핵심 해결] 도착 판정 거리 감지를 0.5f -> 1.2f 로 여유롭게 늘려 멈춤/먹통 현상 완벽 방지
+            if (Vector3.Distance(currentTargetTrash.transform.position, targetBinPosition) < 1.2f)
             {
                 if (currentTargetTrash != null)
                 {
+                    // 쓰레기가 도착하자마자 삭제되기 직전 쓰레기통으로 OnTriggerEnter2D 강제 충돌 신호 전달 (점수 씹힘 방지)
+                    if (currentTargetBinObj != null)
+                    {
+                        currentTargetBinObj.SendMessage("OnTriggerEnter2D", currentTargetTrash.GetComponent<Collider2D>(), SendMessageOptions.DontRequireReceiver);
+                    }
+
                     Destroy(currentTargetTrash.gameObject);
                 }
+                
+                // 이동 완료 후 상태 깨끗하게 초기화 (락 해제)
                 currentTargetTrash = null;
+                currentTargetBinObj = null;
                 isFlying = false; 
             }
         }
@@ -83,18 +96,28 @@ public class SwipeGestureController : MonoBehaviour
         Vector2[,] handData = handArrayField.GetValue(HandManager.Instance) as Vector2[,];
         if (handData == null) return;
 
-        Vector2 thumbTip = handData[0, 0];
-        Vector2 indexTip = handData[0, 1];
-        Vector2 ringTip  = handData[0, 2];
-        Vector2 wrist    = handData[0, 3];
-        Vector2 middleMCP= handData[0, 4];
+        // 현재 실제로 감지되고 있는 손 인덱스 안전하게 탐색
+        int validIndex = -1;
+        for (int i = 0; i < handData.GetLength(0); i++)
+        {
+            if (handData[i, 3].sqrMagnitude > 0.01f) // 손목(wrist) 감지 확인
+            {
+                validIndex = i;
+                break;
+            }
+        }
 
-        // 손이 화면에 없거나 (0,0) 좌표면 상태 초기화 후 즉시 종료
-        if (wrist.sqrMagnitude < 0.01f || indexTip.sqrMagnitude < 0.01f)
+        if (validIndex == -1)
         {
             isGestureActive = false;
             return;
         }
+
+        Vector2 thumbTip = handData[validIndex, 0];
+        Vector2 indexTip = handData[validIndex, 1];
+        Vector2 ringTip  = handData[validIndex, 2];
+        Vector2 wrist    = handData[validIndex, 3];
+        Vector2 middleMCP= handData[validIndex, 4];
 
         // 1. ✌️ 브이 포즈 조건
         bool isIndexUp = (wrist.y - indexTip.y) > 0.12f && (middleMCP.y - indexTip.y) > 0.04f;
@@ -105,7 +128,7 @@ public class SwipeGestureController : MonoBehaviour
         bool isIndexFolded = Vector2.Distance(indexTip, wrist) < 0.35f;
         bool isThumbsUpSign = isThumbUp && isIndexFolded;
 
-        // [락 해제] 두 포즈 중 아무것도 아니면 즉시 차기 발사 준비
+        // [락 해제] 두 포즈 중 아무것도 아니면 다음 인식 대기
         if (!isPeaceSign && !isThumbsUpSign)
         {
             isGestureActive = false;
@@ -120,13 +143,11 @@ public class SwipeGestureController : MonoBehaviour
 
         if (isPeaceSign)
         {
-            //Debug.Log("✌️ [스와이프] 브이 감지! -> 왼쪽 발사");   (콘솔창에 자주떠서 꺼두겠습니다)
             isGestureActive = true;
             TriggerSwipeLeft();
         }
         else if (isThumbsUpSign)
         {
-            //Debug.Log("👍 [스와이프] 엄지척 감지! -> 오른쪽 발사");
             isGestureActive = true;
             TriggerSwipeRight();
         }
@@ -181,14 +202,14 @@ public class SwipeGestureController : MonoBehaviour
         currentTargetTrash = trash;
         currentTargetTrash.enabled = false; 
 
-        // [핵심 수정] 손 잡기 연산 컴포넌트 강제 비활성화 및 레이어 변경으로 손에 물리는 현상 차단
+        // 손 잡기 컴포넌트 강제 비활성화
         var grabComponent = currentTargetTrash.GetComponent("GrabItem") as MonoBehaviour;
         if (grabComponent != null)
         {
             grabComponent.enabled = false;
         }
 
-        // Rigidbody2D가 있다면 물리 이동 제어를 받지 않게 Kinematic 처리
+        // Rigidbody2D 물리 이동 제어 해제
         Rigidbody2D rb = currentTargetTrash.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
@@ -196,24 +217,31 @@ public class SwipeGestureController : MonoBehaviour
             rb.linearVelocity = Vector2.zero;
         }
 
-        // Ignore Raycast 레이어(2번)로 바꿔서 HandManager의 레이캐스트 잡기에 안 걸리게 설정
+        // Ignore Raycast 레이어(2번)로 변경하여 손 간섭 차단
         currentTargetTrash.gameObject.layer = 2; 
 
+        // 쓰레기통 오브젝트 재확인
+        if (leftBinObj == null) leftBinObj = GameObject.Find("RecycleTrashCan");
+        if (rightBinObj == null) rightBinObj = GameObject.Find("GeneralTrashCan");
+
+        // [핵심] 목표 쓰레기통 지정 및 정확한 targetBinPosition 좌표 산출
         if (toRecycleBin)
         {
+            currentTargetBinObj = leftBinObj;
             if (leftBinObj != null)
-                targetBinPosition = leftBinObj.transform.position;
+                targetBinPosition = new Vector3(leftBinObj.transform.position.x, leftBinObj.transform.position.y, currentTargetTrash.transform.position.z);
             else
-                targetBinPosition = new Vector3(10.63f, 108.12f, currentTargetTrash.transform.position.z);
+                targetBinPosition = new Vector3(-6f, -1.8f, currentTargetTrash.transform.position.z);
         }
         else
         {
+            currentTargetBinObj = rightBinObj;
             if (rightBinObj != null)
-                targetBinPosition = rightBinObj.transform.position;
+                targetBinPosition = new Vector3(rightBinObj.transform.position.x, rightBinObj.transform.position.y, currentTargetTrash.transform.position.z);
             else
-                targetBinPosition = new Vector3(22.35f, 108.12f, currentTargetTrash.transform.position.z);
+                targetBinPosition = new Vector3(6f, -1.8f, currentTargetTrash.transform.position.z);
         }
             
         isFlying = true;
     }
-} 
+}
