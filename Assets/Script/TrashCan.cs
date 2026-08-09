@@ -7,7 +7,7 @@ public class TrashCan : MonoBehaviour
     public TextMeshProUGUI scoreNumText;
     public TextMeshProUGUI timerNumText;
 
-    // 보라색 프레임(HandFrame) 안에 넣은 텍스트를 연결할 구멍을 새로 만듭니다!
+    // 보라색 프레임(HandFrame) 안에 넣은 텍스트를 연결할 구멍입니다.
     [Header("게임 오버 창의 최종 점수 텍스트")]
     public TextMeshProUGUI totalScoreText;
 
@@ -24,7 +24,7 @@ public class TrashCan : MonoBehaviour
     [Header("로봇 표정 컨트롤러")]
     public RobotReactionController robotReaction;
 
-    // 유니티 에디터에서 GameOver_Canvas를 연결할 구멍입니다. (스펠링 정확히 매칭)
+    // 유니티 에디터에서 GameOver_Canvas를 연결할 구멍입니다.
     public GameObject gameOverCanvas;
 
     [Header("사운드 설정")]
@@ -34,45 +34,48 @@ public class TrashCan : MonoBehaviour
 
     // [2] 실제 점수와 남은 시간을 계산해서 저장할 데이터 주머니입니다.
     private static int score = 0;
-    private float limitTime = 30f; // 1분 = 60초 -> 60f
+    private float limitTime = 30f; // 30초
 
     [Header("이 쓰레기통이 정답으로 처리할 태그 입력 (Recyclable 또는 GeneralTrash)")]
     public string correctTag;
 
-    // 오답 유무와 상관없이 서버 전송용 쓰레기통 이름 받아옴 (예: "재활용 쓰레기통", "일반 쓰레기통")
+    // 오답 유무와 상관없이 서버 전송용 쓰레기통 이름 받아옴
     [Header("이 쓰레기통의 이름 입력")]
     public string trashCanName;
 
     // 게임 결과 한 번만 서버에 업로드되도록 방어해 주는 안전장치 변수
     private static bool isGameOverUploaded = false;
 
+    // [팀장님 요구사항] 점수 기반 코인 계산 함수 (점수 x 0.5, 0점 이하 시 참여금 5코인)
+    private int CalculateCoins(int finalScore)
+    {
+        if (finalScore <= 0)
+        {
+            return 5; // 0점 이하 참여금 5코인
+        }
+
+        return (int)(finalScore * 0.5f); // 소수점 버림 자동 적용
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
-        // 시간 끝나면 더 이상 점수 계산이 안 되도록 안전장치 추가
         if (limitTime <= 0) return;
 
-        // 부딪힌 쓰레기 오브젝트의 진짜 이름 가져오기
         string trashName = other.gameObject.name.Replace("(Clone)", "").Trim();
-
-        // 들어온 쓰레기의 태그가 이 쓰레기통의 정답 태그와 똑같은지 검사
         bool isCorrect = other.CompareTag(correctTag);
 
-        // 로봇 표정 변경 알림!
+        // 로봇 표정 변경 알림
         if (robotReaction != null)
         {
             robotReaction.OnAnswerResult(isCorrect);
         }
 
-        // 오답일 때 보여줄 메시지
         string correctBinKorean = (correctTag == "Recyclable") ? "재활용 쓰레기통" : "일반 쓰레기통";
         string tipMessage = isCorrect ? $"{trashName}은(는) [{correctBinKorean}]에 버려야 합니다." : "올바르게 분리배출 했습니다!";
 
-        // 들어온 쓰레기의 태그가 이 쓰레기통의 정답 태그와 똑같은지 검사
         if (isCorrect)
         {
             Debug.Log($"정답! [{correctTag}] 쓰레기를 올바른 쓰레기통에 넣었습니다! 점수 +10!");
-
-            // 정답일 때 점수 처리
             score += 10;
             scoreNumText.text = score.ToString();
 
@@ -84,8 +87,6 @@ public class TrashCan : MonoBehaviour
         else
         {
             Debug.Log($"오답!❌ 잘못된 쓰레기통에 넣었습니다! 점수 -5!");
-
-            // 오답일 때 점수 처리
             score -= 5;
             if (score < 0) score = 0;
 
@@ -97,13 +98,11 @@ public class TrashCan : MonoBehaviour
             }
         }
 
-        // 정/오답 데이터를 FirebaseManager의 임시 리스트에 쌓아둠
-        if (FirebaseManager.Instance != null)
+        if (UGSManager.Instance != null)
         {
-            FirebaseManager.Instance.AddTrashLog(trashName, this.trashCanName, correctBinKorean, isCorrect, tipMessage);
+            UGSManager.Instance.AddTrashLog(trashName, this.trashCanName, correctBinKorean, isCorrect, tipMessage);
         }
 
-        // 판정이 끝난 쓰레기는 화면에서 삭제
         Destroy(other.gameObject);
     }
 
@@ -114,17 +113,16 @@ public class TrashCan : MonoBehaviour
         score = 0;
         scoreNumText.text = score.ToString();
 
-        // 게임 시작 시 로봇 표정 초기화
         if (robotReaction != null)
         {
             robotReaction.ResetReaction();
         }
 
         isGameOverUploaded = false;
-        if (FirebaseManager.Instance != null)
+        if (UGSManager.Instance != null)
         {
-            FirebaseManager.Instance.currentSessionLogs.Clear();
-            FirebaseManager.Instance.gameScore = 0;
+            UGSManager.Instance.currentSessionLogs.Clear();
+            UGSManager.Instance.gameScore = 0;
         }
     }
 
@@ -139,21 +137,13 @@ public class TrashCan : MonoBehaviour
         {
             timerNumText.text = "0";
 
-            if (totalScoreText != null)
-            {
-                totalScoreText.text = score.ToString();
-            }
+            if (totalScoreText != null) totalScoreText.text = score.ToString();
+            if (logScoreText != null) logScoreText.text = score.ToString();
 
-            if (logScoreText != null)
-            {
-                logScoreText.text = score.ToString();
-            }
-
-            if (logContentText != null && FirebaseManager.Instance != null)
+            if (logContentText != null && UGSManager.Instance != null)
             {
                 logContentText.text = "";
-
-                foreach (var log in FirebaseManager.Instance.currentSessionLogs)
+                foreach (var log in UGSManager.Instance.currentSessionLogs)
                 {
                     string resultIcon = log.isCorrect ? "[정답]" : "[오답]";
                     logContentText.text += $"[{log.trashName}] {log.userAnswer} 선택 -> {resultIcon}\n";
@@ -165,51 +155,59 @@ public class TrashCan : MonoBehaviour
                 gameOverCanvas.SetActive(true);
             }
 
-            if (!isGameOverUploaded)
-            {
-                isGameOverUploaded = true;
-                if (FirebaseManager.Instance != null)
-                {
-                    FirebaseManager.Instance.gameScore = score;
-                    FirebaseManager.Instance.UploadGameResult();
-                }
-            }
-            
+            // 게임 결과 및 코인 데이터 처리
+            ProcessGameOverData();
+
             Time.timeScale = 0f;
         }
     }
 
-    // [추가] 설정창에서 '그만하기' 눌렀을 때 호출될 점수 저장 및 게임오버 처리 함수
+    // 설정창에서 '그만하기' 눌렀을 때 호출될 함수
     public void QuitGameAndSaveScore()
     {
-        // 1. 현재 점수를 최종 점수 및 상세 로그 점수 텍스트에 전달
         if (totalScoreText != null) totalScoreText.text = score.ToString();
         if (logScoreText != null) logScoreText.text = score.ToString();
 
-        // 2. 상세 로그 내용 갱신
-        if (logContentText != null && FirebaseManager.Instance != null)
+        if (logContentText != null && UGSManager.Instance != null)
         {
             logContentText.text = "";
-            foreach (var log in FirebaseManager.Instance.currentSessionLogs)
+            foreach (var log in UGSManager.Instance.currentSessionLogs)
             {
                 string resultIcon = log.isCorrect ? "[정답]" : "[오답]";
                 logContentText.text += $"[{log.trashName}] {log.userAnswer} 선택 -> {resultIcon}\n";
             }
         }
 
-        // 3. 서버/파이어베이스 업로드
+        // 게임 결과 및 코인 데이터 처리
+        ProcessGameOverData();
+
+        if (gameOverCanvas != null) gameOverCanvas.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    // 게임오버 시 코인 계산, UI 반영 및 UGS 업로드를 통합 처리하는 전용 함수
+    private void ProcessGameOverData()
+    {
         if (!isGameOverUploaded)
         {
             isGameOverUploaded = true;
-            if (FirebaseManager.Instance != null)
+
+            // 1. 점수 기반 획득 코인 계산
+            int earnedCoins = CalculateCoins(score);
+
+            // 2. UI 표시 (얻은재화: 숫자 형식)
+            if (totalCoinText != null)
             {
-                FirebaseManager.Instance.gameScore = score;
-                FirebaseManager.Instance.UploadGameResult();
+                totalCoinText.text = $"얻은재화: {earnedCoins}";
+            }
+
+            // 3. UGS 서버에 코인 누적 세이브 및 플레이 결과 업로드
+            if (UGSManager.Instance != null)
+            {
+                UGSManager.Instance.gameScore = score;
+                UGSManager.Instance.EarnCoins(earnedCoins);
+                UGSManager.Instance.UploadGameResult();
             }
         }
-
-        // 4. 게임 오버 창을 켜고 시간 정지
-        if (gameOverCanvas != null) gameOverCanvas.SetActive(true);
-        Time.timeScale = 0f;
     }
 }
