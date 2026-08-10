@@ -323,4 +323,29 @@ public class UGSManager : MonoBehaviour
             Debug.LogError("[UGS] 게임 결과 업로드 실패: " + e.Message);
         }
     }
+    // [추가] 로그아웃 및 상태 초기화 기능
+    public void SignOut()
+    {
+        try
+        {
+            // 1. UGS 세션 로그아웃 및 저장된 인증 토큰 완전 삭제
+            if (AuthenticationService.Instance != null && AuthenticationService.Instance.IsSignedIn)
+            {
+                AuthenticationService.Instance.SignOut(true);
+                AuthenticationService.Instance.ClearSessionToken();
+            }
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogWarning("[UGS] SignOut 처리 중 예외 발생: " + e.Message);
+        }
+
+        // 2. UGSManager의 유저 데이터 및 로그인 상태 변수 완전히 초기화
+        isLoggedIn = false;
+        currentCoins = 0;
+        gameScore = 0;
+        currentSessionLogs.Clear();
+
+        Debug.Log("[UGS] 성공적으로 로그아웃되었으며 유저 데이터가 초기화되었습니다.");
+    }
 }
