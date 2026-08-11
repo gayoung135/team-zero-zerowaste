@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Unity.Services.Authentication;
@@ -12,9 +13,8 @@ public class LogoutPopupController : MonoBehaviour
     [Tooltip("로그아웃 후 이동할 시작/로그인 씬 이름")]
     public string startSceneName = "StartScene";
 
-    private void Start()
+    private void Awake()
     {
-        // 시작 시 팝업 패널 비활성화
         if (logoutPopupPanel != null)
         {
             logoutPopupPanel.SetActive(false);
@@ -26,9 +26,42 @@ public class LogoutPopupController : MonoBehaviour
     // ----------------------------------------------------
     public void OnClickOpenLogoutPopup()
     {
+        // 로그인 상태 체크
+        bool isUserLoggedIn = false;
+
+        if (AuthenticationService.Instance != null && AuthenticationService.Instance.IsSignedIn)
+        {
+            isUserLoggedIn = true;
+        }
+        else if (UGSManager.Instance != null && UGSManager.Instance.isLoggedIn)
+        {
+            isUserLoggedIn = true;
+        }
+
+        if (!isUserLoggedIn)
+        {
+            Debug.LogWarning("[Logout] 현재 비로그인 상태입니다. 로그아웃 팝업을 열지 않습니다.");
+            if (logoutPopupPanel != null)
+            {
+                logoutPopupPanel.SetActive(false);
+            }
+            return;
+        }
+
+        // 프레임 씹힘 방지를 위해 코루틴으로 1프레임 지연 후 팝업 호출
+        StartCoroutine(OpenPopupNextFrame());
+    }
+
+    private IEnumerator OpenPopupNextFrame()
+    {
+        // 클릭 이벤트 전달을 마무리할 수 있도록 1프레임 대기
+        yield return null;
+
         if (logoutPopupPanel != null)
         {
             logoutPopupPanel.SetActive(true);
+            logoutPopupPanel.transform.SetAsLastSibling(); // 화면 맨 앞으로
+            Debug.Log("[Logout] 로그아웃 팝업창이 성공적으로 열렸습니다!");
         }
     }
 
@@ -37,9 +70,7 @@ public class LogoutPopupController : MonoBehaviour
     // ----------------------------------------------------
     public void OnClickCancelLogout()
     {
-        // 로그아웃 취소 안내 로그
-        Debug.Log("[Logout] 로그아웃을 취소했습니다. 설정 화면을 유지합니다.");
-
+        Debug.Log("[Logout] 로그아웃 취소");
         if (logoutPopupPanel != null)
         {
             logoutPopupPanel.SetActive(false);
@@ -53,7 +84,6 @@ public class LogoutPopupController : MonoBehaviour
     {
         try
         {
-            // 1. UGS 인증 토큰 및 세션 정보 완전히 삭제
             if (AuthenticationService.Instance != null && AuthenticationService.Instance.IsSignedIn)
             {
                 AuthenticationService.Instance.SignOut(true);
@@ -62,25 +92,21 @@ public class LogoutPopupController : MonoBehaviour
         }
         catch (System.Exception e)
         {
-            Debug.LogWarning("[Logout] UGS 세션 삭제 중 안내: " + e.Message);
+            Debug.LogWarning("[Logout] UGS 세션 삭제 안내: " + e.Message);
         }
 
-        // 2. 재로그인 시 UI 인풋창 연결(Missing) 문제를 방지하기 위해 싱글톤 파괴
         if (UGSManager.Instance != null)
         {
+            UGSManager.Instance.isLoggedIn = false;
             Destroy(UGSManager.Instance.gameObject);
         }
 
-        // 3. 팝업 패널 비활성화
         if (logoutPopupPanel != null)
         {
             logoutPopupPanel.SetActive(false);
         }
 
-        // 4. 콘솔 창에 선명하게 로그아웃 성공 메시지 출력!
-        Debug.Log("[UGS] 성공적으로 로그아웃되었습니다! 로그인/시작 화면으로 이동합니다.");
-
-        // 5. 시작/로그인 씬으로 이동
+        Debug.Log("[UGS] 성공적으로 로그아웃되었습니다!");
         SceneManager.LoadScene(startSceneName);
     }
 }
