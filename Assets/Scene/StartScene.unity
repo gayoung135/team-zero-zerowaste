@@ -908,7 +908,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 558768138}
+      - m_Target: {fileID: 1104474677}
         m_TargetAssemblyTypeName: LogoutPopupController, Assembly-CSharp
         m_MethodName: OnClickConfirmLogout
         m_Mode: 1
@@ -1132,7 +1132,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 48, y: -231.42766}
+  m_AnchoredPosition: {x: 48, y: -231.29248}
   m_SizeDelta: {x: 1808, y: 72}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &153613286
@@ -1202,7 +1202,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: -0}
-  m_SizeDelta: {x: 1920, y: 543.4277}
+  m_SizeDelta: {x: 1920, y: 543.2925}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &155402003
 MonoBehaviour:
@@ -3081,7 +3081,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -3112,7 +3112,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 558768138}
+      - m_Target: {fileID: 1104474677}
         m_TargetAssemblyTypeName: LogoutPopupController, Assembly-CSharp
         m_MethodName: OnClickOpenLogoutPopup
         m_Mode: 1
@@ -5416,7 +5416,6 @@ GameObject:
   m_Component:
   - component: {fileID: 558768137}
   - component: {fileID: 558768136}
-  - component: {fileID: 558768138}
   m_Layer: 5
   m_Name: LogoutPanel
   m_TagString: Untagged
@@ -5439,33 +5438,19 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 558768135}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.25, y: 1.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 737317595}
-  m_Father: {fileID: 1134256996}
+  m_Father: {fileID: 1528349785}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -1.086792, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &558768138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 558768135}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5590b70a046d3ac459afd5709f1d8173, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LogoutPopupController
-  logoutPopupPanel: {fileID: 558768135}
-  startSceneName: StartScene
 --- !u!1 &560014887
 GameObject:
   m_ObjectHideFlags: 0
@@ -8876,7 +8861,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 155402002}
-  - {fileID: 1689933132}
   m_Father: {fileID: 1528349785}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -8996,6 +8980,7 @@ GameObject:
   - component: {fileID: 1104474676}
   - component: {fileID: 1104474675}
   - component: {fileID: 1104474674}
+  - component: {fileID: 1104474677}
   m_Layer: 5
   m_Name: SettingUI
   m_TagString: Untagged
@@ -9086,6 +9071,20 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1104474677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104474672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5590b70a046d3ac459afd5709f1d8173, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LogoutPopupController
+  logoutPopupPanel: {fileID: 558768135}
+  startSceneName: StartScene
 --- !u!1 &1104766437
 GameObject:
   m_ObjectHideFlags: 0
@@ -9419,7 +9418,6 @@ RectTransform:
   - {fileID: 1675163139}
   - {fileID: 1605990541}
   - {fileID: 1104474673}
-  - {fileID: 558768137}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -10937,7 +10935,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 48, y: -519.4277}
+  m_AnchoredPosition: {x: 48, y: -519.2925}
   m_SizeDelta: {x: 1808, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1383542660
@@ -11666,7 +11664,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 558768138}
+      - m_Target: {fileID: 1104474677}
         m_TargetAssemblyTypeName: LogoutPopupController, Assembly-CSharp
         m_MethodName: OnClickCancelLogout
         m_Mode: 1
@@ -11815,7 +11813,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 48, y: -135.42766}
+  m_AnchoredPosition: {x: 48, y: -135.29248}
   m_SizeDelta: {x: 1808, y: 72}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1474365936
@@ -12016,7 +12014,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 48, y: -327.42767}
+  m_AnchoredPosition: {x: 48, y: -327.29248}
   m_SizeDelta: {x: 1808, y: 72}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1497874670
@@ -12113,6 +12111,8 @@ RectTransform:
   m_Children:
   - {fileID: 1027336314}
   - {fileID: 1226294117}
+  - {fileID: 1689933132}
+  - {fileID: 558768137}
   m_Father: {fileID: 868813708}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -12375,8 +12375,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 48, y: -111.42766}
-  m_SizeDelta: {x: 1808, y: 63.427654}
+  m_AnchoredPosition: {x: 48, y: -111.29249}
+  m_SizeDelta: {x: 1808, y: 63.29249}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1556399524
 MonoBehaviour:
@@ -12455,7 +12455,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 48, y: -423.42767}
+  m_AnchoredPosition: {x: 48, y: -423.29248}
   m_SizeDelta: {x: 1808, y: 72}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1556927379
@@ -13499,7 +13499,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 287400312}
-  m_Father: {fileID: 1027336314}
+  m_Father: {fileID: 1528349785}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -13519,7 +13519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
