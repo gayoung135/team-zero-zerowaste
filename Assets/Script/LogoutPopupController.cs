@@ -1,11 +1,13 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Unity.Services.Authentication;
 
 public class LogoutPopupController : MonoBehaviour
 {
-    [Header("--- UI Panel ---")]
+    [Header("--- UI Panel & Buttons ---")]
+    [Tooltip("설정창 내의 로그아웃 버튼/항목 오브젝트 (Logout)")]
+    public GameObject logoutButtonObject;
+
     [Tooltip("로그아웃 확인 팝업 패널 (LogoutPanel)")]
     public GameObject logoutPopupPanel;
 
@@ -15,20 +17,26 @@ public class LogoutPopupController : MonoBehaviour
 
     private void Awake()
     {
+        // 시작 시 팝업 비활성화
         if (logoutPopupPanel != null)
         {
             logoutPopupPanel.SetActive(false);
         }
     }
 
-    // ----------------------------------------------------
-    // 1. [설정창 내 로그아웃 버튼] 클릭 시 호출
-    // ----------------------------------------------------
-    public void OnClickOpenLogoutPopup()
+    // 설정창(SettingUI)이 켜질 때마다 자동으로 로그인 여부를 체크하여 로그아웃 버튼을 표시/숨김 합니다.
+    private void OnEnable()
     {
-        // 로그인 상태 체크
+        CheckLogoutButtonVisibility();
+    }
+
+    
+    /// [추가] 로그인 상태면 로그아웃 버튼 표시, 비로그인 상태면 로그아웃 버튼 숨김
+    public void CheckLogoutButtonVisibility()
+    {
         bool isUserLoggedIn = false;
 
+        // UGS 로그인 상태 체크
         if (AuthenticationService.Instance != null && AuthenticationService.Instance.IsSignedIn)
         {
             isUserLoggedIn = true;
@@ -38,30 +46,24 @@ public class LogoutPopupController : MonoBehaviour
             isUserLoggedIn = true;
         }
 
-        if (!isUserLoggedIn)
+        // 로그인 상태에 따라 로그아웃 버튼 자체를 켜고 끔
+        if (logoutButtonObject != null)
         {
-            Debug.LogWarning("[Logout] 현재 비로그인 상태입니다. 로그아웃 팝업을 열지 않습니다.");
-            if (logoutPopupPanel != null)
-            {
-                logoutPopupPanel.SetActive(false);
-            }
-            return;
+            logoutButtonObject.SetActive(isUserLoggedIn);
+            Debug.Log($"[SettingUI] 로그인 상태: {isUserLoggedIn} -> 로그아웃 버튼 활성화 여부: {isUserLoggedIn}");
         }
-
-        // 프레임 씹힘 방지를 위해 코루틴으로 1프레임 지연 후 팝업 호출
-        StartCoroutine(OpenPopupNextFrame());
     }
 
-    private IEnumerator OpenPopupNextFrame()
+    // ----------------------------------------------------
+    // 1. [설정창 내 로그아웃 버튼] 클릭 시 호출
+    // ----------------------------------------------------
+    public void OnClickOpenLogoutPopup()
     {
-        // 클릭 이벤트 전달을 마무리할 수 있도록 1프레임 대기
-        yield return null;
-
         if (logoutPopupPanel != null)
         {
             logoutPopupPanel.SetActive(true);
-            logoutPopupPanel.transform.SetAsLastSibling(); // 화면 맨 앞으로
-            Debug.Log("[Logout] 로그아웃 팝업창이 성공적으로 열렸습니다!");
+            logoutPopupPanel.transform.SetAsLastSibling(); // 최상단 레이어로 이동
+            Debug.Log("[Logout] 로그아웃 팝업창이 열렸습니다.");
         }
     }
 
