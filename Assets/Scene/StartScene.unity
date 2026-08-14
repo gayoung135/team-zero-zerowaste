@@ -8979,8 +8979,9 @@ GameObject:
   - component: {fileID: 1104474673}
   - component: {fileID: 1104474676}
   - component: {fileID: 1104474675}
-  - component: {fileID: 1104474674}
   - component: {fileID: 1104474677}
+  - component: {fileID: 1104474674}
+  - component: {fileID: 1104474678}
   m_Layer: 5
   m_Name: SettingUI
   m_TagString: Untagged
@@ -9083,6 +9084,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5590b70a046d3ac459afd5709f1d8173, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LogoutPopupController
+  logoutButtonObject: {fileID: 0}
+  logoutPopupPanel: {fileID: 558768135}
+  startSceneName: StartScene
+--- !u!114 &1104474678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104474672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5590b70a046d3ac459afd5709f1d8173, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LogoutPopupController
+  logoutButtonObject: {fileID: 1689933131}
   logoutPopupPanel: {fileID: 558768135}
   startSceneName: StartScene
 --- !u!1 &1104766437
