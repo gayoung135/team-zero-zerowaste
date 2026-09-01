@@ -6507,11 +6507,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07bd57091d3fb4b4db2a7754da32999c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Setting
-  ModalObject: {fileID: 0}
-  ImageObject: {fileID: 0}
-  settingMenu: {fileID: 0}
-  languageDropdown: {fileID: 0}
-  volumeSlider: {fileID: 0}
+  ModalObject: {fileID: 1653139100}
+  ImageObject: {fileID: 1835013631}
+  settingMenu: {fileID: 1458718657}
+  languageDropdown: {fileID: 1396378206}
+  volumeSlider: {fileID: 916719871}
 --- !u!1 &1101034287
 GameObject:
   m_ObjectHideFlags: 0
