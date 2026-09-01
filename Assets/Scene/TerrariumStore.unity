@@ -473,8 +473,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: This Item is 999999 coins
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 45ef50cc50abc5d49bd03eef47ed9b08, type: 2}
-  m_sharedMaterial: {fileID: -7092696953757488596, guid: 45ef50cc50abc5d49bd03eef47ed9b08, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2ab05b2b86ae4eb4c8c893c73e9198e6, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
