@@ -4,38 +4,27 @@ using System.Collections.Generic;
 
 public class EditModeManager : MonoBehaviour
 {
-    [System.Serializable]
-    public class ItemState
-    {
-        public GameObject itemObject;
-        public Vector3 savedPosition;
-        public bool savedActiveSelf;
-    }
-
+    // -------------------------------------------------------------
+    // UI 변수 선언 영역
+    // -------------------------------------------------------------
     [Header("--- UI Group Containers ---")]
-    public GameObject normalUIGroup; // Normal_UI 오브젝트
-    public GameObject editUIGroup;   // Edit_UI 오브젝트
+    public GameObject editUIGroup;   // Terrarium_UI -> Edit_UI (Panel, Text)
+
+    [Header("--- Buttons ---")] 
+    public GameObject storeButton;       // STORE 버튼
+    public GameObject editButton;        // EDIT 버튼
+    public GameObject saveButtonObject;  // SAVE 버튼
+    public GameObject cancelButtonObject;// CANCEL 버튼
+
+    [Header("--- Top Right UI ---")] 
+    public GameObject coinsUI;           // COINS UI (기본 화면)
+    public GameObject previewButton;     // PREVIEW 버튼 (에디트 모드 화면)
 
     [Header("--- Edit UI Elements ---")]
     public GameObject itemBarPanel;   // 하단 아이템 바 패널
     public GameObject emptyText;      // "Empty. Purchase..." 텍스트
 
-    [Header("--- Preview Toggle Elements ---")]
-    public GameObject saveButtonObject;   // SAVE 버튼 오브젝트
-    public GameObject cancelButtonObject; // CANCEL 버튼 오브젝트
-    
-    [Header("--- Target Placement Group ---")]
-    public Transform terrariumContainer; // 테라리움 내부의 배치 아이템들의 부모 오브젝트
-
-    // [연결 인터페이스] 다른 스크립트에서 참조할 수 있게 열어둡니다.
-    [Header("--- Item Container Reference ---")]
-    public GameObject itemContainer;     // 하이어라키의 Items 오브젝트
-
-    private List<ItemState> originalStates = new List<ItemState>();
     private bool isPreviewActive = false;
-
-    // 가상의 보유 아이템 여부를 판별하기 위한 리스트 (상태 제어용으로 유지)
-    private List<string> ownedItems = new List<string>(); 
 
     void Start()
     {
@@ -43,73 +32,36 @@ public class EditModeManager : MonoBehaviour
         SetEditMode(false);
     }
 
-    // --- 1. 편집 모드 스위칭 핵심 함수 ---
+    // -------------------------------------------------------------
+    // 1. 편집 모드 스위칭 핵심 함수
+    // -------------------------------------------------------------
     public void SetEditMode(bool isEdit)
     {
-        normalUIGroup.SetActive(!isEdit);
-        editUIGroup.SetActive(isEdit);
+        // 1) 하단 에디트 패널(Panel, Text) 활성화/비활성화
+        if (editUIGroup != null) editUIGroup.SetActive(isEdit);
 
-        // 편집 모드 진입 시 세팅
+        // 2) 하단 버튼 스위칭 (STORE/EDIT ↔ SAVE/CANCEL)
+        if (storeButton != null) storeButton.SetActive(!isEdit);
+        if (editButton != null) editButton.SetActive(!isEdit);
+        if (saveButtonObject != null) saveButtonObject.SetActive(isEdit);
+        if (cancelButtonObject != null) cancelButtonObject.SetActive(isEdit);
+
+        // 3) 우측 상단 UI 스위칭 (COINS ↔ PREVIEW)
+        if (coinsUI != null) coinsUI.SetActive(!isEdit);
+        if (previewButton != null) previewButton.SetActive(isEdit);
+
+        // 4) 편집 모드 진입 시 로직
         if (isEdit)
         {
             isPreviewActive = false;
-            itemBarPanel.SetActive(true); // 격자선이 빠졌으므로 하단 바만 켜줍니다.
-            
-            // 1) 현재 배치된 아이템들의 상태(위치 등) 백업 (CANCEL 대비)
-            BackupCurrentStates();
-
-            // 2) 소유한 아이템이 없으면 Empty 텍스트 활성화
-            UpdateItemBarStatus();
+            if (itemBarPanel != null) itemBarPanel.SetActive(true);
+            if (emptyText != null) emptyText.SetActive(true); // 기본적으로 Empty 메시지 활성화
         }
     }
 
-    // --- 2. 백업 & 복원 시스템 (CANCEL 핵심 로직) ---
-    private void BackupCurrentStates()
-    {
-        originalStates.Clear();
-        if (terrariumContainer == null) return;
-
-        foreach (Transform child in terrariumContainer)
-        {
-            ItemState state = new ItemState
-            {
-                itemObject = child.gameObject,
-                savedPosition = child.localPosition,
-                savedActiveSelf = child.gameObject.activeSelf
-            };
-            originalStates.Add(state);
-        }
-    }
-
-    private void RestoreOriginalStates()
-    {
-        foreach (var state in originalStates)
-        {
-            if (state.itemObject != null)
-            {
-                state.itemObject.transform.localPosition = state.savedPosition;
-                state.itemObject.SetActive(state.savedActiveSelf);
-            }
-        }
-        originalStates.Clear();
-    }
-
-    // 진열장 생성 루프를 완전히 걷어내고, Items 오브젝트의 활성화 상태와 Empty 메시지만 단순 제어합니다.
-    private void UpdateItemBarStatus()
-    {
-        if (ownedItems.Count == 0)
-        {
-            if (emptyText != null) emptyText.SetActive(true);
-            if (itemContainer != null) itemContainer.SetActive(false); // 아이템이 없으면 진열장 영역을 숨깁니다.
-        }
-        else
-        {
-            if (emptyText != null) emptyText.SetActive(false);
-            if (itemContainer != null) itemContainer.SetActive(true);  // 아이템이 있으면 진열장 영역을 켭니다.
-        }
-    }
-
-    // --- 3. 각 버튼 클릭 시 매핑될 함수들 ---
+    // -------------------------------------------------------------
+    // 2. 버튼 클릭 이벤트 매핑
+    // -------------------------------------------------------------
 
     // [EDIT] 버튼 클릭
     public void OnClickEditButton()
@@ -120,55 +72,33 @@ public class EditModeManager : MonoBehaviour
     // [SAVE] 버튼 클릭
     public void OnClickSaveButton()
     {
-        Debug.Log("변경 사항이 성공적으로 저장되었습니다!");
-        originalStates.Clear(); 
+        Debug.Log("변경 사항이 저장되었습니다.");
         SetEditMode(false);     
     }
 
     // [CANCEL] 버튼 클릭
     public void OnClickCancelButton()
     {
-        Debug.Log("편집을 취소하고 이전 상태로 되돌립니다.");
-        RestoreOriginalStates();
+        Debug.Log("편집을 취소합니다.");
         SetEditMode(false);     
     }
 
-    // [PREVIEW] 버튼 클릭 시 호출되는 함수
+    // -------------------------------------------------------------
+    // 3. PREVIEW 버튼 클릭 로직
+    // -------------------------------------------------------------
     public void OnClickPreviewButton()
     {
-        // 프리뷰 상태 토글 (true ↔ false)
         isPreviewActive = !isPreviewActive;
 
-        // 1. 하단 아이템 바 숨기기/켜기
-        if (itemBarPanel != null)
-            itemBarPanel.SetActive(!isPreviewActive);
+        // 1. 하단 에디트 패널/아이템 바 숨기기/켜기
+        if (editUIGroup != null) editUIGroup.SetActive(!isPreviewActive);
+        if (itemBarPanel != null) itemBarPanel.SetActive(!isPreviewActive);
 
         // 2. "Empty..." 경고 텍스트 숨기기/켜기
-        if (emptyText != null)
-        {
-            if (isPreviewActive)
-            {
-                emptyText.SetActive(false); // 프리뷰 중에는 무조건 숨김
-            }
-            else
-            {
-                UpdateItemBarStatus(); // 프리뷰 종료 시, 현재 상태에 맞춰서 복원
-            }
-        }
+        if (emptyText != null) emptyText.SetActive(!isPreviewActive);
 
-        // [추가 연동] 프리뷰 시 가로로 나열된 아이템들(itemContainer) 영역도 함께 숨김/복원 처리합니다.
-        if (itemContainer != null)
-        {
-            if (isPreviewActive) itemContainer.SetActive(false);
-            else UpdateItemBarStatus();
-        }
-
-        // 3. SAVE 버튼 숨기기/켜기
-        if (saveButtonObject != null) 
-            saveButtonObject.SetActive(!isPreviewActive);
-
-        // 4. CANCEL 버튼 숨기기/켜기
-        if (cancelButtonObject != null) 
-            cancelButtonObject.SetActive(!isPreviewActive);
+        // 3. SAVE / CANCEL 버튼 숨기기/켜기
+        if (saveButtonObject != null) saveButtonObject.SetActive(!isPreviewActive);
+        if (cancelButtonObject != null) cancelButtonObject.SetActive(!isPreviewActive);
     }
 }

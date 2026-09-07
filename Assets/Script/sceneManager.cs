@@ -31,6 +31,7 @@ public class sceneManager : MonoBehaviour
         
     }
 
+
     // 테라리움 이동
     public void OnClickTerrarium()
     {

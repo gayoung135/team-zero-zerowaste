@@ -3,45 +3,70 @@ using System.Reflection;
 
 public class SwipeGestureController : MonoBehaviour
 {
-    private SwipeTrashMovement currentTargetTrash; 
-    private Vector3 targetBinPosition;    
-    private bool isFlying = false;        
-    private float flySpeed = 30f; 
+
+    // 쓰레기 처리
+    private SwipeTrashMovement currentTargetTrash;
+    private Vector3 targetBinPosition;
+
+    private bool isFlying = false;
+    private float flySpeed = 30f;
 
     private GameObject leftBinObj;
     private GameObject rightBinObj;
+    private GameObject currentTargetBinObj;
 
-    // 제스처 감지 쿨타임 및 원샷 발사 방지 플래그
-    private float gestureCooldown = 0.25f;
-    private float lastGestureTime = 0f;
-    private bool isGestureActive = false; 
-
-    // HandManager 리플렉션 접근용
+    // 제스처 관련
     private FieldInfo handArrayField;
+
+    // 한 번 인식한 후 같은 포즈로 다시 발동하지 않도록 잠금
+    private bool isGestureLocked = false;
+
+    // 제스처 인식 후 최소 대기시간
+    private float gestureCooldown = 0.5f;
+    private float lastGestureTime = -10f;
+
+    // 같은 포즈가 몇 프레임 유지되어야 인정할지
+    private int requiredStableFrames = 5;
+
+    private int paperStableFrames = 0;
+    private int fistStableFrames = 0;
+
+  
+    // 제스처 상태
+    private enum GestureType
+    {
+        None,
+        Paper,
+        Fist
+    }
+
+    private GestureType currentGesture = GestureType.None;
 
     void Start()
     {
         leftBinObj = GameObject.Find("RecycleTrashCan");
         rightBinObj = GameObject.Find("GeneralTrashCan");
 
-        if (typeof(HandManager) != null)
-        {
-            handArrayField = typeof(HandManager).GetField("hand", BindingFlags.NonPublic | BindingFlags.Instance);
-        }
+        handArrayField = typeof(HandManager).GetField(
+            "hand",
+            BindingFlags.NonPublic | BindingFlags.Instance
+        );
     }
 
     void Update()
     {
-        // 1. 쓰레기가 중간에 사라지면 락 해제
+
+        // 현재 쓰레기가 사라졌다면 비행 종료
         if (isFlying && currentTargetTrash == null)
         {
-            isFlying = false;
+            FinishTrashMovement();
         }
 
-        // 2. 날아가는 중이 아닐 때만 입력 및 제스처 처리
+
+        // 쓰레기 이동 중이 아닐 때만 입력 처리
         if (!isFlying)
         {
-            // [A] 키보드 테스트 기능 (백업용)
+            // 키보드 테스트
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 TriggerSwipeLeft();
@@ -51,169 +76,461 @@ public class SwipeGestureController : MonoBehaviour
                 TriggerSwipeRight();
             }
 
-            // [B] HandManager 실시간 손동작 검사
+            // 손 제스처
             CheckHandManagerGesture();
         }
 
-        // 3. 쓰레기통으로 부드럽고 빠르게 이동
+
+        // 쓰레기를 쓰레기통으로 이동
+
         if (isFlying && currentTargetTrash != null)
         {
-            currentTargetTrash.transform.position = Vector3.MoveTowards(
-                currentTargetTrash.transform.position, 
-                targetBinPosition, 
-                flySpeed * Time.deltaTime
-            );
-
-            if (Vector3.Distance(currentTargetTrash.transform.position, targetBinPosition) < 0.5f)
-            {
-                if (currentTargetTrash != null)
-                {
-                    Destroy(currentTargetTrash.gameObject);
-                }
-                currentTargetTrash = null;
-                isFlying = false; 
-            }
+            MoveTrashToBin();
         }
     }
 
+    // 쓰레기 이동
+    private void MoveTrashToBin()
+    {
+        currentTargetTrash.transform.position = Vector3.MoveTowards(
+            currentTargetTrash.transform.position,
+            targetBinPosition,
+            flySpeed * Time.deltaTime
+        );
+
+
+        float distance = Vector3.Distance(
+            currentTargetTrash.transform.position,
+            targetBinPosition
+        );
+
+
+        // 충분히 가까워지면 쓰레기통에 들어간 것으로 처리
+        if (distance < 1.2f)
+        {
+            if (currentTargetTrash != null)
+            {
+                // 쓰레기통의 OnTriggerEnter2D를 강제로 호출
+                if (currentTargetBinObj != null)
+                {
+                    Collider2D trashCollider =
+                        currentTargetTrash.GetComponent<Collider2D>();
+
+                    currentTargetBinObj.SendMessage(
+                        "OnTriggerEnter2D",
+                        trashCollider,
+                        SendMessageOptions.DontRequireReceiver
+                    );
+                }
+
+
+                Destroy(currentTargetTrash.gameObject);
+            }
+
+
+            FinishTrashMovement();
+        }
+    }
+
+    // 쓰레기 이동 종료
+    private void FinishTrashMovement()
+    {
+        currentTargetTrash = null;
+        currentTargetBinObj = null;
+        isFlying = false;
+
+        // 중요:
+        // 쓰레기가 끝났다고 해서 바로 같은 포즈를 다시 허용하지 않음.
+        // 반드시 손이 중립 상태가 된 다음 (손을 캠에서 내리고 다시 포즈를 취하라는 뜻)
+        // 새로운 주먹/보자기를 해야 함.
+
+        isGestureLocked = true;
+
+        paperStableFrames = 0;
+        fistStableFrames = 0;
+
+        currentGesture = GestureType.None;
+    }
+
+
+    // 손 제스처 검사
     private void CheckHandManagerGesture()
     {
-        if (HandManager.Instance == null || handArrayField == null) return;
+        if (HandManager.Instance == null || handArrayField == null)
+            return;
 
-        Vector2[,] handData = handArrayField.GetValue(HandManager.Instance) as Vector2[,];
-        if (handData == null) return;
 
-        Vector2 thumbTip = handData[0, 0];
-        Vector2 indexTip = handData[0, 1];
-        Vector2 ringTip  = handData[0, 2];
-        Vector2 wrist    = handData[0, 3];
-        Vector2 middleMCP= handData[0, 4];
+        Vector2[,] handData =
+            handArrayField.GetValue(HandManager.Instance) as Vector2[,];
 
-        // 손이 화면에 없거나 (0,0) 좌표면 상태 초기화 후 즉시 종료
-        if (wrist.sqrMagnitude < 0.01f || indexTip.sqrMagnitude < 0.01f)
+        if (handData == null)
+            return;
+
+
+        // 감지된 손 찾기
+        int validIndex = -1;
+
+        for (int i = 0; i < handData.GetLength(0); i++)
         {
-            isGestureActive = false;
+            // 손목
+            Vector2 wrist = handData[i, 3];
+
+            if (wrist.sqrMagnitude > 0.01f)
+            {
+                validIndex = i;
+                break;
+            }
+        }
+
+
+        // 손이 아예 안 보이는 경우
+
+        if (validIndex == -1)
+        {
+            ResetGestureDetection();
             return;
         }
 
-        // 1. ✌️ 브이 포즈 조건
-        bool isIndexUp = (wrist.y - indexTip.y) > 0.12f && (middleMCP.y - indexTip.y) > 0.04f;
-        bool isPeaceSign = isIndexUp;
 
-        // 2. 👍 엄지척 포즈 조건
-        bool isThumbUp = (wrist.y - thumbTip.y) > 0.12f;
-        bool isIndexFolded = Vector2.Distance(indexTip, wrist) < 0.35f;
-        bool isThumbsUpSign = isThumbUp && isIndexFolded;
+        // 손 데이터
+        Vector2 thumbTip = handData[validIndex, 0];
+        Vector2 indexTip = handData[validIndex, 1];
+        Vector2 ringTip = handData[validIndex, 2];
 
-        // [락 해제] 두 포즈 중 아무것도 아니면 즉시 차기 발사 준비
-        if (!isPeaceSign && !isThumbsUpSign)
+        Vector2 wristPos = handData[validIndex, 3];
+        Vector2 middleMCP = handData[validIndex, 4];
+
+
+        // 손 크기 계산
+        float handScale =
+            Vector2.Distance(wristPos, middleMCP);
+
+        if (handScale < 0.01f)
         {
-            isGestureActive = false;
+            handScale = 0.15f;
+        }
+
+        // 손가락 거리
+        float distIndex =
+            Vector2.Distance(indexTip, wristPos) / handScale;
+
+        float distRing =
+            Vector2.Distance(ringTip, wristPos) / handScale;
+
+
+
+        // 주먹 / 보자기 판정
+
+        // 보자기
+        // 검지 + 약지가 충분히 펴져 있어야 함
+        //
+        bool isPaper =
+            distIndex > 1.25f &&
+            distRing > 1.25f;
+
+
+        // 주먹
+        // 검지 + 약지가 손바닥 쪽으로 들어온 상태
+        //
+        bool isFist =
+            distIndex < 0.85f &&
+            distRing < 0.85f;
+
+
+        // 중립 상태
+        if (!isPaper && !isFist)
+        {
+            paperStableFrames = 0;
+            fistStableFrames = 0;
+
+            currentGesture = GestureType.None;
+
+            // ⭐ 핵심
+            //
+            // 중립 상태가 확인되면 다시 제스처 사용 가능
+            //
+            isGestureLocked = false;
+
             return;
         }
 
-        // 이미 발사했다면 손을 오므릴 때까지 대기
-        if (isGestureActive) return;
-
-        // 쿨타임 검사 후 발사
-        if (Time.time - lastGestureTime < gestureCooldown) return;
-
-        if (isPeaceSign)
+        // 보자기 안정성 검사
+        if (isPaper)
         {
-            //Debug.Log("✌️ [스와이프] 브이 감지! -> 왼쪽 발사");   (콘솔창에 자주떠서 꺼두겠습니다)
-            isGestureActive = true;
+            paperStableFrames++;
+
+            fistStableFrames = 0;
+
+            currentGesture = GestureType.Paper;
+        }
+        else
+        {
+            paperStableFrames = 0;
+        }
+
+        // 주먹 안정성 검사
+        if (isFist)
+        {
+            fistStableFrames++;
+
+            paperStableFrames = 0;
+
+            currentGesture = GestureType.Fist;
+        }
+        else
+        {
+            fistStableFrames = 0;
+        }
+
+        // 이미 발동한 상태면 아무것도 하지 않음
+        if (isGestureLocked)
+            return;
+
+        // 쿨타임
+        if (Time.time - lastGestureTime < gestureCooldown)
+            return;
+
+
+        // 보자기 발동
+        if (paperStableFrames >= requiredStableFrames)
+        {
+            // 즉시 잠금
+            isGestureLocked = true;
+
+            lastGestureTime = Time.time;
+
+            paperStableFrames = 0;
+            fistStableFrames = 0;
+
             TriggerSwipeLeft();
+
+            return;
         }
-        else if (isThumbsUpSign)
+
+
+        // 주먹 발동
+        if (fistStableFrames >= requiredStableFrames)
         {
-            //Debug.Log("👍 [스와이프] 엄지척 감지! -> 오른쪽 발사");
-            isGestureActive = true;
+            // 즉시 잠금
+            isGestureLocked = true;
+
+            lastGestureTime = Time.time;
+
+            paperStableFrames = 0;
+            fistStableFrames = 0;
+
             TriggerSwipeRight();
+
+            return;
         }
     }
 
+
+    // 제스처 초기화
+    private void ResetGestureDetection()
+    {
+        paperStableFrames = 0;
+        fistStableFrames = 0;
+
+        currentGesture = GestureType.None;
+
+        // 손이 사라져도 바로 잠금 해제
+        // 다음 손이 들어왔을 때 새로운 포즈로 인식 가능
+        isGestureLocked = false;
+    }
+
+    // 왼쪽 이동
     public void TriggerSwipeLeft()
     {
-        if (isFlying) return;
-        
-        SwipeTrashMovement target = GetOldestTrash();
+        // 이동 중이면 절대 새로운 쓰레기를 선택하지 않음
+        if (isFlying)
+            return;
+
+
+        SwipeTrashMovement target = GetLeadingTrash();
+
+
         if (target != null)
         {
             FlyToBin(target, true);
-            lastGestureTime = Time.time;
         }
     }
 
+
+    // 오른쪽 이동
     public void TriggerSwipeRight()
     {
-        if (isFlying) return;
+        // 이동 중이면 절대 새로운 쓰레기를 선택하지 않음
+        if (isFlying)
+            return;
 
-        SwipeTrashMovement target = GetOldestTrash();
+
+        SwipeTrashMovement target = GetLeadingTrash();
+
+
         if (target != null)
         {
             FlyToBin(target, false);
-            lastGestureTime = Time.time;
         }
     }
 
-    private SwipeTrashMovement GetOldestTrash()
+
+    // 가장 앞에 있는 쓰레기 찾기
+    private SwipeTrashMovement GetLeadingTrash()
     {
-        SwipeTrashMovement[] allTrashes = FindObjectsOfType<SwipeTrashMovement>();
-        SwipeTrashMovement oldestTrash = null;
-        float maxX = -9999f;
+        SwipeTrashMovement[] allTrashes =
+            FindObjectsOfType<SwipeTrashMovement>();
+
+
+        SwipeTrashMovement leadingTrash = null;
+
+        float leadingX = -9999f;
+
 
         foreach (var trash in allTrashes)
         {
-            if (trash.enabled)
+            if (trash == null)
+                continue;
+
+
+            if (!trash.enabled)
+                continue;
+
+
+            if (!trash.gameObject.activeInHierarchy)
+                continue;
+
+
+            float x = trash.transform.position.x;
+
+
+            if (x > leadingX)
             {
-                if (trash.transform.position.x > maxX)
-                {
-                    maxX = trash.transform.position.x;
-                    oldestTrash = trash;
-                }
+                leadingX = x;
+
+                leadingTrash = trash;
             }
         }
-        return oldestTrash;
+
+
+        return leadingTrash;
     }
 
-    private void FlyToBin(SwipeTrashMovement trash, bool toRecycleBin)
+    // 쓰레기를 쓰레기통으로 보내기
+    private void FlyToBin(
+        SwipeTrashMovement trash,
+        bool toRecycleBin
+    )
     {
-        currentTargetTrash = trash;
-        currentTargetTrash.enabled = false; 
+        if (trash == null)
+            return;
 
-        // [핵심 수정] 손 잡기 연산 컴포넌트 강제 비활성화 및 레이어 변경으로 손에 물리는 현상 차단
-        var grabComponent = currentTargetTrash.GetComponent("GrabItem") as MonoBehaviour;
+
+        // 혹시라도 이미 이동 중이면 차단
+        if (isFlying)
+            return;
+
+
+        // 대상 쓰레기 지정
+
+        currentTargetTrash = trash;
+
+        isFlying = true;
+
+
+        // 이동 중에는 SwipeTrashMovement 정지
+        currentTargetTrash.enabled = false;
+
+
+        // GrabItem 정지
+        var grabComponent =
+            currentTargetTrash.GetComponent("GrabItem")
+            as MonoBehaviour;
+
+
         if (grabComponent != null)
         {
             grabComponent.enabled = false;
         }
 
-        // Rigidbody2D가 있다면 물리 이동 제어를 받지 않게 Kinematic 처리
-        Rigidbody2D rb = currentTargetTrash.GetComponent<Rigidbody2D>();
+
+        // Rigidbody 정지
+        Rigidbody2D rb =
+            currentTargetTrash.GetComponent<Rigidbody2D>();
+
+
         if (rb != null)
         {
             rb.isKinematic = true;
             rb.linearVelocity = Vector2.zero;
         }
 
-        // Ignore Raycast 레이어(2번)로 바꿔서 HandManager의 레이캐스트 잡기에 안 걸리게 설정
-        currentTargetTrash.gameObject.layer = 2; 
 
+        // Raycast 무시
+        currentTargetTrash.gameObject.layer = 2;
+
+
+        // 쓰레기통 찾기
+        if (leftBinObj == null)
+        {
+            leftBinObj =
+                GameObject.Find("RecycleTrashCan");
+        }
+
+
+        if (rightBinObj == null)
+        {
+            rightBinObj =
+                GameObject.Find("GeneralTrashCan");
+        }
+
+        // 재활용 쓰레기통
         if (toRecycleBin)
         {
+            currentTargetBinObj = leftBinObj;
+
+
             if (leftBinObj != null)
-                targetBinPosition = leftBinObj.transform.position;
+            {
+                targetBinPosition = new Vector3(
+                    leftBinObj.transform.position.x,
+                    leftBinObj.transform.position.y,
+                    currentTargetTrash.transform.position.z
+                );
+            }
             else
-                targetBinPosition = new Vector3(10.63f, 108.12f, currentTargetTrash.transform.position.z);
+            {
+                targetBinPosition = new Vector3(
+                    -6f,
+                    -1.8f,
+                    currentTargetTrash.transform.position.z
+                );
+            }
         }
+
+
+        // 일반 쓰레기통
         else
         {
+            currentTargetBinObj = rightBinObj;
+
+
             if (rightBinObj != null)
-                targetBinPosition = rightBinObj.transform.position;
+            {
+                targetBinPosition = new Vector3(
+                    rightBinObj.transform.position.x,
+                    rightBinObj.transform.position.y,
+                    currentTargetTrash.transform.position.z
+                );
+            }
             else
-                targetBinPosition = new Vector3(22.35f, 108.12f, currentTargetTrash.transform.position.z);
+            {
+                targetBinPosition = new Vector3(
+                    6f,
+                    -1.8f,
+                    currentTargetTrash.transform.position.z
+                );
+            }
         }
-            
-        isFlying = true;
     }
-} 
+}
