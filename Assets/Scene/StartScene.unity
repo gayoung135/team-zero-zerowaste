@@ -2635,8 +2635,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1949659882}
-        m_TargetAssemblyTypeName: UGSManager, Assembly-CSharp
+      - m_Target: {fileID: 1949659884}
+        m_TargetAssemblyTypeName: UGSAuthManager, Assembly-CSharp
         m_MethodName: OnClickSignIn
         m_Mode: 1
         m_Arguments:
@@ -13836,8 +13836,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1949659882}
-        m_TargetAssemblyTypeName: FirebaseManager, Assembly-CSharp
+      - m_Target: {fileID: 1949659884}
+        m_TargetAssemblyTypeName: UGSAuthManager, Assembly-CSharp
         m_MethodName: OnClickSignUp
         m_Mode: 1
         m_Arguments:
@@ -14946,6 +14946,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1949659883}
   - component: {fileID: 1949659882}
+  - component: {fileID: 1949659884}
   m_Layer: 0
   m_Name: UGSManager
   m_TagString: Untagged
@@ -14965,18 +14966,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0dd0ad555d2b2c41a361d45e9a4c84b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FirebaseManager
-  loginPopup: {fileID: 1675163138}
-  startUI: {fileID: 1583414134}
-  signupEmailInput: {fileID: 480345666}
-  signupIdInput: {fileID: 2096902663}
-  signupPasswordInput: {fileID: 285563567}
-  signupConfirmPasswordInput: {fileID: 395684622}
-  signinEmailInput: {fileID: 209009925}
-  signinPasswordInput: {fileID: 514857609}
   isLoggedIn: 0
   currentCoins: 0
-  currentSessionLogs: []
   gameScore: 0
+  currentSessionLogs: []
 --- !u!4 &1949659883
 Transform:
   m_ObjectHideFlags: 0
@@ -14992,6 +14985,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1949659884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949659881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b22b808c7b5e64ca959e854dca10f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UGSAuthManager
+  loginPopup: {fileID: 1675163138}
+  startUI: {fileID: 1583414134}
+  signupEmailInput: {fileID: 480345666}
+  signupIdInput: {fileID: 2096902663}
+  signupPasswordInput: {fileID: 285563567}
+  signupConfirmPasswordInput: {fileID: 395684622}
+  signinEmailInput: {fileID: 209009925}
+  signinPasswordInput: {fileID: 514857609}
 --- !u!1 &1958933920
 GameObject:
   m_ObjectHideFlags: 0
