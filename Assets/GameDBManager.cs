@@ -87,11 +87,11 @@ public class GameDBManager : MonoBehaviour
     }
 
     // ==========================================
-    // 💡 팀원들이 데이터를 꺼내 쓰는 활용 API 함수들
+    // 데이터 꺼내 쓰는 활용 API 함수들
     // ==========================================
 
     /// <summary>
-    /// 쓰레기 Key(id)를 넘겨주면 매칭되는 모든 가이드 정보를 반환합니다. (미니게임용)
+    /// 쓰레기 Key(id)를 넘겨주면 매칭되는 모든 가이드 정보 반환 (미니게임용)
     /// </summary>
     public TrashGuideData GetTrashData(string trashId)
     {
@@ -101,7 +101,7 @@ public class GameDBManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 아이템 ID(item_id)를 넘겨주면 상점 상품 정보를 반환합니다. (상점용)
+    /// 아이템 ID(item_id)를 넘겨주면 상점 상품 정보 반환 (상점용)
     /// </summary>
     public ShopItemData GetShopItemData(string itemId)
     {
@@ -111,7 +111,7 @@ public class GameDBManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 서버(UGS)에서 계정 정보를 로드해왔을 때 이 로컬 DB에 인벤토리를 주입/동기화합니다.
+    /// 서버(UGS)에서 계정 정보를 로드해왔을 때 이 로컬 DB에 인벤토리를 주입/동기화
     /// </summary>
     public void SyncInventoryFromServer(List<string> itemIdsFromServer)
     {
@@ -128,7 +128,7 @@ public class GameDBManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 아이템을 획득/구매했을 때 인벤토리 딕셔너리에 개수를 추가합니다.
+    /// 아이템을 획득/구매했을 때 인벤토리 딕셔너리에 개수 추가
     /// </summary>
     public void AddItemToInventory(string itemId)
     {
