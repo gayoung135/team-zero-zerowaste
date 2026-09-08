@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using TMPro;
 
 public class SpeechBubbleController : MonoBehaviour
@@ -9,9 +10,13 @@ public class SpeechBubbleController : MonoBehaviour
     [Header("말풍선 텍스트 (추후 배출법 문구 표시용)")]
     [SerializeField] private TextMeshProUGUI tipText;
 
+    [Header("말풍선 유지 시간(초)")]
+    [SerializeField] private float displayDuration = 2f;
+
+    private Coroutine hideCoroutine;
+
     private void Awake()
     {
-        // 대상이 지정 안 되어 있다면 자기 자신을 기본으로 사용
         if (bubbleObject == null)
         {
             bubbleObject = this.gameObject;
@@ -27,6 +32,13 @@ public class SpeechBubbleController : MonoBehaviour
         {
             bubbleObject.SetActive(true);
         }
+
+        // 이미 돌고 있던 2초 타이머가 있다면 취소하고 새로 2초를 잽니다.
+        if (hideCoroutine != null)
+        {
+            StopCoroutine(hideCoroutine);
+        }
+        hideCoroutine = StartCoroutine(HideAfterDelay());
     }
 
     /// <summary>
@@ -40,6 +52,17 @@ public class SpeechBubbleController : MonoBehaviour
         }
 
         ShowBubble();
+    }
+
+    /// <summary>
+    /// 정해진 시간(2초) 뒤에 말풍선을 숨기는 코루틴
+    /// </summary>
+    private IEnumerator HideAfterDelay()
+    {
+        yield return new WaitForSeconds(displayDuration);
+
+        HideBubble();
+        hideCoroutine = null;
     }
 
     /// <summary>
