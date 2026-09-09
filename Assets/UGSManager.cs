@@ -169,6 +169,7 @@ public class UGSManager : MonoBehaviour
             Debug.LogError("[UGS] 게임 결과 업로드 실패: " + e.Message);
         }
     }
+
     public void SignOut()
     {
         try

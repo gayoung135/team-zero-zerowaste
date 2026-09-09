@@ -24,10 +24,6 @@ public class TrashCan : MonoBehaviour
     [Header("로봇 표정 컨트롤러")]
     public RobotReactionController robotReaction;
 
-    // 말풍선 제어 스크립트 연결 창
-    [Header("말풍선 컨트롤러")]
-    public SpeechBubbleController speechBubbleController;
-
     // 유니티 에디터에서 GameOver_Canvas를 연결할 구멍입니다.
     public GameObject gameOverCanvas;
 
@@ -72,13 +68,6 @@ public class TrashCan : MonoBehaviour
         if (robotReaction != null)
         {
             robotReaction.OnAnswerResult(isCorrect);
-        }
-
-
-        // 쓰레기 투입 시 로봇 말풍선 활성화
-        if (speechBubbleController != null)
-        {
-            speechBubbleController.ShowBubble();
         }
 
         string correctBinKorean = (correctTag == "Recyclable") ? "재활용 쓰레기통" : "일반 쓰레기통";
