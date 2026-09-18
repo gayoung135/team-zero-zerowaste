@@ -19,7 +19,6 @@ public class HandManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        Application.targetFrameRate = 60; //임시 프레임제한
     }
     
     // 매 프레임 왼손/오른손을 순회하며, 

@@ -15,6 +15,7 @@ public class Setting : MonoBehaviour
     private bool isLoading = false; //설정 충돌 방지용
     void Start()
     {
+        Application.targetFrameRate = 60; //프레임 지정
         isLoading = true;
         
         // 저장된 설정 불러오기
