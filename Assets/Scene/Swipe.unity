@@ -2008,7 +2008,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 15, y: 125}
-  m_SizeDelta: {x: 690, y: 690}
+  m_SizeDelta: {x: 690, y: 610}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &279823776
 MonoBehaviour:
@@ -3144,7 +3144,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1270732480, guid: 2a14037ede3f64140954a28b67dd55cc, type: 3}
+  m_Sprite: {fileID: -152797296, guid: aa8643066973adb489e036f24a3924e8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3358,8 +3358,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 101779129}
-        m_TargetAssemblyTypeName: TrashCan, Assembly-CSharp
+      - m_Target: {fileID: 1074373063}
+        m_TargetAssemblyTypeName: GameTimer, Assembly-CSharp
         m_MethodName: QuitGameAndSaveScore
         m_Mode: 1
         m_Arguments:
