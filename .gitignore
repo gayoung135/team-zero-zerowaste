@@ -104,8 +104,3 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
-<<<<<<< HEAD
-=======
-/[Aa]ssets/StreamingAssets/google-services-desktop.json
-/[Aa]ssets/Firebase/Plugins/x86_64/FirebaseCppApp*
->>>>>>> origin/feature/yih
