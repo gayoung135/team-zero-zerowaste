@@ -70,7 +70,7 @@ public class GameTimer : MonoBehaviour
                 foreach (var log in UGSManager.Instance.currentSessionLogs)
                 {
                     string resultIcon = log.isCorrect ? "[정답]" : "[오답]";
-                    logContentText.text += $"[{log.trashName}] {log.userAnswer} 선택 -> {resultIcon}\n";
+                    logContentText.text += $"{log.reason}\n\n";
                 }
             }
 
