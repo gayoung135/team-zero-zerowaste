@@ -9954,8 +9954,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 0, y: 102}
+  m_SizeDelta: {x: 433, y: 42}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1701398222
 MonoBehaviour:
@@ -9987,7 +9987,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -10950,6 +10950,218 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 1
+--- !u!1 &1905472461
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1905472463}
+  - component: {fileID: 1905472462}
+  m_Layer: 0
+  m_Name: GameDBManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1905472462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1905472461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9823d907d65e34f4fb7a80a0a253c2d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameDBManager
+  trashGuideMasterDB:
+  - id: TRASH_001
+    correct_bin_id: 1
+    trash_name: Trash_PetBottle
+    category: Recyclable waste  (plastic)
+    subcategory: 
+    log_wrong: PET bottles are not general waste, they are classified as recyclable
+      plastics.
+    log_correct: PET bottles are recyclable waste.
+    tip_ingame: You need to remove the label from the PET bottle before recycling
+      it.
+  - id: TRASH_002
+    correct_bin_id: 2
+    trash_name: Trash_Apple
+    category: Food waste
+    subcategory: 
+    log_wrong: Apples are not recyclable waste, they are classified as food waste.
+    log_correct: Apples are classified as food waste.
+    tip_ingame: Apple cores are organic waste. Put them in the food waste bin.
+  - id: TRASH_003
+    correct_bin_id: 2
+    trash_name: Trash_Bone
+    category: General waste
+    subcategory: 
+    log_wrong: Bones cannot be recycled and are classified as general waste.
+    log_correct: Bones are classified as general waste.
+    tip_ingame: Bones cannot be recycled. Dispose of them as general waste.
+  - id: TRASH_004
+    correct_bin_id: 2
+    trash_name: Trash_Banana
+    category: Food waste
+    subcategory: 
+    log_wrong: Banana peels are food waste, not recyclable waste.
+    log_correct: "Banana peels are classified as food waste.\t"
+    tip_ingame: Banana peels are  organic waste. Dispose of them in the food waste
+      bin.
+  - id: TRASH_005
+    correct_bin_id: 1
+    trash_name: Trash_BlueCan
+    category: Recyclable waste (can)
+    subcategory: 
+    log_wrong: Cans are not general waste, they are separated into a distinct category
+      for cans during the recycling process.
+    log_correct: Cans are classified as 'can waste' during the recycling process.
+    tip_ingame: Cans should be emptied, rinsed with water to remove any residue,
+      and flattened before disposal.
+  - id: TRASH_006
+    correct_bin_id: 2
+    trash_name: Trash_Bread
+    category: Food waste
+    subcategory: 
+    log_wrong: Bread scraps are not recyclable waste, they are classified as food
+      waste.
+    log_correct: Breadcrumbs are classified as food waste.
+    tip_ingame: Bread pieces are food waste. Dispose of them in the food waste bin.
+  - id: TRASH_007
+    correct_bin_id: 1
+    trash_name: Trash_BrownGlassBottle
+    category: Recyclable waste (glass)
+    subcategory: 
+    log_wrong: Glass bottles are not general waste; they are classified as glass
+      for recycling.
+    log_correct: Empty beer bottles are classified as glass waste for recycling.
+    tip_ingame: Remove the bottle cap, empty and rinse the bottle, then dispose of
+      it in the glass recycling bin.
+  - id: TRASH_008
+    correct_bin_id: 2
+    trash_name: Trash_Egg
+    category: General waste
+    subcategory: 
+    log_wrong: Eggshells cannot be recycled and are classified as general waste.
+    log_correct: Eggshells are classified as general waste.
+    tip_ingame: Eggshells are hard and not suitable for food waste. Dispose of them
+      as general waste.
+  - id: TRASH_009
+    correct_bin_id: 2
+    trash_name: Trash_Tissue
+    category: General waste
+    subcategory: 
+    log_wrong: Tissues cannot be recycled and are classified as general waste.
+    log_correct: Used tissues are classified as general waste.
+    tip_ingame: Used tissues cannot be recycled. Dispose of them as general waste.
+  shopItemMasterDB:
+  - item_id: ITEM_001
+    item_name: Bottle1
+    price: 70
+    tooltip_text: This item is 70 coin
+    is_sold_out: 0
+  - item_id: ITEM_002
+    item_name: Bottle2
+    price: 80
+    tooltip_text: This item is 80 coin.
+    is_sold_out: 0
+  - item_id: ITEM_003
+    item_name: Mushroom
+    price: 120
+    tooltip_text: This item is 120 coin.
+    is_sold_out: 0
+  - item_id: ITEM_004
+    item_name: Frog
+    price: 150
+    tooltip_text: This item is 150 coin.
+    is_sold_out: 0
+  - item_id: ITEM_005
+    item_name: Snail
+    price: 100
+    tooltip_text: This item is 100 coin.
+    is_sold_out: 0
+  - item_id: ITEM_006
+    item_name: Leaves
+    price: 60
+    tooltip_text: This item is 60 coin.
+    is_sold_out: 0
+  - item_id: ITEM_007
+    item_name: Acorn
+    price: 70
+    tooltip_text: This item is 70 coin.
+    is_sold_out: 0
+  - item_id: ITEM_008
+    item_name: Snowman
+    price: 200
+    tooltip_text: This item is 200 coin.
+    is_sold_out: 0
+  - item_id: ITEM_009
+    item_name: IceCream
+    price: 150
+    tooltip_text: This item is 150 coin.
+    is_sold_out: 0
+  - item_id: ITEM_010
+    item_name: GinkgoLeaf
+    price: 50
+    tooltip_text: This item is 50 coin.
+    is_sold_out: 0
+  - item_id: ITEM_011
+    item_name: Quartz
+    price: 300
+    tooltip_text: This item is 300 coin.
+    is_sold_out: 0
+  - item_id: ITEM_012
+    item_name: DragonFly
+    price: 100
+    tooltip_text: This item is 100 coin.
+    is_sold_out: 0
+  - item_id: ITEM_013
+    item_name: Leaf
+    price: 50
+    tooltip_text: This item is 50 coin.
+    is_sold_out: 0
+  - item_id: ITEM_014
+    item_name: Pumpkin
+    price: 130
+    tooltip_text: This item is 130 coin.
+    is_sold_out: 0
+  - item_id: ITEM_015
+    item_name: CherryBlossom
+    price: 150
+    tooltip_text: This item is 150 coin.
+    is_sold_out: 0
+  - item_id: ITEM_016
+    item_name: GinkgoLeaf2
+    price: 50
+    tooltip_text: This item is 50 coin.
+    is_sold_out: 0
+  - item_id: ITEM_017
+    item_name: Coral
+    price: 140
+    tooltip_text: This item is 140 coin.
+    is_sold_out: 0
+--- !u!4 &1905472463
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1905472461}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 921.08844, y: 450.37048, z: -0.05219}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1920634411
 GameObject:
   m_ObjectHideFlags: 0
@@ -11981,3 +12193,4 @@ SceneRoots:
   - {fileID: 1064799461}
   - {fileID: 79974308}
   - {fileID: 1391619449}
+  - {fileID: 1905472463}
