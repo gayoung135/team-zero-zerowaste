@@ -7,7 +7,7 @@ public class Receipt : MonoBehaviour
     int ItemPrice = 0; //가격 총합
     List<string> items = new List<string>(); //구매할 아이템 목록 저장
     public Transform Shop; //상점 아이템들 들어있는 객체
-
+    public TextMeshProUGUI CoinText; //코인 텍스트
     public TextMeshProUGUI PriceText; //가격 텍스트
     public Transform content; //영수증 물품 텍스트 들어갈 위치
     public TextMeshProUGUI ReceiptText; //영수증 텍스트 프리팹
@@ -33,7 +33,7 @@ public class Receipt : MonoBehaviour
         PriceText.text = ItemPrice.ToString()+" C";
 
         Transform obj = content.Find(name);
-        Destroy(obj.gameObject);
+        if (obj != null) Destroy(obj.gameObject);
 
         if(items.Count == 0) gameObject.SetActive(false);
     }
@@ -49,7 +49,8 @@ public class Receipt : MonoBehaviour
 
         foreach (Transform child in Shop) //모든 선택상태 초기화
         {
-            child.GetComponent<ShopItem>().isSelect = false;
+            ShopItem shopItem = child.GetComponent<ShopItem>();
+            if (shopItem != null) shopItem.isSelect = false;
         }
     }
 }

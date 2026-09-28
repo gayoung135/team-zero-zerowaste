@@ -11,6 +11,7 @@ public class EditMode : MonoBehaviour
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+        //나중에 아이템 불러오는 코드 이 아래에 추가하기
     }
 
     public void itemClick(Sprite itemSprite, string itemName) //목록 아이템 클릭 시 복제 및 설정모드로
@@ -35,13 +36,15 @@ public class EditMode : MonoBehaviour
     
     public void save() //저장버튼
     {
-        Debug.Log("테라리움 저장 (나중에 수정하기)");
+        Debug.Log("저장");
+        //tempbox에 들어있는 아이템들의 종류와 좌표를 데이터베이스에 저장해야 합니다
         isEditMode = false;
     }
 
     public void cancel() //취소버튼
     {
-        Debug.Log("저장 취소 (나중에 수정하기)");
+        Debug.Log("취소");
+        //데이터베이스에 저장된 아이템을 tempbox로 불러오는 기능을 구현해야 합니다
         isEditMode = false;
     }
 }

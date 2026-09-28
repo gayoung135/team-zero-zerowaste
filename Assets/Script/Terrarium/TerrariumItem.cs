@@ -6,9 +6,10 @@ public class TerrariumItem : MonoBehaviour, IDragHandler
     public GameObject UI;
     private EditMode manager;
     private GameObject EditUI;
+    private GameObject PreviewUI;
     private RectTransform rectTransform;
     private Canvas canvas;
-    bool isItemEditmode = false;
+    private bool isItemEditmode = false;
 
     void Awake()
     {
@@ -23,6 +24,8 @@ public class TerrariumItem : MonoBehaviour, IDragHandler
         if (!manager.isEditMode) return;
         UI.SetActive(true);
         EditUI.SetActive(false);
+        PreviewUI = GameObject.Find("Preview");
+        if(PreviewUI!=null) PreviewUI.SetActive(false);
         isItemEditmode = true;
     }
 
