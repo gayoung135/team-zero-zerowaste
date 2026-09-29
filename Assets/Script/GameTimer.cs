@@ -112,53 +112,73 @@ public class GameTimer : MonoBehaviour
     }
 
     // 설정창에서 '그만하기' 눌렀을 때 호출될 함수
-    public void QuitGameAndSaveScore()
+public void QuitGameAndSaveScore()
+{
+    if (totalScoreText != null)
+        totalScoreText.text = score.ToString();
+
+    if (logScoreText != null)
+        logScoreText.text = score.ToString();
+
+    // 로그 내용 표시
+    if (logContentText != null && UGSManager.Instance != null)
     {
-        if (totalScoreText != null) totalScoreText.text = score.ToString();
-        if (logScoreText != null) logScoreText.text = score.ToString();
+        logContentText.text = "";
 
-        if (logContentText != null && UGSManager.Instance != null)
+        foreach (var log in UGSManager.Instance.currentSessionLogs)
         {
-            logContentText.text = "";
-            foreach (var log in UGSManager.Instance.currentSessionLogs)
-            {
-                string resultIcon = log.isCorrect ? "[정답]" : "[오답]";
-                logContentText.text += $"[{log.trashName}] {log.userAnswer} 선택 -> {resultIcon}\n";
-            }
+            // DB에서 받아온 최신 로그 내용 사용
+            logContentText.text += $"{log.reason}\n\n";
         }
-
-        audioSource.Stop();
-        audioSource.PlayOneShot(GameoverSound);
-
-        // 게임 결과 및 코인 데이터 처리
-        ProcessGameOverData();
-
-        if (gameOverCanvas != null) gameOverCanvas.SetActive(true);
-        Time.timeScale = 0f;
     }
+
+    audioSource.Stop();
+    audioSource.PlayOneShot(GameoverSound);
+
+    // 게임 중단이므로 기본 재화 5 지급
+    ProcessGameOverData(true);
+
+    if (gameOverCanvas != null)
+        gameOverCanvas.SetActive(true);
+
+    Time.timeScale = 0f;
+}
 
     // 게임오버 시 코인 계산, UI 반영 및 UGS 업로드를 통합 처리하는 전용 함수
-    private void ProcessGameOverData()
+private void ProcessGameOverData(bool isQuit = false)
+{
+    if (!isGameOverUploaded)
     {
-        if (!isGameOverUploaded)
+        isGameOverUploaded = true;
+
+        int earnedCoins;
+
+        // 게임 중단 시에는 무조건 기본 재화 5
+        if (isQuit)
         {
-            isGameOverUploaded = true;
-            int earnedCoins;
+            earnedCoins = 5;
+        }
+        // 정상 게임오버
+        else
+        {
+            // 점수 기반 획득 코인 계산
+            if (score <= 0)
+                earnedCoins = 5;
+            else
+                earnedCoins = (int)(score * 0.5f);
+        }
 
-            // 1. 점수 기반 획득 코인 계산 (점수 x 0.5, 0점 이하 시 참여금 5코인)
-            if (score <= 0) earnedCoins = 5; // 0점 이하 참여금 5코인
-            else earnedCoins = (int)(score * 0.5f); // 소수점 버림 자동 적용
+        // UI 표시
+        if (totalCoinText != null)
+            totalCoinText.text = $"얻은재화: {earnedCoins}";
 
-            // 2. UI 표시 (얻은재화: 숫자 형식)
-            if (totalCoinText != null) totalCoinText.text = $"얻은재화: {earnedCoins}";
-
-            // 3. UGS 서버에 코인 누적 세이브 및 플레이 결과 업로드
-            if (UGSManager.Instance != null)
-            {
-                UGSManager.Instance.gameScore = score;
-                UGSManager.Instance.EarnCoins(earnedCoins);
-                UGSManager.Instance.UploadGameResult();
-            }
+        // UGS 서버에 코인 누적 세이브 및 플레이 결과 업로드
+        if (UGSManager.Instance != null)
+        {
+            UGSManager.Instance.gameScore = score;
+            UGSManager.Instance.EarnCoins(earnedCoins);
+            UGSManager.Instance.UploadGameResult();
         }
     }
+}
 }
