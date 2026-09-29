@@ -22,7 +22,8 @@ public class EditMode : MonoBehaviour
 
     void Start()
     {
-        ShowBasicUI();
+        rectTransform = GetComponent<RectTransform>();
+        //나중에 아이템 불러오는 코드 이 아래에 추가하기
     }
 
     // 1. 메인 화면
@@ -39,90 +40,24 @@ public class EditMode : MonoBehaviour
     public void EditModeOn()
     {
         isEditMode = true;
-
-        if (basicUI != null) basicUI.SetActive(false);
-        if (editUI != null) editUI.SetActive(true);
-        if (previewEditButton != null) previewEditButton.SetActive(false);
-
-        UpdateEmptyMessage();
+    }
+    
+    public void save() //저장버튼
+    {
+        Debug.Log("저장");
+        //tempbox에 들어있는 아이템들의 종류와 좌표를 데이터베이스에 저장해야 합니다
+        isEditMode = false;
     }
 
     // 3. [PREVIEW] 버튼 클릭 시 (관상 모드)
     public void OnClickPreview()
     {
-        TerrariumItem currentItem = FindObjectOfType<TerrariumItem>();
-        if (currentItem != null) currentItem.check();
-
+        Debug.Log("취소");
+        //데이터베이스에 저장된 아이템을 tempbox로 불러오는 기능을 구현해야 합니다
         isEditMode = false;
 
         if (basicUI != null) basicUI.SetActive(false);
         if (editUI != null) editUI.SetActive(false);
         if (previewEditButton != null) previewEditButton.SetActive(true); 
-    }
-
-    // [SAVE] 저장 버튼
-    public void save()
-    {
-        Debug.Log("테라리움 저장 완료");
-
-        TerrariumItem[] items = itemParent.GetComponentsInChildren<TerrariumItem>();
-        foreach (TerrariumItem item in items)
-        {
-            item.check();
-        }
-
-        ShowBasicUI();
-    }
-
-    // [CANCEL] 취소 버튼 (저장 안 하고 롤백)
-    public void cancel()
-    {
-        Debug.Log("저장 취소: 임시 아이템 파괴 및 슬롯 복구");
-
-        TerrariumItem[] currentItems = itemParent.GetComponentsInChildren<TerrariumItem>();
-        foreach (TerrariumItem item in currentItems)
-        {
-            if (item.originSlot != null)
-            {
-                item.originSlot.SetActive(true);
-            }
-            Destroy(item.gameObject);
-        }
-
-        ShowBasicUI();
-    }
-
-    // 하단바 아이템 클릭 시 소환
-    public TerrariumItem itemClick(Sprite itemSprite, string itemName)
-    {
-        if (itemPrefab == null || itemParent == null) return null;
-
-        GameObject newItem = Instantiate(itemPrefab, itemParent.transform);
-        RectTransform rect = newItem.GetComponent<RectTransform>();
-        if (rect != null) rect.anchoredPosition = Vector2.zero;
-
-        newItem.name = itemName;
-        Image newImage = newItem.GetComponent<Image>();
-        if (newImage != null) newImage.sprite = itemSprite;
-
-        TerrariumItem item = newItem.GetComponent<TerrariumItem>();
-        if (item != null)
-        {
-            item.EditItem();
-        }
-
-        return item;
-    }
-
-    // Empty 문구 스마트 갱신
-    public void UpdateEmptyMessage()
-    {
-        if (emptyText != null && itemBarPanel != null)
-        {
-            Canvas.ForceUpdateCanvases();
-            ItemListButton[] activeSlots = itemBarPanel.GetComponentsInChildren<ItemListButton>(false);
-            bool isEmpty = (activeSlots.Length == 0);
-            emptyText.SetActive(isEmpty);
-        }
     }
 }
