@@ -51,10 +51,7 @@ public class ShopItemData
     [Tooltip("아이템 가격 (코인)")]
     public int price;                  // 예) 70
     
-    [Tooltip("상점 말풍선 안내 문구")]
-    public string tooltip_text;        // 예) This item is 70 coin
-    
-    [Tooltip("품절 여부 (단일 해금 아이템일 경우 사용)")]
+    [Tooltip("품절 여부")]
     public bool is_sold_out;           // false / true
 }
 

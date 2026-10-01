@@ -14709,87 +14709,78 @@ MonoBehaviour:
   - item_id: ITEM_001
     item_name: Bottle1
     price: 70
-    tooltip_text: This item is 70 coin
     is_sold_out: 0
   - item_id: ITEM_002
     item_name: Bottle2
     price: 80
-    tooltip_text: This item is 80 coin.
     is_sold_out: 0
   - item_id: ITEM_003
     item_name: Mushroom
     price: 120
-    tooltip_text: This item is 120 coin.
     is_sold_out: 0
   - item_id: ITEM_004
     item_name: Frog
     price: 150
-    tooltip_text: This item is 150 coin.
     is_sold_out: 0
   - item_id: ITEM_005
     item_name: Snail
     price: 100
-    tooltip_text: This item is 100 coin.
     is_sold_out: 0
   - item_id: ITEM_006
     item_name: Leaves
     price: 60
-    tooltip_text: This item is 60 coin.
     is_sold_out: 0
   - item_id: ITEM_007
     item_name: Acorn
     price: 70
-    tooltip_text: This item is 70 coin.
     is_sold_out: 0
   - item_id: ITEM_008
     item_name: Snowman
     price: 200
-    tooltip_text: This item is 200 coin.
     is_sold_out: 0
   - item_id: ITEM_009
     item_name: IceCream
     price: 150
-    tooltip_text: This item is 150 coin.
     is_sold_out: 0
   - item_id: ITEM_010
     item_name: GinkgoLeaf
     price: 50
-    tooltip_text: This item is 50 coin.
     is_sold_out: 0
   - item_id: ITEM_011
     item_name: Quartz
     price: 300
-    tooltip_text: This item is 300 coin.
     is_sold_out: 0
   - item_id: ITEM_012
     item_name: DragonFly
     price: 100
-    tooltip_text: This item is 100 coin.
     is_sold_out: 0
   - item_id: ITEM_013
     item_name: Leaf
     price: 50
-    tooltip_text: This item is 50 coin.
     is_sold_out: 0
   - item_id: ITEM_014
     item_name: Pumpkin
     price: 130
-    tooltip_text: This item is 130 coin.
     is_sold_out: 0
   - item_id: ITEM_015
     item_name: CherryBlossom
     price: 150
-    tooltip_text: This item is 150 coin.
     is_sold_out: 0
   - item_id: ITEM_016
-    item_name: GinkgoLeaf2
-    price: 50
-    tooltip_text: This item is 50 coin.
-    is_sold_out: 0
-  - item_id: ITEM_017
     item_name: Coral
     price: 140
-    tooltip_text: This item is 140 coin.
+    is_sold_out: 0
+  - item_id: ITEM_017
+    item_name: Stone
+    price: 90
+    is_sold_out: 0
+  - item_id: ITEM_018
+    item_name: BonFire
+    price: 170
+    is_sold_out: 0
+  - item_id: ITEM_019
+    item_name: Stub
+    price: 100
     is_sold_out: 0
 --- !u!4 &1824627793
 Transform:
