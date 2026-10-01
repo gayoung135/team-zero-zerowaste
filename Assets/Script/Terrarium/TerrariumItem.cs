@@ -53,7 +53,7 @@ public class TerrariumItem : MonoBehaviour, IDragHandler
         if (UI != null) UI.SetActive(false);
         isItemEditmode = false;
 
-        if (manager != null) manager.UpdateEmptyMessage();
+        // if (manager != null) manager.UpdateEmptyMessage();
     }
 
     public void Rotation()
@@ -79,7 +79,7 @@ public class TerrariumItem : MonoBehaviour, IDragHandler
         // 3. Empty 문구 즉시 갱신 (슬롯이 들어왔으므로 문구 비활성화)
         if (manager != null)
         {
-            manager.UpdateEmptyMessage();
+            //manager.UpdateEmptyMessage();
         }
 
         // 4. 오브젝트 파괴

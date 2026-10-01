@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: 2a7e153c1756a2647a90278334a7472e
-=======
 guid: c9e5244b04906754789d761f2c80f52d
->>>>>>> e476ab243bc770c850f825d43403dcc837f23bdb
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,11 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-<<<<<<< HEAD
-  spriteMode: 2
-=======
   spriteMode: 1
->>>>>>> e476ab243bc770c850f825d43403dcc837f23bdb
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -103,42 +95,12 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-<<<<<<< HEAD
-    sprites:
-    - serializedVersion: 2
-      name: YellowReverseCircleButton_0
-      rect:
-        serializedVersion: 2
-        x: 13
-        y: 20
-        width: 615
-        height: 604
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 314f4bc99eecd8147932719520523cb2
-      internalID: 1433262815
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-=======
     sprites: []
->>>>>>> e476ab243bc770c850f825d43403dcc837f23bdb
     outline: []
     customData: 
     physicsShape: []
     bones: []
-<<<<<<< HEAD
-    spriteID: be3869c142e5d5f4bab01e8a2ec57276
-=======
     spriteID: 5e97eb03825dee720800000000000000
->>>>>>> e476ab243bc770c850f825d43403dcc837f23bdb
     internalID: 0
     vertices: []
     indices: 
@@ -147,12 +109,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-<<<<<<< HEAD
-    nameFileIdTable:
-      YellowReverseCircleButton_0: 1433262815
-=======
     nameFileIdTable: {}
->>>>>>> e476ab243bc770c850f825d43403dcc837f23bdb
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

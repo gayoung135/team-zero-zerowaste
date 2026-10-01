@@ -113,11 +113,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-<<<<<<< HEAD
-  m_Sprite: {fileID: 1433262815, guid: 2a7e153c1756a2647a90278334a7472e, type: 3}
-=======
   m_Sprite: {fileID: 21300000, guid: c9e5244b04906754789d761f2c80f52d, type: 3}
->>>>>>> e476ab243bc770c850f825d43403dcc837f23bdb
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -406,7 +402,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TerrariumItem
   UI: {fileID: 805945015370976945}
-  originSlot: {fileID: 0}
 --- !u!114 &1574363026406212265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -529,11 +524,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-<<<<<<< HEAD
-  m_Sprite: {fileID: 786059105, guid: 22ec653c1dbf165449d6f6ece5546418, type: 3}
-=======
   m_Sprite: {fileID: 21300000, guid: 57bc8fb0a8988c74699e2e3eddfb4679, type: 3}
->>>>>>> e476ab243bc770c850f825d43403dcc837f23bdb
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

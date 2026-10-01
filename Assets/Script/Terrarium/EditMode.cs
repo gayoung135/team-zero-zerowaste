@@ -22,7 +22,7 @@ public class EditMode : MonoBehaviour
 
     void Start()
     {
-        rectTransform = GetComponent<RectTransform>();
+        //rectTransform = GetComponent<RectTransform>();
         //나중에 아이템 불러오는 코드 이 아래에 추가하기
     }
 
