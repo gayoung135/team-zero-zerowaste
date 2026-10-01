@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 22ec653c1dbf165449d6f6ece5546418
+=======
+guid: 57bc8fb0a8988c74699e2e3eddfb4679
+>>>>>>> e476ab243bc770c850f825d43403dcc837f23bdb
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +47,11 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
+<<<<<<< HEAD
   spriteMode: 2
+=======
+  spriteMode: 1
+>>>>>>> e476ab243bc770c850f825d43403dcc837f23bdb
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -95,6 +103,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
+<<<<<<< HEAD
     sprites:
     - serializedVersion: 2
       name: RedCancleCircleButton_0
@@ -118,11 +127,18 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+=======
+    sprites: []
+>>>>>>> e476ab243bc770c850f825d43403dcc837f23bdb
     outline: []
     customData: 
     physicsShape: []
     bones: []
+<<<<<<< HEAD
     spriteID: 6ea042fee5186c14a99f2af796ab1c46
+=======
+    spriteID: 5e97eb03825dee720800000000000000
+>>>>>>> e476ab243bc770c850f825d43403dcc837f23bdb
     internalID: 0
     vertices: []
     indices: 
@@ -131,8 +147,12 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
+<<<<<<< HEAD
     nameFileIdTable:
       RedCancleCircleButton_0: 786059105
+=======
+    nameFileIdTable: {}
+>>>>>>> e476ab243bc770c850f825d43403dcc837f23bdb
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

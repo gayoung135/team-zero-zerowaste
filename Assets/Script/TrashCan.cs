@@ -26,6 +26,9 @@ public class TrashCan : MonoBehaviour
         string correctBinKorean = (correctTag == "Recyclable") ? "재활용 쓰레기통" : "일반 쓰레기통";
         string tipMessage = isCorrect ? $"{trashName}은(는) [{correctBinKorean}]에 버려야 합니다." : "올바르게 분리배출 했습니다!";
 
+        TrashGuideData dbData = other.GetComponent<TrashObject>()?.GetMyData();  //추가
+        if (speechBubbleController != null) speechBubbleController.ShowBubbleWithTip(dbData?.tip_ingame); //추가
+
         if (isCorrect) 
         { 
             Debug.Log($"정답! [{correctTag}] 쓰레기를 올바른 쓰레기통에 넣었습니다! 점수 +10!");
