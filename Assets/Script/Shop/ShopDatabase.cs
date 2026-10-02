@@ -1,13 +1,26 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class ShopDatabase : MonoBehaviour
 {
     public TextMeshProUGUI CoinText; //코인 텍스트
-    public Transform Shop; //상점 아이템들 들어있는 객체
+    public Transform Shop; //상점 아이템들 들어갈 객체
+    public GameObject shopItemPrefab; //상점 아이템 프리팹
 
-    void Start()
+    void Awake()
     {
+        foreach (ShopItemData item in GameDBManager.Instance.shopItemMasterDB) //아이템 불러오기
+        {
+            GameObject shopItem = Instantiate(shopItemPrefab, Shop);
+            ShopItem shopItemScript = shopItem.GetComponent<ShopItem>();
+            if (shopItemScript != null)
+            {
+                shopItemScript.ItemID = item.item_id;
+                Image image = shopItem.GetComponentInChildren<Image>();
+                if (image != null) image.sprite = item.item_image;
+            }
+        }
         Setting();
     }
 

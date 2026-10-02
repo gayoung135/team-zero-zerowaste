@@ -42,17 +42,11 @@ public class TrashGuideData
 [System.Serializable]
 public class ShopItemData
 {
-    [Tooltip("아이템 고유 ID")]
-    public string item_id;             // 예) ITEM_1
-    
-    [Tooltip("아이템 영문명")]
-    public string item_name;           // 예) Bottle
-    
-    [Tooltip("아이템 가격 (코인)")]
-    public int price;                  // 예) 70
-    
-    [Tooltip("품절 여부")]
-    public bool is_sold_out;           // false / true
+    public string item_id; //아이템 고유 ID
+    public string item_name; //아이템 영문명
+    public int price; //아이템 가격
+    public Sprite item_image; //아이템 이미지
+    public bool is_sold_out; // 품절여부 
 }
 
 public class GameDBManager : MonoBehaviour
