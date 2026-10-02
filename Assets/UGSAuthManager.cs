@@ -10,6 +10,11 @@ public class UGSAuthManager : MonoBehaviour
     public GameObject loginPopup;
     public GameObject startUI;
 
+    [Space(5)]
+    [Header("[저장 관련 UI 시스템 확장]")]
+    [Tooltip("Do you want to save? 라고 뜨는 저장 확인 패널 오브젝트 연결")]
+    public GameObject savePopup;
+
     [Space(10)]
     [Header("[회원가입 전용 UI 입력창]")]
     public TMP_InputField signupEmailInput;
@@ -24,12 +29,12 @@ public class UGSAuthManager : MonoBehaviour
 
     [Space(10)]
     [Header("[로그인 컴포넌트들 직접 연동]")]
-    [Tooltip("유니티 인스펙터에서 하이어라키의 Login_Button을 드래그해서 연결하세요.")]
+    [Tooltip("유니티 인스펙터에서 하이어라키의 Login_Button 연결")]
     public Button loginButton;
 
     [Space(10)]
     [Header("[로그인 기억하기 UI 연동]")]
-    [Tooltip("유니티 인스펙터에서 토글 버튼이나 체크박스(Toggle) 컴포넌트를 연결하세요.")]
+    [Tooltip("유니티 인스펙터에서 토글 버튼이나 체크박스(Toggle) 컴포넌트 연결")]
     public Toggle rememberMeToggle;
 
     private bool isRememberMeOn = false;
@@ -40,7 +45,7 @@ public class UGSAuthManager : MonoBehaviour
         {
             loginButton.onClick.RemoveAllListeners();
             loginButton.onClick.AddListener(OnClickSignIn);
-            Debug.Log("[이벤트 성공] 인스펙터로 연결된 로그인 버튼(Login_Button) 활성화 완료!");
+            Debug.Log("[이벤트 성공] 인스펙터로 연결된 로그인 버튼 활성화 완료!");
         }
         else
         {
@@ -90,6 +95,59 @@ public class UGSAuthManager : MonoBehaviour
     public void ToggleLoginPopup(bool show)
     {
         if (loginPopup != null) loginPopup.SetActive(show);
+    }
+
+    public void OnClickSaveButton()
+    {
+        if (UGSManager.Instance == null)
+        {
+            Debug.LogError("[상태 체크 에러] UGSManager를 찾을 수 없습니다.");
+            return;
+        }
+
+        // 1. 이미 로그인이 완료된 상태라면 -> 저장 확인 팝업 오픈
+        if (UGSManager.Instance.isLoggedIn)
+        {
+            if (loginPopup != null) loginPopup.SetActive(false);
+
+            if (savePopup != null)
+            {
+                savePopup.SetActive(true);
+                Debug.Log("[UI 분기 성공] 로그인 상태이므로 세이브 확인 창을 활성화합니다.");
+            }
+            else
+            {
+                Debug.LogError("[링크 누락] savePopup 변수가 유니티 인스펙터 창에 등록되지 않았습니다!");
+            }
+        }
+        // 2. 로그인이 안 되어 있는 상태라면 -> 기존 로그인 팝업 오픈
+        else
+        {
+            if (savePopup != null) savePopup.SetActive(false);
+
+            if (loginPopup != null)
+            {
+                loginPopup.SetActive(true);
+                Debug.Log("[UI 분기 성공] 로그아웃 상태이므로 로그인 유도 창을 활성화합니다.");
+            }
+        }
+    }
+
+    public void OnClickSaveYes()
+    {
+        if (UGSManager.Instance != null)
+        {
+            UGSManager.Instance.SaveUserData();
+            Debug.Log("[클라우드 데이터 저장 완료] 코인 데이터가 성공적으로 서버에 업로드되었습니다.");
+        }
+
+        if (savePopup != null) savePopup.SetActive(false);
+    }
+
+    public void OnClickSaveNo()
+    {
+        Debug.Log("[저장 취소] 유저가 저장 취소를 선택하여 팝업을 닫습니다.");
+        if (savePopup != null) savePopup.SetActive(false);
     }
 
     // UI 체크박스(Toggle)시 호출되어 상태 동기화
@@ -239,7 +297,6 @@ public class UGSAuthManager : MonoBehaviour
         }
     }
 
-
     // 모든 InputField창의 텍스트 컴포넌트 폰트 크기 코드로
     private void SetInputFieldTextSize(float minSize, float maxSize)
     {
@@ -262,6 +319,7 @@ public class UGSAuthManager : MonoBehaviour
                 TMP_Text placeholderText = field.placeholder.GetComponent<TMP_Text>();
                 if (placeholderText != null)
                 {
+
                     placeholderText.enableAutoSizing = true;
                     placeholderText.fontSizeMin = minSize;
                     placeholderText.fontSizeMax = maxSize;
