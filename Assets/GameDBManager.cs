@@ -110,10 +110,15 @@ public class GameDBManager : MonoBehaviour
     /// <summary>
     /// 서버(UGS)에서 계정 정보를 로드해왔을 때 이 로컬 DB에 인벤토리를 주입/동기화
     /// </summary>
+    /// 
+    /// 김나연 남김: 아래 코드들은 개수 대신 is_sold_out을 저장하는걸로 바꿔주세요
+    /// 현재는 서버에 저장되지 않아 아래 코드들이 작동하지 않습니다
+    /// 나중에 수정해주세요
     public void SyncInventoryFromServer(List<string> itemIdsFromServer)
     {
         userOwnedInventory.Clear();
         if (itemIdsFromServer == null) return;
+        Debug.Log("아이템 불러오기 완료");
 
         foreach (string id in itemIdsFromServer)
         {
