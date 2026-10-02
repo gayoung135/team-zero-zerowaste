@@ -2634,31 +2634,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 242049619}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1949659884}
-        m_TargetAssemblyTypeName: UGSAuthManager, Assembly-CSharp
-        m_MethodName: OnClickSignIn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1583414134}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &242049619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6934,6 +6910,60 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 745837440}
   m_CullTransparentMesh: 1
+--- !u!1 &749088100
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 749088102}
+  - component: {fileID: 749088101}
+  m_Layer: 0
+  m_Name: UGSAuthManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &749088101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749088100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b22b808c7b5e64ca959e854dca10f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UGSAuthManager
+  loginPopup: {fileID: 1675163138}
+  startUI: {fileID: 1583414134}
+  signupEmailInput: {fileID: 480345666}
+  signupIdInput: {fileID: 2096902663}
+  signupPasswordInput: {fileID: 285563567}
+  signupConfirmPasswordInput: {fileID: 395684622}
+  signinEmailInput: {fileID: 209009925}
+  signinPasswordInput: {fileID: 514857609}
+  loginButton: {fileID: 242049618}
+  rememberMeToggle: {fileID: 1399087249}
+--- !u!4 &749088102
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749088100}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 921.08844, y: 450.37048, z: -0.05219}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &749774054
 GameObject:
   m_ObjectHideFlags: 0
@@ -11468,7 +11498,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1949659884}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UGSAuthManager, Assembly-CSharp
         m_MethodName: OnClickToggleRememberMe
         m_Mode: 1
@@ -13565,7 +13595,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1949659884}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UGSAuthManager, Assembly-CSharp
         m_MethodName: OnClickForgotPassword
         m_Mode: 1
@@ -14126,19 +14156,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1744714623}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1949659884}
-        m_TargetAssemblyTypeName: UGSAuthManager, Assembly-CSharp
-        m_MethodName: OnClickSignUp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1744714623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15459,7 +15477,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1949659883}
   - component: {fileID: 1949659882}
-  - component: {fileID: 1949659884}
   m_Layer: 0
   m_Name: UGSManager
   m_TagString: Untagged
@@ -15498,27 +15515,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1949659884
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1949659881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2b22b808c7b5e64ca959e854dca10f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UGSAuthManager
-  loginPopup: {fileID: 1675163138}
-  startUI: {fileID: 1583414134}
-  signupEmailInput: {fileID: 480345666}
-  signupIdInput: {fileID: 2096902663}
-  signupPasswordInput: {fileID: 285563567}
-  signupConfirmPasswordInput: {fileID: 395684622}
-  signinEmailInput: {fileID: 209009925}
-  signinPasswordInput: {fileID: 514857609}
-  rememberMeToggle: {fileID: 1399087249}
 --- !u!1 &1958933920
 GameObject:
   m_ObjectHideFlags: 0
@@ -16606,3 +16602,4 @@ SceneRoots:
   - {fileID: 1949659883}
   - {fileID: 1207606426}
   - {fileID: 1824627793}
+  - {fileID: 749088102}
