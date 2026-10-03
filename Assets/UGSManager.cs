@@ -19,7 +19,6 @@ public class UGSManager : MonoBehaviour
 {
     public static UGSManager Instance { get; private set; }
     
-    // 외부(UGSAuthManager)에서 참조할 수 있도록 프로퍼티 수정
     public bool IsUGSReady { get; private set; } = false;
 
     [Header("Player Status")]
@@ -56,7 +55,6 @@ public class UGSManager : MonoBehaviour
         }
     }
 
-    // AuthManager에서 로그인 상태를 변경할 수 있도록 제공하는 메서드
     public void SetLoggedIn(bool state)
     {
         isLoggedIn = state;
@@ -99,16 +97,52 @@ public class UGSManager : MonoBehaviour
         }
     }
 
+    public async void SaveSoldOutItems(List<string> soldOutItemIds)
+    {
+        if (!IsUGSReady || !isLoggedIn || soldOutItemIds == null) return;
+        try
+        {
+            var targetData = new Dictionary<string, object> { { "sold_out_items", soldOutItemIds } };
+            await CloudSaveService.Instance.Data.Player.SaveAsync(targetData);
+            Debug.Log("[UGS] 품절 아이템 데이터가 서버에 안전하게 세이브되었습니다.");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("[UGS] 품절 아이템 데이터 세이브 실패: " + e.Message);
+        }
+    }
+
     public async void LoadUserData()
     {
         if (!IsUGSReady || !isLoggedIn) return;
         try
         {
-            var savedData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "coins" });
+            // 한 번에 두 가지 방(coins, sold_out_items) 데이터 요청
+            var savedData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "coins", "sold_out_items" });
+            
+            // 1. 코인 복원
             if (savedData.TryGetValue("coins", out var coinItem))
             {
                 currentCoins = coinItem.Value.GetAs<int>();
                 Debug.Log($"서버에서 데이터 로드 완료! 현재 코인: {currentCoins}");
+            }
+
+            // 2. 품절 아이템 데이터 복원 및 GameDBManager 동기화 연동
+            if (savedData.TryGetValue("sold_out_items", out var itemLog))
+            {
+                List<string> serverSoldOutList = itemLog.Value.GetAs<List<string>>();
+                if (GameDBManager.Instance != null && serverSoldOutList != null)
+                {
+                    GameDBManager.Instance.SyncInventoryFromServer(serverSoldOutList);
+                }
+            }
+            else
+            {
+                // 저장된 품절 기록이 아예 없는 신규 유저의 경우 초기화 처리 보장
+                if (GameDBManager.Instance != null)
+                {
+                    GameDBManager.Instance.SyncInventoryFromServer(new List<string>());
+                }
             }
         }
         catch (Exception e)
@@ -169,6 +203,7 @@ public class UGSManager : MonoBehaviour
             Debug.LogError("[UGS] 게임 결과 업로드 실패: " + e.Message);
         }
     }
+
     public void SignOut()
     {
         try
