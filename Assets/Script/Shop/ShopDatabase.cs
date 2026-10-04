@@ -1,12 +1,15 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections;
 
 public class ShopDatabase : MonoBehaviour
 {
     public TextMeshProUGUI CoinText; //코인 텍스트
     public Transform Shop; //상점 아이템들 들어갈 객체
     public GameObject shopItemPrefab; //상점 아이템 프리팹
+    public GameObject message; //메세지창
+    public TextMeshProUGUI messageText; //메세지 텍스트창
 
     void Awake()
     {
@@ -48,5 +51,18 @@ public class ShopDatabase : MonoBehaviour
                 shopItem.buyButton.interactable = true;
             }
         }
+    }
+
+    public void Message(string t) //메세지 띄우기
+    {
+        messageText.text = t;
+        message.SetActive(true);
+        StartCoroutine(HideMessage());
+    }
+
+    IEnumerator HideMessage() //메세지 지우기
+    {
+        yield return new WaitForSeconds(3f);
+        message.SetActive(false);
     }
 }

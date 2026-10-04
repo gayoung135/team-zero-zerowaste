@@ -4560,8 +4560,6 @@ MonoBehaviour:
   PriceText: {fileID: 1971320760}
   content: {fileID: 805582237}
   ReceiptText: {fileID: 6164974834902104641, guid: 367b0560266d1d14cb7aec68461d6d0d, type: 3}
-  Message: {fileID: 2132478210}
-  MessageText: {fileID: 1773022269}
   shopDatabase: {fileID: 2103535443}
 --- !u!1 &1234260254
 GameObject:
@@ -6259,18 +6257,6 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: Receipt, Assembly-CSharp
         m_MethodName: BuyItem
         m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1213766985}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8413,6 +8399,8 @@ MonoBehaviour:
   CoinText: {fileID: 1884084162}
   Shop: {fileID: 400855499}
   shopItemPrefab: {fileID: 3405102908611113236, guid: d413d9a6590e72e4b86fbf9b16a8bffd, type: 3}
+  message: {fileID: 2132478210}
+  messageText: {fileID: 1773022269}
 --- !u!1 &2114385242
 GameObject:
   m_ObjectHideFlags: 0

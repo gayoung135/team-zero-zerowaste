@@ -8,32 +8,14 @@ using UnityEngine;
 [System.Serializable]
 public class TrashGuideData
 {
-    [Tooltip("쓰레기 고유 고유식별 Key")]
-    public string id;                  // 예) apple_core, pet_bottle
-    
-    [Tooltip("올바른 쓰레기통 ID (1: 초록, 2: 파란 등)")]
-    public int correct_bin_id;         // 예) 1, 2
-    
-    [Tooltip("쓰레기 이름")]
-    public string trash_name;          // 예) 사과, 페트병
-    
-    [Tooltip("대분류")]
-    public string category;            // 예) Food waste, Plastic
-    
-    [Tooltip("소분류/상세")]
-    public string subcategory;         // 예) 과일류, 페트류
-    
-    [Tooltip("오답인 경우 출력할 메시지")]
-    [TextArea(2, 4)]
-    public string log_wrong;           // 예) 사과는 재활용 쓰레기가 아닙니다. 음식물 쓰레기입니다.
-    
-    [Tooltip("정답인 경우 출력할 메시지")]
-    [TextArea(2, 4)]
-    public string log_correct;         // 예) 사과는 음식물 쓰레기가 맞습니다.
-    
-    [Tooltip("인게임 올바른 분류 팁")]
-    [TextArea(2, 4)]
-    public string tip_ingame;          // 예) 수분을 최대한 제거하고 버려주세요.
+    public string id;                  
+    public int correct_bin_id;         
+    public string trash_name;          
+    public string category;            
+    public string subcategory;         
+    [TextArea(2, 4)] public string log_wrong;           
+    [TextArea(2, 4)] public string log_correct;         
+    [TextArea(2, 4)] public string tip_ingame;          
 }
 
 // ==========================================
@@ -42,11 +24,11 @@ public class TrashGuideData
 [System.Serializable]
 public class ShopItemData
 {
-    public string item_id; //아이템 고유 ID
-    public string item_name; //아이템 영문명
-    public int price; //아이템 가격
-    public Sprite item_image; //아이템 이미지
-    public bool is_sold_out; // 품절여부 
+    public string item_id; 
+    public string item_name; 
+    public int price; 
+    public Sprite item_image; 
+    public bool is_sold_out;
 }
 
 public class GameDBManager : MonoBehaviour
@@ -54,15 +36,8 @@ public class GameDBManager : MonoBehaviour
     public static GameDBManager Instance { get; private set; }
 
     [Header("[마스터 DB 소스]")]
-    [Tooltip("유니티 인스펙터에서 전체 쓰레기 리스트를 작성합니다.")]
     public List<TrashGuideData> trashGuideMasterDB = new List<TrashGuideData>();
-    
-    [Tooltip("유니티 인스펙터에서 전체 상점 물품 리스트를 작성합니다.")]
     public List<ShopItemData> shopItemMasterDB = new List<ShopItemData>();
-
-    [Header("[로그인 유저 실시간 인벤토리 DB]")]
-    // Key: item_id, Value: 보유 개수 (서버 저장용 리스트와 연동 예정)
-    private Dictionary<string, int> userOwnedInventory = new Dictionary<string, int>();
 
     void Awake()
     {
@@ -77,58 +52,47 @@ public class GameDBManager : MonoBehaviour
         }
     }
 
-    // ==========================================
-    // 데이터 꺼내 쓰는 활용 API 함수들
-    // ==========================================
-
-    /// <summary>
-    /// 쓰레기 Key(id)를 넘겨주면 매칭되는 모든 가이드 정보 반환 (미니게임용)
-    /// </summary>
     public TrashGuideData GetTrashData(string trashId)
     {
-        TrashGuideData data = trashGuideMasterDB.Find(t => t.id == trashId);
-        if (data == null) Debug.LogWarning($"[GameDB] 해당 쓰레기 ID가 DB에 없습니다: {trashId}");
-        return data;
+        return trashGuideMasterDB.Find(t => t.id == trashId);
     }
 
-    /// <summary>
-    /// 아이템 ID(item_id)를 넘겨주면 상점 상품 정보 반환 (상점용)
-    /// </summary>
     public ShopItemData GetShopItemData(string itemId)
     {
         ShopItemData data = shopItemMasterDB.Find(i => i.item_id == itemId);
-        if (data == null) Debug.LogWarning($"[GameDB] 해당 상품 ID가 DB에 없습니다: {itemId}");
         return data;
     }
 
-    /// <summary>
-    /// 서버(UGS)에서 계정 정보를 로드해왔을 때 이 로컬 DB에 인벤토리를 주입/동기화
-    /// </summary>
-    /// 
-    /// 김나연 남김: 아래 코드들은 개수 대신 is_sold_out을 저장하는걸로 바꿔주세요
-    /// 현재는 서버에 저장되지 않아 아래 코드들이 작동하지 않습니다
-    /// 나중에 수정해주세요
+    // 품절 아이템 상태 동기화 처리
     public void SyncInventoryFromServer(List<string> itemIdsFromServer)
     {
-        userOwnedInventory.Clear();
-        if (itemIdsFromServer == null) return;
-        Debug.Log("아이템 불러오기 완료");
+        // 모든 상품의 품절 상태 false로 초기화
+        foreach (var item in shopItemMasterDB)
+        {
+            item.is_sold_out = false;
+        }
 
+        if (itemIdsFromServer == null) return;
+        Debug.Log("서버로부터 상점 품절 아이템 목록 연동 완료");
+
+        // 서버에서 받아온 아이템 ID 배열 순회하며 DB값 true로 갱신
         foreach (string id in itemIdsFromServer)
         {
-            if (userOwnedInventory.ContainsKey(id))
-                userOwnedInventory[id]++;
-            else
-                userOwnedInventory.Add(id, 1);
+            ShopItemData item = GetShopItemData(id);
+            if (item != null)
+            {
+                item.is_sold_out = true;
+            }
         }
     }
 
-    /// <summary>
-    /// 아이템을 획득/구매했을 때 인벤토리 딕셔너리에 개수 추가
-    /// </summary>
+    // 아이템 구매 시 품절 상태 업데이트
     public void AddItemToInventory(string itemId)
     {
-        if (userOwnedInventory.ContainsKey(itemId)) userOwnedInventory[itemId]++;
-        else userOwnedInventory.Add(itemId, 1);
+        ShopItemData item = GetShopItemData(itemId);
+        if (item != null)
+        {
+            item.is_sold_out = true;
+        }
     }
 }
