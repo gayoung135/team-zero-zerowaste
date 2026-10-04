@@ -13,8 +13,11 @@ public class Receipt : MonoBehaviour
     public TextMeshProUGUI PriceText; 
     public Transform content; 
     public TextMeshProUGUI ReceiptText; 
+<<<<<<< HEAD
     public GameObject Message; 
     public TextMeshProUGUI MessageText; 
+=======
+>>>>>>> b9e632f9ae7aa0783bad34cdd5f3b4af90a97b35
     private TextMeshProUGUI currentReceiptText; 
 
     public ShopDatabase shopDatabase; 
@@ -83,6 +86,7 @@ public class Receipt : MonoBehaviour
                             soldOutList.Add(shopItem.item_id);
                         }
                     }
+<<<<<<< HEAD
 
                     UGSManager.Instance.SaveSoldOutItems(soldOutList);
                 }
@@ -111,4 +115,20 @@ public class Receipt : MonoBehaviour
         yield return new WaitForSeconds(3f);
         Message.SetActive(false);
     }
+=======
+
+                    UGSManager.Instance.SaveSoldOutItems(soldOutList);
+                }
+
+                // 4. 상점 UI 재설정
+                shopDatabase.Setting(); 
+                shopDatabase.Message("Purchase complete!");
+                Cancel(); 
+                gameObject.SetActive(false);
+            } 
+            else shopDatabase.Message("Isn't enough coin.");
+        }
+        else Debug.Log("비로그인 상태");
+    }
+>>>>>>> b9e632f9ae7aa0783bad34cdd5f3b4af90a97b35
 }
