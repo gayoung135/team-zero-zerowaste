@@ -461,8 +461,8 @@ Transform:
   m_GameObject: {fileID: 20105904}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -967.47, y: -543.02997, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalPosition: {x: -810, y: -435, z: 0}
+  m_LocalScale: {x: 51, y: 51, z: 51}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1177000992}
@@ -912,87 +912,87 @@ MonoBehaviour:
   - item_id: ITEM_001
     item_name: Bottle1
     price: 70
-    tooltip_text: This item is 70 coin
+    item_image: {fileID: 0}
     is_sold_out: 0
   - item_id: ITEM_002
     item_name: Bottle2
     price: 80
-    tooltip_text: This item is 80 coin.
+    item_image: {fileID: 0}
     is_sold_out: 0
   - item_id: ITEM_003
     item_name: Mushroom
     price: 120
-    tooltip_text: This item is 120 coin.
+    item_image: {fileID: 0}
     is_sold_out: 0
   - item_id: ITEM_004
     item_name: Frog
     price: 150
-    tooltip_text: This item is 150 coin.
+    item_image: {fileID: 0}
     is_sold_out: 0
   - item_id: ITEM_005
     item_name: Snail
     price: 100
-    tooltip_text: This item is 100 coin.
+    item_image: {fileID: 0}
     is_sold_out: 0
   - item_id: ITEM_006
     item_name: Leaves
     price: 60
-    tooltip_text: This item is 60 coin.
+    item_image: {fileID: 0}
     is_sold_out: 0
   - item_id: ITEM_007
     item_name: Acorn
     price: 70
-    tooltip_text: This item is 70 coin.
+    item_image: {fileID: 0}
     is_sold_out: 0
   - item_id: ITEM_008
     item_name: Snowman
     price: 200
-    tooltip_text: This item is 200 coin.
+    item_image: {fileID: 0}
     is_sold_out: 0
   - item_id: ITEM_009
     item_name: IceCream
     price: 150
-    tooltip_text: This item is 150 coin.
+    item_image: {fileID: 0}
     is_sold_out: 0
   - item_id: ITEM_010
     item_name: GinkgoLeaf
     price: 50
-    tooltip_text: This item is 50 coin.
+    item_image: {fileID: 0}
     is_sold_out: 0
   - item_id: ITEM_011
     item_name: Quartz
     price: 300
-    tooltip_text: This item is 300 coin.
+    item_image: {fileID: 0}
     is_sold_out: 0
   - item_id: ITEM_012
     item_name: DragonFly
     price: 100
-    tooltip_text: This item is 100 coin.
+    item_image: {fileID: 0}
     is_sold_out: 0
   - item_id: ITEM_013
     item_name: Leaf
     price: 50
-    tooltip_text: This item is 50 coin.
+    item_image: {fileID: 0}
     is_sold_out: 0
   - item_id: ITEM_014
     item_name: Pumpkin
     price: 130
-    tooltip_text: This item is 130 coin.
+    item_image: {fileID: 0}
     is_sold_out: 0
   - item_id: ITEM_015
     item_name: CherryBlossom
     price: 150
-    tooltip_text: This item is 150 coin.
+    item_image: {fileID: 0}
     is_sold_out: 0
   - item_id: ITEM_016
     item_name: GinkgoLeaf2
     price: 50
-    tooltip_text: This item is 50 coin.
+    item_image: {fileID: 0}
     is_sold_out: 0
   - item_id: ITEM_017
     item_name: Coral
     price: 140
-    tooltip_text: This item is 140 coin.
+    item_image: {fileID: 0}
     is_sold_out: 0
 --- !u!4 &104649388
 Transform:
@@ -2219,7 +2219,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 15, y: 125}
+  m_AnchoredPosition: {x: 14.999951, y: 124.99994}
   m_SizeDelta: {x: 690, y: 610}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &279823776
@@ -3793,14 +3793,14 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 635226713}
-  - {fileID: 1486698116}
-  - {fileID: 1331140465}
-  - {fileID: 838940474}
+  - {fileID: 20105906}
   - {fileID: 1622727698}
   - {fileID: 1915508705}
   - {fileID: 279823775}
+  - {fileID: 1486698116}
+  - {fileID: 1331140465}
+  - {fileID: 838940474}
   - {fileID: 1070405575}
-  - {fileID: 20105906}
   m_Father: {fileID: 1946349826}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3857,9 +3857,9 @@ Canvas:
   m_GameObject: {fileID: 550030271}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_RenderMode: 1
+  m_Camera: {fileID: 2073252925}
+  m_PlaneDistance: 1
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -4353,8 +4353,8 @@ Transform:
   m_GameObject: {fileID: 635226711}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -960.0242, y: -539.079, z: 0}
-  m_LocalScale: {x: 0.37895706, y: 0.3752472, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 40, y: 40, z: 40}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 550030272}
@@ -5480,12 +5480,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 1146228698}
     m_Modifications:
     - target: {fileID: -8837774153085666347, guid: 87a9be2a7620991a78342ef9a56fa62c, type: 3}
+      propertyPath: _landmarkRadius
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: -8837774153085666347, guid: 87a9be2a7620991a78342ef9a56fa62c, type: 3}
       propertyPath: _connectionWidth
       value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 7434967355688441420, guid: 87a9be2a7620991a78342ef9a56fa62c, type: 3}
       propertyPath: m_Name
       value: Multi HandLandmarkList Annotation
+      objectReference: {fileID: 0}
+    - target: {fileID: 7434967355688441420, guid: 87a9be2a7620991a78342ef9a56fa62c, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7434967355688441423, guid: 87a9be2a7620991a78342ef9a56fa62c, type: 3}
       propertyPath: m_LocalPosition.x
