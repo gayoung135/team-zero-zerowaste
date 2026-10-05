@@ -1,11 +1,68 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using System.Collections;
 
 public class ShopDatabase : MonoBehaviour
 {
     public TextMeshProUGUI CoinText; //코인 텍스트
-    void Start()
+    public Transform Shop; //상점 아이템들 들어갈 객체
+    public GameObject shopItemPrefab; //상점 아이템 프리팹
+    public GameObject message; //메세지창
+    public TextMeshProUGUI messageText; //메세지 텍스트창
+
+    void Awake()
     {
-        CoinText.text = UGSManager.Instance.currentCoins.ToString();
+        foreach (ShopItemData item in GameDBManager.Instance.shopItemMasterDB) //아이템 불러오기
+        {
+            GameObject shopItem = Instantiate(shopItemPrefab, Shop);
+            ShopItem shopItemScript = shopItem.GetComponent<ShopItem>();
+            if (shopItemScript != null)
+            {
+                shopItemScript.ItemID = item.item_id;
+                Image image = shopItem.GetComponentInChildren<Image>();
+                if (image != null) image.sprite = item.item_image;
+            }
+        }
+        Setting();
+    }
+
+    public void Setting()
+    {
+        CoinText.text = UGSManager.Instance.currentCoins.ToString(); //텍스트 연동
+        foreach (Transform child in Shop) //soldout 반영
+        {
+            ShopItem shopItem = child.GetComponent<ShopItem>();
+            if (shopItem == null) continue;
+
+            ShopItemData data = GameDBManager.Instance.GetShopItemData(shopItem.ItemID); // ID로 DB 검색
+
+            if (data == null) continue;
+            if (data.is_sold_out)
+            {
+                shopItem.soldOut.SetActive(true);
+                shopItem.itemImage.color = new Color(1, 1, 1, 0.5f);
+                shopItem.buyButton.interactable = false;
+            }
+            else
+            {
+                shopItem.soldOut.SetActive(false);
+                shopItem.itemImage.color = new Color(1, 1, 1, 1f);
+                shopItem.buyButton.interactable = true;
+            }
+        }
+    }
+
+    public void Message(string t) //메세지 띄우기
+    {
+        messageText.text = t;
+        message.SetActive(true);
+        StartCoroutine(HideMessage());
+    }
+
+    IEnumerator HideMessage() //메세지 지우기
+    {
+        yield return new WaitForSeconds(3f);
+        message.SetActive(false);
     }
 }
