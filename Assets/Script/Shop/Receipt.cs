@@ -5,66 +5,68 @@ using System.Collections.Generic;
 
 public class Receipt : MonoBehaviour
 {
-    int ItemPrice = 0; 
-    List<string> items = new List<string>(); 
+    int ItemPrice = 0;
+    List<string> items = new List<string>();
 
-    public Transform Shop; 
-    public TextMeshProUGUI CoinText; 
-    public TextMeshProUGUI PriceText; 
-    public Transform content; 
-    public TextMeshProUGUI ReceiptText; 
-    private TextMeshProUGUI currentReceiptText; 
+    public Transform Shop;
+    public TextMeshProUGUI CoinText;
+    public TextMeshProUGUI PriceText;
+    public Transform content;
+    public TextMeshProUGUI ReceiptText;
+    public GameObject Message;
+    public TextMeshProUGUI MessageText;
+    private TextMeshProUGUI currentReceiptText;
 
-    public ShopDatabase shopDatabase; 
-    
+    public ShopDatabase shopDatabase;
+
     public void AddItem(ShopItemData item)
     {
         items.Add(item.item_id);
         ItemPrice += item.price;
-        PriceText.text = ItemPrice.ToString()+" C";
+        PriceText.text = ItemPrice.ToString() + " C";
 
         currentReceiptText = Instantiate(ReceiptText, content);
-        currentReceiptText.text = item.item_name+" "+item.price+"C";
+        currentReceiptText.text = item.item_name + " " + item.price + "C";
         currentReceiptText.name = item.item_id;
 
-        if(items.Count == 1) gameObject.SetActive(true);
+        if (items.Count == 1) gameObject.SetActive(true);
     }
 
     public void RemoveItem(ShopItemData item)
     {
         items.Remove(item.item_id);
         ItemPrice -= item.price;
-        PriceText.text = ItemPrice.ToString()+" C";
+        PriceText.text = ItemPrice.ToString() + " C";
 
         Transform obj = content.Find(item.item_id);
         if (obj != null) Destroy(obj.gameObject);
 
-        if(items.Count == 0) gameObject.SetActive(false);
+        if (items.Count == 0) gameObject.SetActive(false);
     }
 
-    public void Cancel() 
+    public void Cancel()
     {
-        items.Clear(); 
-        ItemPrice = 0; 
-        foreach (Transform child in content) Destroy(child.gameObject); 
-        foreach (Transform child in Shop) 
+        items.Clear();
+        ItemPrice = 0;
+        foreach (Transform child in content) Destroy(child.gameObject);
+        foreach (Transform child in Shop)
         {
             ShopItem shopItem = child.GetComponent<ShopItem>();
             if (shopItem != null) shopItem.isSelect = false;
         }
     }
 
-    public void BuyItem() 
+    public void BuyItem()
     {
-        if(UGSManager.Instance != null)
+        if (UGSManager.Instance != null)
         {
-            if(ItemPrice <= UGSManager.Instance.currentCoins) 
+            if (ItemPrice <= UGSManager.Instance.currentCoins)
             {
                 // 1. 코인 차감 정산 (자동 내부 서버 세이브 발생)
-                UGSManager.Instance.EarnCoins(-ItemPrice); 
+                UGSManager.Instance.EarnCoins(-ItemPrice);
 
                 // 2. 장바구니에 담긴 아이템 로컬 DB 반영
-                foreach (string itemID in items) 
+                foreach (string itemID in items)
                 {
                     ShopItemData data = GameDBManager.Instance.GetShopItemData(itemID);
                     if (data != null) data.is_sold_out = true;
@@ -86,11 +88,11 @@ public class Receipt : MonoBehaviour
                 }
 
                 // 4. 상점 UI 재설정
-                shopDatabase.Setting(); 
+                shopDatabase.Setting();
                 shopDatabase.Message("Purchase complete!");
-                Cancel(); 
+                Cancel();
                 gameObject.SetActive(false);
-            } 
+            }
             else shopDatabase.Message("Isn't enough coin.");
         }
         else Debug.Log("비로그인 상태");
