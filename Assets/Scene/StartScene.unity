@@ -15534,9 +15534,9 @@ MonoBehaviour:
     item_image: {fileID: 21300000, guid: fe08e7112d2b98346bacf1b04972679b, type: 3}
     is_sold_out: 0
   - item_id: ITEM_010
-    item_name: GinkgoLeaf
+    item_name: OrangeLeaf
     price: 50
-    item_image: {fileID: 21300000, guid: 9ab35880eb7cc4541a2d754592785fb6, type: 3}
+    item_image: {fileID: 21300000, guid: 5846337d8e26b9c449be3db460ca283e, type: 3}
     is_sold_out: 0
   - item_id: ITEM_011
     item_name: Quartz
@@ -15582,6 +15582,21 @@ MonoBehaviour:
     item_name: Stub
     price: 100
     item_image: {fileID: 21300000, guid: c9ef0a3fc2fd73142802fa399ccb09af, type: 3}
+    is_sold_out: 0
+  - item_id: ITEM_020
+    item_name: YellowLeaf
+    price: 50
+    item_image: {fileID: 21300000, guid: 1babe567baa4ad24fb50aa7789236999, type: 3}
+    is_sold_out: 0
+  - item_id: ITEM_021
+    item_name: WateringCan
+    price: 160
+    item_image: {fileID: 21300000, guid: 00849558318b011498c0f4898ebe17fe, type: 3}
+    is_sold_out: 0
+  - item_id: ITEM_022
+    item_name: IceLeaves
+    price: 80
+    item_image: {fileID: 21300000, guid: 5ab75f5069a789c4ba9c394d8ec78919, type: 3}
     is_sold_out: 0
 --- !u!4 &1824627793
 Transform:
