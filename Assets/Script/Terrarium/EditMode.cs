@@ -14,19 +14,29 @@ public class PlacedItemData
 
 public class EditMode : MonoBehaviour
 {
+    public static EditMode Instance { get; private set; } // 싱글톤 접근자
+
     public bool isEditMode = false;
+
+    [Header("--- UI References ---")]
+    [Tooltip("아이템 바, Save, Cancel 버튼 등이 속해 있는 편집 전용 UI 전체 패널")]
+    public GameObject editUIPanel;
+
+    [Header("--- Prefabs & Parents ---")]
     public GameObject itemPrefab;
     public GameObject itemParent;
     public GameObject itemButtonPrefab;
     public Transform itemButtonParent;
     public TextMeshProUGUI NothingText;
-    private RectTransform rectTransform;
-    bool hasItem = false;
 
+    private RectTransform rectTransform;
+    private bool hasItem = false;
     private bool isClicking = false;
 
-    void Awake()
+    private void Awake()
     {
+        if (Instance == null) Instance = this;
+
         rectTransform = GetComponent<RectTransform>();
         RefreshInventoryUI();
 
@@ -37,7 +47,23 @@ public class EditMode : MonoBehaviour
         }
     }
 
-    // 인벤토리 UI 새로고침하는 로직 (로그인 완료 시에도 호출됨)
+    /// <summary>
+    /// 아이템 바, Save/Cancel 버튼 등의 표시 여부를 일괄 제어하는 함수
+    /// </summary>
+    public void SetEditUIVisibility(bool isVisible)
+    {
+        if (editUIPanel != null)
+        {
+            editUIPanel.SetActive(isVisible);
+        }
+        else
+        {
+            // editUIPanel을 인스펙터에 별도 할당하지 않은 경우 자기 자신(GameObject)을 토글
+            gameObject.SetActive(isVisible);
+        }
+    }
+
+    // 인벤토리 UI 새로고침 로직
     public void RefreshInventoryUI()
     {
         if (itemButtonParent == null) return;
@@ -54,20 +80,20 @@ public class EditMode : MonoBehaviour
         }
 
         hasItem = false;
-        foreach (ShopItemData item in GameDBManager.Instance.shopItemMasterDB) 
+        foreach (ShopItemData item in GameDBManager.Instance.shopItemMasterDB)
         {
             if (item == null) continue;
 
             if (item.is_sold_out)
             {
-                hasItem = true; 
-                
+                hasItem = true;
+
                 if (itemButtonPrefab == null) continue;
                 GameObject Item = Instantiate(itemButtonPrefab, itemButtonParent);
                 if (Item == null) continue;
 
                 Image image = Item.GetComponentInChildren<Image>();
-                if (image != null && item.item_image != null) 
+                if (image != null && item.item_image != null)
                 {
                     image.sprite = item.item_image;
                 }
@@ -97,7 +123,7 @@ public class EditMode : MonoBehaviour
         }
     }
 
-    public void itemClick(Sprite itemSprite) 
+    public void itemClick(Sprite itemSprite)
     {
         if (!isEditMode) return;
         if (itemPrefab == null || itemParent == null) return;
@@ -129,7 +155,8 @@ public class EditMode : MonoBehaviour
                     item.itemId = matchedData.item_id;
                 }
             }
-            
+
+            // [핵심] 새로운 아이템을 화면에 꺼내 편집 모드로 진입하면 아이템 바 및 Save/Cancel 버튼 숨김
             item.EditItem();
         }
 
@@ -141,12 +168,13 @@ public class EditMode : MonoBehaviour
         isClicking = false;
     }
 
-    public void EditModeOn() 
+    public void EditModeOn()
     {
         isEditMode = true;
+        SetEditUIVisibility(true);
     }
-    
-    public void save() // 저장버튼
+
+    public void save() // 저장 버튼
     {
         Debug.Log("테라리움 배치 데이터 서버 세이브 시작");
         List<PlacedItemData> layoutData = new List<PlacedItemData>();
@@ -181,10 +209,10 @@ public class EditMode : MonoBehaviour
         isEditMode = false;
     }
 
-    public void cancel() // 취소버튼
+    public void cancel() // 취소 버튼
     {
         Debug.Log("배치 취소: 클라우드 백업 데이터 복구");
-        
+
         if (itemParent == null) return;
 
         foreach (Transform child in itemParent.transform)

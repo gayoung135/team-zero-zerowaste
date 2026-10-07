@@ -3,9 +3,24 @@ using UnityEngine.UI;
 
 public class ItemListButton : MonoBehaviour
 {
+    private EditMode manager;
+    private Image buttonImage;
+
+    private void Awake()
+    {
+        buttonImage = GetComponent<Image>();
+    }
+
     public void ItemClick()
     {
-        EditMode manager = GameObject.Find("SettingsManager").GetComponent<EditMode>();
-        manager.itemClick(GetComponent<Image>().sprite);
+        if (manager == null)
+        {
+            manager = EditMode.Instance != null ? EditMode.Instance : FindObjectOfType<EditMode>(true);
+        }
+
+        if (manager != null && buttonImage != null)
+        {
+            manager.itemClick(buttonImage.sprite);
+        }
     }
 }
