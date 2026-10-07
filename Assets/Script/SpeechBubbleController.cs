@@ -13,6 +13,10 @@ public class SpeechBubbleController : MonoBehaviour
     [Header("말풍선 유지 시간(초)")]
     [SerializeField] private float displayDuration = 2f;
 
+    // 로봇 표정 제어 스크립트 참조
+    [Header("로봇 표정 컨트롤러")]
+    [SerializeField] private ImageChange robotReaction;
+
     private Coroutine hideCoroutine;
 
     private void Awake()
@@ -73,6 +77,12 @@ public class SpeechBubbleController : MonoBehaviour
         if (bubbleObject != null)
         {
             bubbleObject.SetActive(false);
+        }
+
+        //  말풍선이 꺼질 때 로봇 표정을 기본 표정으로 복구
+        if (robotReaction != null)
+        {
+            robotReaction.ResetRobot();
         }
     }
 }
