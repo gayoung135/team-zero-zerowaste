@@ -6,14 +6,14 @@ using UnityEngine.SceneManagement;
 public class TerrariumEnterGate : MonoBehaviour
 {
     [Header("--- UI References ---")]
-    [Tooltip("테라리움 이동 버튼")]
+    [Tooltip("우측 상단 '테라리움가기' (GO TERRARIUM) 버튼")]
     [SerializeField] private Button goTerrariumButton;
 
-    [Tooltip("'Please sign in to use this service.' 안내 메시지 패널")]
+    [Tooltip("'Please sign in to use this service.' 안내 메시지 패널/텍스트 오브젝트")]
     [SerializeField] private GameObject noticeMessagePanel;
 
     [Header("--- Settings ---")]
-    [Tooltip("안내 메시지가 유지될 시간 (초)")]
+    [Tooltip("안내 메시지가 화면에 노출되는 시간 (초)")]
     [SerializeField] private float noticeDuration = 2.0f;
 
     [Tooltip("이동할 테라리움 씬 이름")]
@@ -23,13 +23,13 @@ public class TerrariumEnterGate : MonoBehaviour
 
     private void Start()
     {
-        // 1. 씬 시작 시 안내 메시지 패널 비활성화
+        // 1. 시작 시 안내 메시지 패널 숨기기
         if (noticeMessagePanel != null)
         {
             noticeMessagePanel.SetActive(false);
         }
 
-        // 2. 버튼 클릭 이벤트 연결
+        // 2. 버튼 클릭 이벤트 연결 (기존 인스펙터 중복 이벤트 제거)
         InitButtonListener();
     }
 
@@ -42,21 +42,22 @@ public class TerrariumEnterGate : MonoBehaviour
 
         if (goTerrariumButton != null)
         {
-            // 인스펙터 중복 이벤트 제거 후 코드 기반 리스너 등록
+            // [중요] 인스펙터나 타 스크립트에서 중복으로 등록된 씬 이동 이벤트를 제거하여 2초 뒤 자동 입장 방지
             goTerrariumButton.onClick.RemoveAllListeners();
             goTerrariumButton.onClick.AddListener(OnClickGoTerrarium);
         }
         else
         {
-            Debug.LogError("[TerrariumEnterGate] goTerrariumButton이 연결되지 않았습니다!");
+            Debug.LogError("[TerrariumEnterGate] Go Terrarium Button이 연결되지 않았습니다!");
         }
     }
 
     /// <summary>
-    /// [테라리움 가기] 버튼 클릭 시 실행
+    /// [GO TERRARIUM] 버튼 클릭 시 실행
     /// </summary>
     public void OnClickGoTerrarium()
     {
+        // 1. UGSManager의 로그인 상태 확인
         bool isUserLoggedIn = false;
 
         if (UGSManager.Instance != null)
@@ -64,23 +65,23 @@ public class TerrariumEnterGate : MonoBehaviour
             isUserLoggedIn = UGSManager.Instance.isLoggedIn;
         }
 
+        // 2. 회원 / 비회원 완벽 분기 처리
         if (isUserLoggedIn)
         {
-            // [회원] 게임 일시정지가 걸려있을 수 있으므로 timeScale을 1로 복구 후 씬 이동
-            Time.timeScale = 1.0f;
-            Debug.Log("<color=green>[입장 허용]</color> 로그인 유저 확인 완료. 테라리움 씬으로 이동합니다.");
+            // [회원] 로그인된 유저만 씬 이동 실행
+            Debug.Log("<color=green>[입장 허용]</color> 로그인 상태가 확인되었습니다. 테라리움 씬으로 이동합니다.");
             SceneManager.LoadScene(terrariumSceneName);
         }
         else
         {
-            // [비회원] 씬 이동 차단 + 2초 타이머 팝업 출력
-            Debug.Log("<color=yellow>[입장 차단]</color> 비회원 유저입니다.");
+            // [비회원] 씬 이동(SceneManager.LoadScene)을 절대로 실행하지 않고 메시지만 표시
+            Debug.Log("<color=yellow>[입장 차단]</color> 비회원 상태입니다. 씬 이동을 완전히 차단합니다.");
             ShowNoticeMessage();
         }
     }
 
     /// <summary>
-    /// 안내 메시지를 noticeDuration(2초) 동안 켜두었다가 자동으로 끌어주는 함수
+    /// 안내 메시지 팝업을 noticeDuration 동안만 띄우는 함수
     /// </summary>
     private void ShowNoticeMessage()
     {
@@ -90,24 +91,19 @@ public class TerrariumEnterGate : MonoBehaviour
             return;
         }
 
-        // 연타했을 때 타이머가 꼬이지 않도록 기존 코루틴 멈춤 후 재시작
+        // 이미 작동 중인 코루틴이 있다면 타이머 리셋
         if (noticeCoroutine != null)
         {
             StopCoroutine(noticeCoroutine);
         }
 
-        noticeCoroutine = StartCoroutine(CoShowNoticeTimer());
+        noticeCoroutine = StartCoroutine(CoShowNotice());
     }
 
-    private IEnumerator CoShowNoticeTimer()
+    private IEnumerator CoShowNotice()
     {
-        // 1. 안내 문구 패널 활성화
         noticeMessagePanel.SetActive(true);
-
-        // 2. Time.timeScale = 0 (게임 정지) 상태에서도 동작하는 리얼타임 대기 (2초)
-        yield return new WaitForSecondsRealtime(noticeDuration);
-
-        // 3. 2초 후 안내 문구 패널 비활성화
-        noticeMessagePanel.SetActive(false);
+        yield return new WaitForSeconds(noticeDuration);
+        noticeMessagePanel.SetActive(false); // 2초 뒤 메세지 패널만 뜨겠끔 수정
     }
 }
