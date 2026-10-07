@@ -6749,6 +6749,7 @@ MonoBehaviour:
   bubbleObject: {fileID: 1070405574}
   tipText: {fileID: 215978090}
   displayDuration: 2
+  robotReaction: {fileID: 1622727695}
 --- !u!1 &1074373055
 GameObject:
   m_ObjectHideFlags: 0

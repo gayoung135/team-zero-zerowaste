@@ -13,6 +13,7 @@ public class ImageChange : MonoBehaviour
     public Sprite badRobot;
     public Sprite fatalRobot;
     Image thisImg;
+
     void Start()
     {
         thisImg = GetComponent<Image>();
@@ -37,6 +38,15 @@ public class ImageChange : MonoBehaviour
             case 2: thisImg.sprite = perfectRobot; break;
             case -1: thisImg.sprite = badRobot; break;
             case -2: thisImg.sprite = fatalRobot; break;
+        }
+    }
+
+    // 말풍선이 꺼질 때 로봇 표정을 기본 표정으로 되돌리는 함수
+    public void ResetRobot()
+    {
+        if (thisImg != null && normalRobot != null)
+        {
+            thisImg.sprite = normalRobot;
         }
     }
 }
