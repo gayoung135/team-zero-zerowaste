@@ -14,134 +14,59 @@ public class PlacedItemData
 
 public class EditMode : MonoBehaviour
 {
-    public bool isEditMode = false;
-    public GameObject itemPrefab;
-    public GameObject itemParent;
-    public GameObject itemButtonPrefab;
-    public Transform itemButtonParent;
-    public TextMeshProUGUI NothingText;
+    public bool isEditMode = false; //에딧모드인지 확인용 (에딧 아니면 취소)
+    public GameObject itemPrefab; //복제될 아이템 프리팹
+    public GameObject itemParent; //복제된 아이템 배치할 위치
+    public GameObject itemButtonPrefab; //아이템 버튼 프리팹
+    public Transform itemButtonParent; //인벤토리
+    public TextMeshProUGUI NothingText; //인벤토리 비었을때 띄울 텍스트
     private RectTransform rectTransform;
     bool hasItem = false;
-
-    private bool isClicking = false;
 
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
-        RefreshInventoryUI();
+        foreach (ShopItemData item in GameDBManager.Instance.shopItemMasterDB) //아이템 불러오기
+        {
+            if (item.is_sold_out)
+            {
+                hasItem = true; //아이템 보유중인지 판별
+                GameObject Item = Instantiate(itemButtonPrefab, itemButtonParent);
+                ItemListButton ItemScript = Item.GetComponent<ItemListButton>();
+                if (ItemScript != null)
+                {
+                    Image image = Item.GetComponentInChildren<Image>(); //이미지 배분
+                    if (image != null) image.sprite = item.item_image;
+                    ItemScript.itemId = item.item_id; //아이디 배분
+                }
+            }
+        }
 
         if (UGSManager.Instance != null && UGSManager.Instance.currentLayout != null && UGSManager.Instance.currentLayout.Count > 0)
         {
             Debug.Log("[EditMode] 테라리움 화면 활성화 확인. 캐싱된 서버 배치 레이아웃 스폰 개시");
             SpawnLayout(UGSManager.Instance.currentLayout);
         }
+
+        NothingText.gameObject.SetActive(!hasItem);
     }
 
-    // 인벤토리 UI 새로고침하는 로직 (로그인 완료 시에도 호출됨)
-    public void RefreshInventoryUI()
+    public void itemClick(Sprite itemSprite, string ID) //목록 아이템 클릭 시 복제 및 설정모드로
     {
-        if (itemButtonParent == null) return;
-
-        foreach (Transform child in itemButtonParent)
-        {
-            if (child != null) Destroy(child.gameObject);
-        }
-
-        if (GameDBManager.Instance == null || GameDBManager.Instance.shopItemMasterDB == null)
-        {
-            Debug.LogWarning("[EditMode] GameDBManager 마스터 DB를 찾을 수 없습니다.");
-            return;
-        }
-
-        hasItem = false;
-        foreach (ShopItemData item in GameDBManager.Instance.shopItemMasterDB) 
-        {
-            if (item == null) continue;
-
-            if (item.is_sold_out)
-            {
-                hasItem = true; 
-                
-                if (itemButtonPrefab == null) continue;
-                GameObject Item = Instantiate(itemButtonPrefab, itemButtonParent);
-                if (Item == null) continue;
-
-                Image image = Item.GetComponentInChildren<Image>();
-                if (image != null && item.item_image != null) 
-                {
-                    image.sprite = item.item_image;
-                }
-                else
-                {
-                    Image selfImage = Item.GetComponent<Image>();
-                    if (selfImage != null && item.item_image != null)
-                    {
-                        selfImage.sprite = item.item_image;
-                    }
-                }
-
-                Button btn = Item.GetComponent<Button>();
-                if (btn == null) btn = Item.GetComponentInChildren<Button>();
-
-                if (btn != null)
-                {
-                    btn.onClick.RemoveAllListeners();
-                    btn.onClick.AddListener(() => itemClick(item.item_image));
-                }
-            }
-        }
-
-        if (NothingText != null)
-        {
-            NothingText.gameObject.SetActive(!hasItem);
-        }
-    }
-
-    public void itemClick(Sprite itemSprite) 
-    {
-        if (!isEditMode) return;
-        if (itemPrefab == null || itemParent == null) return;
-
-        if (isClicking) return;
-        isClicking = true;
-
         GameObject newItem = Instantiate(itemPrefab, itemParent.transform);
-        if (newItem == null)
-        {
-            isClicking = false;
-            return;
-        }
-
         RectTransform rect = newItem.GetComponent<RectTransform>();
-        if (rect != null) rect.anchoredPosition = new Vector2(0, 0);
+        rect.anchoredPosition = new Vector2(0, 0);
 
+        //이미지 복사
         Image newImage = newItem.GetComponent<Image>();
-        if (newImage != null) newImage.sprite = itemSprite;
+        newImage.sprite = itemSprite;
 
         TerrariumItem item = newItem.GetComponent<TerrariumItem>();
-        if (item != null)
-        {
-            if (GameDBManager.Instance != null && GameDBManager.Instance.shopItemMasterDB != null)
-            {
-                ShopItemData matchedData = GameDBManager.Instance.shopItemMasterDB.Find(x => x.item_image == itemSprite);
-                if (matchedData != null)
-                {
-                    item.itemId = matchedData.item_id;
-                }
-            }
-            
-            item.EditItem();
-        }
-
-        Invoke("ResetClickFlag", 0.05f);
+        item.itemId = ID;
+        item.EditItem();
     }
 
-    private void ResetClickFlag()
-    {
-        isClicking = false;
-    }
-
-    public void EditModeOn() 
+    public void EditModeOn() //에딧버튼
     {
         isEditMode = true;
     }
@@ -150,9 +75,6 @@ public class EditMode : MonoBehaviour
     {
         Debug.Log("테라리움 배치 데이터 서버 세이브 시작");
         List<PlacedItemData> layoutData = new List<PlacedItemData>();
-
-        if (itemParent == null) return;
-
         foreach (Transform child in itemParent.transform)
         {
             if (child == null) continue;
@@ -167,36 +89,22 @@ public class EditMode : MonoBehaviour
                     itemId = itemScript.itemId,
                     posX = rect.anchoredPosition.x,
                     posY = rect.anchoredPosition.y,
-                    rotZ = itemScript.zRotation
+                    rotZ = rect.localEulerAngles.z
                 };
                 layoutData.Add(data);
             }
         }
 
-        if (UGSManager.Instance != null)
-        {
-            UGSManager.Instance.SaveTerrariumLayout(layoutData);
-        }
-
+        if (UGSManager.Instance != null) UGSManager.Instance.SaveTerrariumLayout(layoutData);
         isEditMode = false;
     }
 
     public void cancel() // 취소버튼
     {
         Debug.Log("배치 취소: 클라우드 백업 데이터 복구");
-        
-        if (itemParent == null) return;
+        foreach (Transform child in itemParent.transform) if (child != null) Destroy(child.gameObject);
 
-        foreach (Transform child in itemParent.transform)
-        {
-            if (child != null) Destroy(child.gameObject);
-        }
-
-        if (UGSManager.Instance != null)
-        {
-            SpawnLayout(UGSManager.Instance.currentLayout);
-        }
-
+        if (UGSManager.Instance != null) SpawnLayout(UGSManager.Instance.currentLayout);
         isEditMode = false;
     }
 
@@ -222,20 +130,14 @@ public class EditMode : MonoBehaviour
             if (rect != null)
             {
                 rect.anchoredPosition = new Vector2(data.posX, data.posY);
+                rect.localEulerAngles = new Vector3(0f,0f,data.rotZ);
             }
 
             Image newImage = newItem.GetComponent<Image>();
-            if (newImage != null)
-            {
-                newImage.sprite = shopItem.item_image;
-            }
+            if (newImage != null) newImage.sprite = shopItem.item_image;
 
             TerrariumItem itemScript = newItem.GetComponent<TerrariumItem>();
-            if (itemScript != null)
-            {
-                itemScript.itemId = data.itemId;
-                itemScript.SetRotation(data.rotZ);
-            }
+            if (itemScript != null) itemScript.itemId = data.itemId;
         }
     }
 }
