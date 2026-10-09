@@ -245,7 +245,7 @@ public class SwipeGestureController : MonoBehaviour
 
             currentGesture = GestureType.None;
 
-            // ⭐ 핵심
+            //  !!핵심!!
             //
             // 중립 상태가 확인되면 다시 제스처 사용 가능
             //
