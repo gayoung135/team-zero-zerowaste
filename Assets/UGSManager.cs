@@ -19,7 +19,6 @@ public class UGSManager : MonoBehaviour
 {
     public static UGSManager Instance { get; private set; }
     
-    // 외부(UGSAuthManager)에서 참조할 수 있도록 프로퍼티 수정
     public bool IsUGSReady { get; private set; } = false;
 
     [Header("Player Status")]
@@ -27,6 +26,8 @@ public class UGSManager : MonoBehaviour
     public int currentCoins = 0;
     public int gameScore = 0;
     public List<TrashLog> currentSessionLogs = new List<TrashLog>();
+
+    public List<PlacedItemData> currentLayout { get; private set; } = new List<PlacedItemData>();
 
     void Awake()
     {
@@ -56,7 +57,6 @@ public class UGSManager : MonoBehaviour
         }
     }
 
-    // AuthManager에서 로그인 상태를 변경할 수 있도록 제공하는 메서드
     public void SetLoggedIn(bool state)
     {
         isLoggedIn = state;
@@ -99,16 +99,72 @@ public class UGSManager : MonoBehaviour
         }
     }
 
+    public async void SaveSoldOutItems(List<string> soldOutItemIds)
+    {
+        if (!IsUGSReady || !isLoggedIn || soldOutItemIds == null) return;
+        try
+        {
+            var targetData = new Dictionary<string, object> { { "sold_out_items", soldOutItemIds } };
+            await CloudSaveService.Instance.Data.Player.SaveAsync(targetData);
+            Debug.Log("[UGS] 품절 아이템 데이터가 서버에 안전하게 세이브되었습니다.");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("[UGS] 품절 아이템 데이터 세이브 실패: " + e.Message);
+        }
+    }
+
+    public async void SaveTerrariumLayout(List<PlacedItemData> layout)
+    {
+        if (!IsUGSReady || !isLoggedIn || layout == null) return;
+        try
+        {
+            currentLayout = layout;
+            var targetData = new Dictionary<string, object> { { "terrarium_layout", layout } };
+            await CloudSaveService.Instance.Data.Player.SaveAsync(targetData);
+            Debug.Log("[UGS] 테라리움 필드 배치 상태가 서버에 영구 저장되었습니다.");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("[UGS] 테라리움 배치 저장 실패: " + e.Message);
+        }
+    }
+
     public async void LoadUserData()
     {
         if (!IsUGSReady || !isLoggedIn) return;
         try
         {
-            var savedData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "coins" });
+            var savedData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "coins", "sold_out_items", "terrarium_layout" });
+            
             if (savedData.TryGetValue("coins", out var coinItem))
             {
                 currentCoins = coinItem.Value.GetAs<int>();
                 Debug.Log($"서버에서 데이터 로드 완료! 현재 코인: {currentCoins}");
+            }
+
+            if (savedData.TryGetValue("sold_out_items", out var itemLog))
+            {
+                List<string> serverSoldOutList = itemLog.Value.GetAs<List<string>>();
+                if (GameDBManager.Instance != null && serverSoldOutList != null)
+                {
+                    GameDBManager.Instance.SyncInventoryFromServer(serverSoldOutList);
+                }
+            }
+            else
+            {
+                if (GameDBManager.Instance != null) GameDBManager.Instance.SyncInventoryFromServer(new List<string>());
+            }
+
+            if (savedData.TryGetValue("terrarium_layout", out var layoutLog))
+            {
+                currentLayout = layoutLog.Value.GetAs<List<PlacedItemData>>();
+                
+                EditMode editManager = FindObjectOfType<EditMode>();
+                if (editManager != null && currentLayout != null && currentLayout.Count > 0)
+                {
+                    editManager.SpawnLayout(currentLayout);
+                }
             }
         }
         catch (Exception e)
@@ -189,6 +245,7 @@ public class UGSManager : MonoBehaviour
         currentCoins = 0;
         gameScore = 0;
         currentSessionLogs.Clear();
+        currentLayout.Clear(); 
         Debug.Log("[UGS] 성공적으로 로그아웃되었으며 유저 데이터가 초기화되었습니다.");
     }
 }

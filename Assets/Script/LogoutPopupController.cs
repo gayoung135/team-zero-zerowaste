@@ -31,7 +31,7 @@ public class LogoutPopupController : MonoBehaviour
     }
 
     
-    /// [추가] 로그인 상태면 로그아웃 버튼 표시, 비로그인 상태면 로그아웃 버튼 숨김
+    // 로그인 상태면 로그아웃 버튼 표시, 비로그인 상태면 로그아웃 버튼 숨김
     public void CheckLogoutButtonVisibility()
     {
         bool isUserLoggedIn = false;
