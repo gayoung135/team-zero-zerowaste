@@ -1,0 +1,136 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: TrashTable Shared Data
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
+  m_TableCollectionName: TrashTable
+  m_TableCollectionNameGuidString: b03425dc957317043abdc35321f872c9
+  m_Entries:
+  - m_Id: 370699964416
+    m_Key: Trash_PetBottle_NAME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 872418414592
+    m_Key: Trash_PetBottle_METHOD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1303689334784
+    m_Key: Trash_PetBottle_TIP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1750558871552
+    m_Key: Trash_Apple_NAME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1755071942656
+    m_Key: Trash_Apple_METHOD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1758855204864
+    m_Key: Trash_Apple_TIP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1760394514432
+    m_Key: Trash_Bone_NAME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1761166266368
+    m_Key: Trash_Bone_METHOD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1761824772096
+    m_Key: Trash_Bone_TIP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1762487472128
+    m_Key: Trash_Banana_NAME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1763145977856
+    m_Key: Trash_Banana_METHOD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1763804483584
+    m_Key: Trash_Banana_TIP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1764433629184
+    m_Key: Trash_BlueCan_NAME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1765134077952
+    m_Key: Trash_BlueCan_METHOD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1765826138112
+    m_Key: Trash_BlueCan_TIP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1766446895104
+    m_Key: Trash_Bread_NAME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2348893114368
+    m_Key: Trash_Bread_METHOD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2349547425792
+    m_Key: Trash_Bread_TIP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2350247874560
+    m_Key: Trash_BrownGlassBottle_NAME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2350830882816
+    m_Key: Trash_BrownGlassBottle_METHOD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2351426473984
+    m_Key: Trash_BrownGlassBottle_TIP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2352013676544
+    m_Key: Trash_Egg_NAME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2454224670720
+    m_Key: Trash_Egg_METHOD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2454845427712
+    m_Key: Trash_Egg_TIP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2483475746816
+    m_Key: Trash_Tissue_NAME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2494519349248
+    m_Key: Trash_Tissue_METHOD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495769251840
+    m_Key: Trash_Tissue_TIP
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 5596845418387865873
+  references:
+    version: 2
+    RefIds:
+    - rid: 5596845418387865873
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1791837736498
