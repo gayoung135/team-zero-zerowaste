@@ -218,6 +218,7 @@ public class UGSAuthManager : MonoBehaviour
             Debug.LogError("[로그인 차단] UGS 게이밍 서비스가 아직 초기화(Ready)되지 않았습니다.");
             return;
         }
+
         string email = signinEmailInput.text;
         string password = signinPasswordInput.text;
 
@@ -226,6 +227,7 @@ public class UGSAuthManager : MonoBehaviour
             Debug.LogError("이메일과 비밀번호를 모두 입력해주세요.");
             return;
         }
+
         try
         {
             if (AuthenticationService.Instance.IsSignedIn)
@@ -233,23 +235,27 @@ public class UGSAuthManager : MonoBehaviour
                 Debug.LogWarning("[세션 초기화] 이전 씬의 인증이 발견되어 로그아웃 세션을 비웁니다.");
                 AuthenticationService.Instance.SignOut(true);
             }
+
             await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(email, password);
             Debug.Log("<color=green>[성공]</color> UGS 서버 로그인에 성공했습니다!");
             UGSManager.Instance.SetLoggedIn(true);
 
-            if (isRememberMeOn)
+            if (rememberMeToggle != null && rememberMeToggle.isOn)
             {
                 PlayerPrefs.SetString("SavedEmail", email);
+                Debug.Log("[저장] 하드디스크에 이메일이 정상 세이브되었습니다: " + email);
             }
             else
             {
                 PlayerPrefs.DeleteKey("SavedEmail");
             }
+
             PlayerPrefs.Save();
+
             ToggleLoginPopup(false);
             if (startUI != null) startUI.SetActive(true);
 
-            // 코인 등 기존 유저 데이터 불러옴
+            // 데이터 불러옴
             UGSManager.Instance.LoadUserData();
         }
         catch (AuthenticationException e)
@@ -268,8 +274,8 @@ public class UGSAuthManager : MonoBehaviour
 
     private void SetInputFieldTextSize(float minSize, float maxSize)
     {
-        TMP_InputField[] allFields = new TMP_InputField[] { 
-            signupEmailInput, signupIdInput, signupPasswordInput, 
+        TMP_InputField[] allFields = new TMP_InputField[] {
+            signupEmailInput, signupIdInput, signupPasswordInput,
             signupConfirmPasswordInput, signinEmailInput, signinPasswordInput
         };
 
