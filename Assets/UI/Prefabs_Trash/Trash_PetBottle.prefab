@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7063083474251984778}
   - component: {fileID: -2414052208654603158}
   - component: {fileID: 5632442667381846235}
+  - component: {fileID: 1878060796762040368}
   m_Layer: 0
   m_Name: Trash_PetBottle
   m_TagString: Recyclable
@@ -193,3 +194,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1878060796762040368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 200166174747490314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91916ca575578dd44bdf9dcdb3fe04b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TrashObject
+  trashId: TRASH_001

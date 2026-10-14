@@ -31,6 +31,10 @@ public class ImageChange : MonoBehaviour
 
     public void RobotChange(int combo)
     {
+        // 콤보가 3이상(-3이하)이 되어도 표정이 없어지지 않도록 최대/최소 범위 제한
+        if (combo >= 2) combo = 2;
+        if (combo <= -2) combo = -2;
+
         switch (combo)
         {
             case 0: thisImg.sprite = normalRobot; break;
@@ -41,7 +45,7 @@ public class ImageChange : MonoBehaviour
         }
     }
 
-    // 말풍선이 꺼질 때 로봇 표정을 기본 표정으로 되돌리는 함수
+    // 말풍선이 닫힐 때 로봇 표정을 기본 표정(normalRobot)으로 되돌리는 함수
     public void ResetRobot()
     {
         if (thisImg != null && normalRobot != null)

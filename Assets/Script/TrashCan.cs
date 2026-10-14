@@ -47,6 +47,12 @@ public class TrashCan : MonoBehaviour
         { 
             Debug.Log($"정답! [{correctTag}] 쓰레기를 올바른 쓰레기통에 넣었습니다! 점수 +10!");
             gametimer.Correct();
+
+            // 도감 해금 로직
+            if (CollectionManager.Instance != null)
+            {
+                CollectionManager.Instance.UnlockTrash(trashName);
+            }
         }
         else 
         {

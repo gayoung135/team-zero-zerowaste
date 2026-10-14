@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8016667349607887432}
   - component: {fileID: -6820266353919861575}
   - component: {fileID: -9045260185185320321}
+  - component: {fileID: -3079800911010802096}
   m_Layer: 0
   m_Name: Trash_Bone
   m_TagString: GeneralTrash
@@ -193,3 +194,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-3079800911010802096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7503880733471107131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91916ca575578dd44bdf9dcdb3fe04b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TrashObject
+  trashId: TRASH_003

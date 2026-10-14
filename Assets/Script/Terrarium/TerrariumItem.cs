@@ -23,24 +23,25 @@ public class TerrariumItem : MonoBehaviour, IDragHandler
 
     public void EditItem() //설정모드
     {
-        if (!manager.isEditMode) return;
+        if (!manager.isEditMode || (manager.selectedChild != null && manager.selectedChild != this.gameObject)) return;
+        manager.selectedChild = this.gameObject;
         UI.SetActive(true);
         EditUI.SetActive(false);
         PreviewUI = GameObject.Find("Preview");
         if(PreviewUI!=null) PreviewUI.SetActive(false);
-        isItemEditmode = true;
+        manager.selectedChild = this.gameObject;
     }
 
     public void OnDrag(PointerEventData eventData) //아이템 이동
     {
-        if(manager.isEditMode && isItemEditmode==true) rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+        if(manager.isEditMode && manager.selectedChild == this.gameObject) rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
     }
 
     public void check() //설치 완료
     {
         EditUI.SetActive(true);
         UI.SetActive(false);
-        isItemEditmode = false;
+        manager.selectedChild = null;
     } 
 
     public void Rotation() //회전
@@ -49,10 +50,20 @@ public class TerrariumItem : MonoBehaviour, IDragHandler
         UI.transform.Rotate(0, 0, -30);
     }
 
+    public void ZoomIn() //확대 
+    {
+        if (rectTransform.localScale.x < 2f) rectTransform.localScale += new Vector3(0.2f, 0.2f, 0f);
+    }
+
+    public void ZoomOut() //축소
+    {
+        if (rectTransform.localScale.x > 0.6f) rectTransform.localScale += new Vector3(-0.2f, -0.2f, 0f);
+    }
+
     public void Delete() //삭제
     {
         EditUI.SetActive(true);
+        manager.selectedChild = null;
         Destroy(gameObject);
-        isItemEditmode = false;
     }
 }
