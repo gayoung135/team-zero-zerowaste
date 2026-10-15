@@ -7071,11 +7071,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EditMode
   isEditMode: 0
+  selectedChild: {fileID: 0}
   itemPrefab: {fileID: 4407134891718657334, guid: a2f18a8a4ea9d56409bb4c61bbdf063a, type: 3}
   itemParent: {fileID: 1453737471}
   itemButtonPrefab: {fileID: 5083294950435141271, guid: 1e4fd1ff7fd84e542a6f5bc607096b2a, type: 3}
   itemButtonParent: {fileID: 1577450911}
   NothingText: {fileID: 514606054}
+  tempbox: {fileID: 1453737472}
+  ground: {fileID: 1685315408}
 --- !u!1 &1356559741
 GameObject:
   m_ObjectHideFlags: 0
