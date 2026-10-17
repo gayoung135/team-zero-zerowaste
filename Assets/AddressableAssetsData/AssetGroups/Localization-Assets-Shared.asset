@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Localization-Assets-Shared
   m_GUID: 2ae865ae9bb647742ad89800894e897e
   m_SerializeEntries:
+  - m_GUID: 1022314d257708246adb85b4b5900324
+    m_Address: Assets/HowToPlayTable Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b03425dc957317043abdc35321f872c9
     m_Address: Assets/TrashTable Shared Data.asset
     m_ReadOnly: 1

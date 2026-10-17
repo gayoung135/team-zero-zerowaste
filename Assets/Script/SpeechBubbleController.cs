@@ -12,10 +12,30 @@ public class SpeechBubbleController : MonoBehaviour
     [SerializeField] private float displayDuration = 2f;
     [SerializeField] private ImageChange robotReaction;
 
-    [Header("[인게임 쓰레기 프리팹 등록 리스트]")]
-    [SerializeField] private List<GameObject> trashPrefabs = new List<GameObject>();
-
     private Coroutine hideCoroutine;
+
+    // 이현 님이 지정하신 정확한 텍스트 데이터 딕셔너리
+    private static readonly Dictionary<string, (string ko, string en)> localizedDict = new Dictionary<string, (string ko, string en)>()
+    {
+        { "Trash_PetBottle_Wrong", ("페트병은 일반 쓰레기가 아니며, 재활용 플라스틱으로 분류됩니다.", "PET bottles are not general waste, they are classified as recyclable plastics.") },
+        { "Trash_PetBottle_Correct", ("페트병은 재활용(플라스틱) 쓰레기가 맞습니다.", "PET bottles are recyclable waste.") },
+        { "Trash_Apple_Wrong", ("사과는 재활용 쓰레기가 아니며, 음식물 쓰레기로 분류됩니다.", "Apples are not recyclable waste, they are classified as food waste.") },
+        { "Trash_Apple_Correct", ("사과는 음식물 쓰레기가 맞습니다.", "Apples are classified as food waste.") },
+        { "Trash_Bone_Wrong", ("뼈는 재활용할 수 없으며 일반쓰레기로 분류됩니다.", "Bones cannot be recycled and are classified as general waste.") },
+        { "Trash_Bone_Correct", ("뼈다귀는 일반쓰레기가 맞습니다.", "Bones are classified as general waste.") },
+        { "Trash_Banana_Wrong", ("바나나 껍질은 재활용 쓰레기가 아니라 음식물 쓰레기입니다.", "Banana peels are food waste, not recyclable waste.") },
+        { "Trash_Banana_Correct", ("바나나 껍질은 음식물 쓰레기가 맞습니다.", "Banana peels are classified as food waste.") },
+        { "Trash_BlueCan_Wrong", ("캔은 일반쓰레기가 아니며,  재활용 과정에서 캔류로 분류됩니다.", "Cans are not general waste, they are separated into a distinct category for cans during the recycling process.") },
+        { "Trash_BlueCan_Correct", ("캔은 재활용(캔류) 쓰레기가 맞습니다.", "Cans are classified as 'can waste' during the recycling process.") },
+        { "Trash_Bread_Wrong", ("빵 조각은 재활용 쓰레기가 아니며, 음식물 쓰레기로 분류됩니다.", "Bread scraps are not recyclable waste, they are classified as food waste.") },
+        { "Trash_Bread_Correct", ("빵 조각은 음식물 쓰레기가 맞습니다.", "Breadcrumbs are classified as food waste.") },
+        { "Trash_BrownGlassBottle_Wrong", ("유리병은 일반쓰레기가 아니며, 유리류 재활용으로 분류됩니다.", "Glass bottles are not general waste, they are classified as glass for recycling.") },
+        { "Trash_BrownGlassBottle_Correct", ("빈 맥주병은 재활용(유리병) 쓰레기가 맞습니다.", "Empty beer bottles are classified as glass waste for recycling.") },
+        { "Trash_Egg_Wrong", ("달걀 껍데기는 재활용할 수 없으며 일반쓰레기로 분류됩니다.", "Eggshells cannot be recycled and are classified as general waste.") },
+        { "Trash_Egg_Correct", ("달걀 껍질은 일반쓰레기가 맞습니다.", "Eggshells are classified as general waste.") },
+        { "Trash_Tissue_Wrong", ("휴지는 재활용할 수 없으며 일반쓰레기로 분류됩니다.", "Tissues cannot be recycled and are classified as general waste.") },
+        { "Trash_Tissue_Correct", ("사용한 휴지는 일반쓰레기가 맞습니다.", "Used tissues are classified as general waste.") }
+    };
 
     private void Awake()
     {
@@ -39,10 +59,17 @@ public class SpeechBubbleController : MonoBehaviour
         hideCoroutine = StartCoroutine(HideAfterDelay());
     }
 
-    /// <summary>
-    /// 도감 페이지(CollectionPage)의 안전한 로컬라이징 방어선을 이식한 말풍선 출력 함수
-    /// </summary>
-    public void ShowBubbleWithTip(string message)
+    public void ShowBubbleWithTip(string exactKeyOrMessage)
+    {
+        ProcessAndShow(exactKeyOrMessage);
+    }
+
+    public void ShowBubbleWithKey(string exactKey)
+    {
+        ProcessAndShow(exactKey);
+    }
+
+    private void ProcessAndShow(string input)
     {
         if (tipText == null)
         {
@@ -50,132 +77,62 @@ public class SpeechBubbleController : MonoBehaviour
             return;
         }
 
-        string localizedText = message;
-
+        // 1. 현재 선택된 언어 확인 (기본값 "ko")
+        string currentLang = "ko";
         try
         {
-            // 1. 현재 선택된 언어 코드 추출 (도감 페이지와 동일한 방식)
-            string currentLanguage = "en";
             if (LocalizationSettings.Instance != null && LocalizationSettings.SelectedLocale != null)
             {
-                currentLanguage = LocalizationSettings.SelectedLocale.Identifier.Code;
-            }
-
-            if (currentLanguage == "ko")
-            {
-                // 2. 전달받은 메시지가 이미 정확한 테이블 키인 경우 직공격
-                localizedText = GetSafeLocalizedString("TrashTable", message, message);
-
-                // 3. 키를 못 찾았다면 등록된 프리팹 리스트를 대조하여 정확한 키 추출 후 안전 주입
-                if (localizedText == message || localizedText.Contains("No translation found"))
-                {
-                    string targetKey = FindKeyFromPrefabs(message);
-                    if (!string.IsNullOrEmpty(targetKey))
-                    {
-                        localizedText = GetSafeLocalizedString("TrashTable", targetKey, message);
-                    }
-                }
+                currentLang = LocalizationSettings.SelectedLocale.Identifier.Code;
             }
         }
-        catch
+        catch { }
+
+        // 2. 외부 문장(로그에 찍히는 메시지)을 키값으로 파싱
+        string parsedKey = ParseInputToKey(input);
+        string finalDisplayString = input;
+
+        // 3. 파싱된 키로 딕셔너리에서 한국어/영어 문장 가져오기
+        if (!string.IsNullOrEmpty(parsedKey) && localizedDict.ContainsKey(parsedKey))
         {
-            localizedText = message;
+            var textPair = localizedDict[parsedKey];
+            finalDisplayString = (currentLang == "en") ? textPair.en : textPair.ko;
         }
 
-        tipText.text = localizedText;
+        tipText.text = finalDisplayString;
         ShowBubble();
     }
 
     /// <summary>
-    /// 프리팹 리스트 순회 오류(캔이 다른 아이템을 뺏어먹는 현상)를 방지하기 위해 
-    /// 글자 수가 길고 고유한 이름부터 정확히 판별하도록 수정한 함수
+    /// 외부에서 들어온 문장이나 키를 딕셔너리 키로 변환해주는 파서
     /// </summary>
-    private string FindKeyFromPrefabs(string message)
+    private string ParseInputToKey(string input)
     {
-        if (string.IsNullOrEmpty(message)) return "";
-        string lowerMsg = message.ToLower();
+        if (string.IsNullOrEmpty(input)) return "";
 
-        // 정답/오답 판정 
-        bool isWrong = lowerMsg.Contains("not") || lowerMsg.Contains("cannot") || lowerMsg.Contains("aren't") || lowerMsg.Contains("should be emptied");
-        string suffix = isWrong ? "_Wrong" : "_Correct";
+        // 이미 완벽한 키 형태라면 그대로 반환
+        if (localizedDict.ContainsKey(input)) return input;
 
-        // [중요] 캔("can") 같은 짧은 단어가 다른 아이템보다 먼저 걸리는 걸 막기 위해 
-        // 이름이 길고 고유한 아이템부터 확실하게 단독 검사합니다.
+        string lower = input.ToLower();
+
+        // 쓰레기 종류 특정
+        string itemPrefix = "";
+        if (lower.Contains("glass") || lower.Contains("beer") || lower.Contains("유리") || lower.Contains("맥주")) itemPrefix = "Trash_BrownGlassBottle";
+        else if (lower.Contains("pet") || lower.Contains("plastic") || lower.Contains("페트") || lower.Contains("플라스틱")) itemPrefix = "Trash_PetBottle";
+        else if (lower.Contains("banana") || lower.Contains("바나나")) itemPrefix = "Trash_Banana";
+        else if (lower.Contains("apple") || lower.Contains("사과")) itemPrefix = "Trash_Apple";
+        else if (lower.Contains("bone") || lower.Contains("뼈")) itemPrefix = "Trash_Bone";
+        else if (lower.Contains("bread") || lower.Contains("crumb") || lower.Contains("빵")) itemPrefix = "Trash_Bread";
+        else if (lower.Contains("egg") || lower.Contains("달걀") || lower.Contains("계란")) itemPrefix = "Trash_Egg";
+        else if (lower.Contains("tissue") || lower.Contains("휴지") || lower.Contains("티슈")) itemPrefix = "Trash_Tissue";
+        else if (lower.Contains("can") || lower.Contains("cans") || lower.Contains("캔")) itemPrefix = "Trash_BlueCan";
+
+        if (string.IsNullOrEmpty(itemPrefix)) return "";
+
+        // 정답 / 오답 구분 (콘솔 로그에 찍힌 -5, 오답, 잘못된 등 기준)
+        bool isWrong = lower.Contains("-5") || lower.Contains("오답") || lower.Contains("잘못된") || lower.Contains("not") || lower.Contains("cannot");
         
-        string targetPrefabName = "";
-
-        if (lowerMsg.Contains("glass") || lowerMsg.Contains("beer"))
-        {
-            targetPrefabName = "Trash_BrownGlassBottle";
-        }
-        else if (lowerMsg.Contains("pet") || lowerMsg.Contains("plastic"))
-        {
-            targetPrefabName = "Trash_PetBottle";
-        }
-        else if (lowerMsg.Contains("banana"))
-        {
-            targetPrefabName = "Trash_Banana";
-        }
-        else if (lowerMsg.Contains("apple"))
-        {
-            targetPrefabName = "Trash_Apple";
-        }
-        else if (lowerMsg.Contains("bone"))
-        {
-            targetPrefabName = "Trash_Bone";
-        }
-        else if (lowerMsg.Contains("bread") || lowerMsg.Contains("crumb"))
-        {
-            targetPrefabName = "Trash_Bread";
-        }
-        else if (lowerMsg.Contains("egg"))
-        {
-            targetPrefabName = "Trash_Egg";
-        }
-        else if (lowerMsg.Contains("tissue"))
-        {
-            targetPrefabName = "Trash_Tissue";
-        }
-        else if (lowerMsg.Contains("can") || lowerMsg.Contains("cans"))
-        {
-            targetPrefabName = "Trash_BlueCan";
-        }
-
-        // 찾은 고유 이름이 있다면 접미사(_Correct / _Wrong)를 붙여서 반환
-        if (!string.IsNullOrEmpty(targetPrefabName))
-        {
-            return targetPrefabName + suffix;
-        }
-
-        return "";
-    }
-
-    /// <summary>
-    /// 도감 페이지(CollectionPage)에서 검증된 크래시/런타임 마비 우회 함수
-    /// </summary>
-    private string GetSafeLocalizedString(string tableName, string key, string fallback)
-    {
-        try
-        {
-            if (LocalizationSettings.Instance == null || 
-                LocalizationSettings.StringDatabase == null || 
-                !LocalizationSettings.InitializationOperation.IsDone)
-            {
-                return fallback;
-            }
-
-            var operation = LocalizationSettings.StringDatabase.GetLocalizedStringAsync(tableName, key);
-            if (operation.IsDone)
-            {
-                return operation.Result;
-            }
-            
-            return LocalizationSettings.StringDatabase.GetLocalizedString(tableName, key);
-        }
-        catch
-        {
-            return fallback;
-        }
+        return itemPrefix + (isWrong ? "_Wrong" : "_Correct");
     }
 
     private IEnumerator HideAfterDelay()
