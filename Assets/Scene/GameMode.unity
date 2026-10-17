@@ -2046,7 +2046,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 21, y: 241.68}
+  m_AnchoredPosition: {x: 10, y: 230}
   m_SizeDelta: {x: 900, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &422009709
@@ -2070,14 +2070,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "1. Turn on your webcam and start the game.\r\n(Keyboard support included)\r\n\r\n2.
-    \"Rock\" is classified as the green trash bin, \r\nand \"Paper\" as the blue
-    trash bin.\r\n\r\n3. +10 points for a correct answer\r\n-5 points for an incorrect
-    answer\n\r\n4. Recognition accuracy improves if you strike a pose outside the
+    \"Paper\" is classified as the green trash bin, \r\nand \"Rock\" as the blue
+    trash bin.\r\n\n\r\n3. +10 points for a correct answer\r\n-5 points for an incorrect
+    answer\n\n\r\n4. Recognition accuracy improves if you strike a pose outside the
     frame first and then step into it.\LAlso, It is detected better when using your
     left hand."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2ab05b2b86ae4eb4c8c893c73e9198e6, type: 2}
-  m_sharedMaterial: {fileID: -7751200578973825659, guid: 2ab05b2b86ae4eb4c8c893c73e9198e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2188,7 +2188,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 303, y: -81}
+  m_AnchoredPosition: {x: 317.5, y: -86}
   m_SizeDelta: {x: 230, y: 230}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &435805827
@@ -3414,8 +3414,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 336, y: -57}
-  m_SizeDelta: {x: 230, y: 230}
+  m_AnchoredPosition: {x: 350.7, y: -54}
+  m_SizeDelta: {x: 200.6065, y: 205.5054}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &712769205
 MonoBehaviour:
@@ -4746,7 +4746,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 368.00003, y: 53.00003}
+  m_AnchoredPosition: {x: 368.00003, y: 43}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &982269282
@@ -6271,7 +6271,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 288, y: 53}
+  m_AnchoredPosition: {x: 288, y: 43}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1178956295
@@ -9758,6 +9758,7 @@ MonoBehaviour:
     (Mouse support included)
 
 
+
     2.
     Please sort your waste correctly.
 
@@ -9768,13 +9769,14 @@ MonoBehaviour:
     points for an incorrect answer
 
 
+
     4. Try to collect as many coins as possible
     by sorting them.
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2ab05b2b86ae4eb4c8c893c73e9198e6, type: 2}
-  m_sharedMaterial: {fileID: -7751200578973825659, guid: 2ab05b2b86ae4eb4c8c893c73e9198e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

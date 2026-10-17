@@ -8921,6 +8921,16 @@ MonoBehaviour:
   tipText: {fileID: 1701398222}
   displayDuration: 2
   robotReaction: {fileID: 52552869}
+  trashPrefabs:
+  - {fileID: 2427322747382751704, guid: e76a1d3a7a515ad45bcac15ac2b11f76, type: 3}
+  - {fileID: 7761041508069411494, guid: c86e1b988773b41429763c7b4287aad0, type: 3}
+  - {fileID: 200166174747490314, guid: 38375949677c97d4dbf86a72c7a0938f, type: 3}
+  - {fileID: 7503880733471107131, guid: b52f4eeec711d36409ffccfe0eb63fca, type: 3}
+  - {fileID: 6502457263000452240, guid: 8bca663955b4e7a4eaddb797b71b64cf, type: 3}
+  - {fileID: 200166174747490314, guid: 9a586c3cf1efed446872f8dd90ae17ce, type: 3}
+  - {fileID: 604826059310431329, guid: b974e1e8b3f13b14b823e1e7d34e79e2, type: 3}
+  - {fileID: 200166174747490314, guid: 9631352455df06d47bc5f41d97e12a63, type: 3}
+  - {fileID: 2427322747382751704, guid: 645b0089d2213d948b00303d55461fdf, type: 3}
 --- !u!1 &1514678115
 GameObject:
   m_ObjectHideFlags: 0
@@ -10098,7 +10108,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 102}
+  m_AnchoredPosition: {x: 0, y: 125}
   m_SizeDelta: {x: 433, y: 42}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1701398222
@@ -10123,8 +10133,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 94fa3398952b1d646856b8da89718965, type: 2}
+  m_sharedMaterial: {fileID: -4815661508868026330, guid: 94fa3398952b1d646856b8da89718965, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -11797,8 +11807,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2ab05b2b86ae4eb4c8c893c73e9198e6, type: 2}
-  m_sharedMaterial: {fileID: -4952769156561974196, guid: 2ab05b2b86ae4eb4c8c893c73e9198e6, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 0}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

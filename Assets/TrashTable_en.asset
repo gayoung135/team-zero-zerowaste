@@ -1,0 +1,219 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: TrashTable_en
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: b03425dc957317043abdc35321f872c9, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 370699964416
+    m_Localized: Plastic Bottle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 872418414592
+    m_Localized: Empty the bottle and throw it into the Recyclable bin.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1303689334784
+    m_Localized: You need to remove the label from the PET bottle before recycling
+      it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2495769251840
+    m_Localized: Used tissues cannot be recycled. Dispose of them as general waste.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2454845427712
+    m_Localized: Eggshells are hard and not suitable for food waste. Dispose of them
+      as general waste.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2351426473984
+    m_Localized: Remove the bottle cap, empty and rinse the bottle, then dispose
+      of it in the glass recycling bin.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2349547425792
+    m_Localized: Bread pieces are food waste. Dispose of them in the food waste bin.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1765826138112
+    m_Localized: Cans should be emptied, rinsed with water to remove any residue,
+      and flattened before disposal.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1763804483584
+    m_Localized: Banana peels are  organic waste. Dispose of them in the food waste
+      bin.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1761824772096
+    m_Localized: Bones cannot be recycled. Dispose of them as general waste.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1758855204864
+    m_Localized: Apple cores are organic waste. Put them in the food waste bin.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1760394514432
+    m_Localized: Bone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1762487472128
+    m_Localized: Banana
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1764433629184
+    m_Localized: Blue Can
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1766446895104
+    m_Localized: Bread
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2350247874560
+    m_Localized: Brown Glass Bottle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2352013676544
+    m_Localized: Egg
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2483475746816
+    m_Localized: Tissue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1750558871552
+    m_Localized: Apple
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1755071942656
+    m_Localized: Apple peels, cores, seeds, and flesh must be disposed of as food
+      waste.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1761166266368
+    m_Localized: Bones cannot be recycled into animal feed, so they must be disposed
+      of as general waste.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1763145977856
+    m_Localized: Dispose of it as food waste, but the hard stem part should be discarded
+      as general waste.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1765134077952
+    m_Localized: Empty the contents, wash thoroughly, and dispose of it in the can
+      recycling bin.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2348893114368
+    m_Localized: Leftover bread must be disposed of as food waste.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2350830882816
+    m_Localized: Empty and rinse the contents, remove the plastic or metal lid, and
+      dispose of it with glass recyclables.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2454224670720
+    m_Localized: When disposing of eggs, the contents should be discarded as food
+      waste, while the shells should be disposed of as general waste.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2494519349248
+    m_Localized: As it does not dissolve well in water, do not flush it down the
+      toilet; instead, dispose of it as general waste.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 564875167399936
+    m_Localized: PET bottles are not general waste, they are classified as recyclable
+      plastics.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 565585472782336
+    m_Localized: PET bottles are recyclable waste.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 569994843914240
+    m_Localized: Apples are not recyclable waste, they are classified as food waste.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 570151736049664
+    m_Localized: Apples are classified as food waste.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 570442250321920
+    m_Localized: Bones cannot be recycled and are classified as general waste.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 570651537702912
+    m_Localized: Bones are classified as general waste.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 570847642386432
+    m_Localized: Banana peels are food waste, not recyclable waste.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 571238002065408
+    m_Localized: Banana peels are classified as food waste.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 572236326109184
+    m_Localized: Cans are not general waste, they are separated into a distinct category
+      for cans during the recycling process.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 572420753850368
+    m_Localized: Cans are classified as 'can waste' during the recycling process.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 572885084274688
+    m_Localized: Bread scraps are not recyclable waste, they are classified as food
+      waste.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 572951828234240
+    m_Localized: Breadcrumbs are classified as food waste.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 573547452956672
+    m_Localized: Glass bottles are not general waste, they are classified as glass
+      for recycling.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 573551324299264
+    m_Localized: Empty beer bottles are classified as glass waste for recycling.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 573878853304320
+    m_Localized: Eggshells cannot be recycled and are classified as general waste.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 573881785122816
+    m_Localized: Eggshells are classified as general waste.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 574164711899136
+    m_Localized: Tissues cannot be recycled and are classified as general waste.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 574166767108096
+    m_Localized: Used tissues are classified as general waste.
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
