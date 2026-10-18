@@ -8,14 +8,20 @@ using UnityEngine;
 [System.Serializable]
 public class TrashGuideData
 {
-    public string id;                  
-    public int correct_bin_id;         
-    public string trash_name;          
-    public string category;            
-    public string subcategory;         
-    [TextArea(2, 4)] public string log_wrong;           
-    [TextArea(2, 4)] public string log_correct;         
-    [TextArea(2, 4)] public string tip_ingame;          
+    public string id;
+    public int correct_bin_id;
+    public string name;
+    public string name_KR;
+    public Sprite item_image;
+    public string category;
+    [TextArea(2, 4)] public string wrong;
+    [TextArea(2, 4)] public string wrong_KR;
+    [TextArea(2, 4)] public string correct;
+    [TextArea(2, 4)] public string correct_KR;
+    [TextArea(2, 4)] public string method;
+    [TextArea(2, 4)] public string method_KR;
+    [TextArea(2, 4)] public string tip;
+    [TextArea(2, 4)] public string tip_KR;
 }
 
 // ==========================================
@@ -26,6 +32,7 @@ public class ShopItemData
 {
     public string item_id; 
     public string item_name; 
+    public string item_name_KR;
     public int price; 
     public Sprite item_image; 
     public bool is_sold_out;
@@ -52,15 +59,16 @@ public class GameDBManager : MonoBehaviour
         }
     }
 
-    public TrashGuideData GetTrashData(string trashId)
+    public TrashGuideData GetTrashData(string Id)
     {
-        return trashGuideMasterDB.Find(t => t.id == trashId);
+        TrashGuideData Tdata = trashGuideMasterDB.Find(i => i.id == Id);
+        return Tdata;
     }
 
     public ShopItemData GetShopItemData(string itemId)
     {
-        ShopItemData data = shopItemMasterDB.Find(i => i.item_id == itemId);
-        return data;
+        ShopItemData Sdata = shopItemMasterDB.Find(i => i.item_id == itemId);
+        return Sdata;
     }
 
     // 품절 아이템 상태 동기화 처리

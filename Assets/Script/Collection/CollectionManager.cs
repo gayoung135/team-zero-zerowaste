@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class CollectionManager : MonoBehaviour
 {
@@ -14,9 +15,6 @@ public class CollectionManager : MonoBehaviour
     [Header("[Pages Component]")]
     public CollectionPage leftPage;
     public CollectionPage rightPage;
-
-    [Header("[인게임 쓰레기 프리팹 등록 리스트]")]
-    public List<GameObject> trashPrefabs = new List<GameObject>();
 
     private List<TrashGuideData> trashList = new List<TrashGuideData>();
     private int currentPairIndex = 0;
@@ -230,71 +228,41 @@ public class CollectionManager : MonoBehaviour
         if (leftIndex < trashList.Count)
         {
             TrashGuideData tData = trashList[leftIndex];
-            Sprite trashSprite = GetTrashSpriteFromPrefabs(tData.trash_name);
-            if (leftPage != null) leftPage.UpdatePage(tData, trashSprite);
+            if (leftPage != null) leftPage.UpdatePage(tData);
         }
         else
         {
-            if (leftPage != null) leftPage.UpdatePage(null, null);
+            if (leftPage != null) leftPage.UpdatePage(null);
         }
 
         // 오른쪽 페이지 데이터 인젝션
         if (rightIndex < trashList.Count)
         {
             TrashGuideData tData = trashList[rightIndex];
-            Sprite trashSprite = GetTrashSpriteFromPrefabs(tData.trash_name);
-            if (rightPage != null) rightPage.UpdatePage(tData, trashSprite);
+            if (rightPage != null) rightPage.UpdatePage(tData);
         }
         else
         {
-            if (rightPage != null) rightPage.UpdatePage(null, null);
+            if (rightPage != null) rightPage.UpdatePage(null);
         }
     }
 
-    private Sprite GetTrashSpriteFromPrefabs(string trashName)
+    public void UnlockTrash(string trashID)
     {
-        if (string.IsNullOrEmpty(trashName)) return null;
-        string target = trashName.ToLower().Replace("trash_", "").Trim();
-        foreach (GameObject prefab in trashPrefabs)
-        {
-            if (prefab == null) continue;
-            string prefabName = prefab.name.ToLower().Replace("trash_", "").Trim();
-            if (prefabName == target || prefabName.Contains(target) || target.Contains(prefabName))
-            {
-                SpriteRenderer spriteRenderer = prefab.GetComponent<SpriteRenderer>();
-                if (spriteRenderer != null) return spriteRenderer.sprite;
-                Image uiImage = prefab.GetComponent<Image>();
-                if (uiImage != null) return uiImage.sprite;
-            }
-        }
-        return null;
-    }
-
-    public void UnlockTrash(string trashName)
-    {
-        if (string.IsNullOrEmpty(trashName)) return;
+        if (string.IsNullOrEmpty(trashID)) return;
         LoadCollectionData();
-        if (!unlockedTrashIds.Contains(trashName))
+        if (!unlockedTrashIds.Contains(trashID))
         {
-            unlockedTrashIds.Add(trashName);
+            unlockedTrashIds.Add(trashID);
             SaveCollectionData();
         }
     }
 
-    public bool IsUnlocked(string trashName)
+    public bool IsUnlocked(string trashID)
     {
-        if (string.IsNullOrEmpty(trashName)) return false;
+        if (string.IsNullOrEmpty(trashID)) return false;
         LoadCollectionData();
-        string targetName = trashName.ToLower().Trim();
-        foreach (string unlockedId in unlockedTrashIds)
-        {
-            string savedName = unlockedId.ToLower().Trim();
-            if (savedName == targetName || savedName.Contains(targetName) || targetName.Contains(savedName))
-            {
-                return true;
-            }
-        }
-        return false;
+        return unlockedTrashIds.Contains(trashID.Trim());
     }
 
     private void SaveCollectionData()

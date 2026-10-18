@@ -15,8 +15,8 @@ MonoBehaviour:
   m_GroupName: Localization-String-Tables-Korean (ko)
   m_GUID: 6e4dc8821e6143b4cb1a65210e4f7441
   m_SerializeEntries:
-  - m_GUID: fd92d773ab876ff4f9f197f162c0d1a7
-    m_Address: TrashTable_ko
+  - m_GUID: b57a4009d0b320143bcaedcd5cf03599
+    m_Address: HowToPlayTable_ko
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-ko
