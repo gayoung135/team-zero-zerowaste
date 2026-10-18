@@ -29,6 +29,7 @@ public class TerrariumItem : MonoBehaviour, IDragHandler
         PreviewUI = GameObject.Find("Preview");
         if(PreviewUI!=null) PreviewUI.SetActive(false);
         isItemEditmode = true;
+        manager.selectedChild = this.gameObject;
     }
 
     public void OnDrag(PointerEventData eventData) //아이템 이동
@@ -49,6 +50,16 @@ public class TerrariumItem : MonoBehaviour, IDragHandler
         UI.transform.Rotate(0, 0, -30);
     }
 
+    public void ZoomIn() //확대 
+    {
+        if (rectTransform.localScale.x < 2f) rectTransform.localScale += new Vector3(0.2f, 0.2f, 0f);
+    }
+
+    public void ZoomOut() //축소
+    {
+        if (rectTransform.localScale.x > 0.6f) rectTransform.localScale += new Vector3(-0.2f, -0.2f, 0f);
+    }
+    
     public void Delete() //삭제
     {
         EditUI.SetActive(true);
