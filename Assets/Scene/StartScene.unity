@@ -15501,199 +15501,312 @@ MonoBehaviour:
   trashGuideMasterDB:
   - id: TRASH_001
     correct_bin_id: 1
-    trash_name: Trash_PetBottle
+    name: Plastic Bottle
+    name_KR: "\uD398\uD2B8\uBCD1"
+    item_image: {fileID: 21300000, guid: a737aed872974324489c99b7b362b4e2, type: 3}
     category: Recyclable waste  (plastic)
-    subcategory: 
-    log_wrong: '[Wrong answer] PET bottles are not general waste, they are classified
-      as recyclable plastics.'
-    log_correct: '[Correct answer] PET bottles are recyclable waste.'
-    tip_ingame: You need to remove the label from the PET bottle before recycling
-      it.
+    wrong: PET bottles are not general waste, they are classified as recyclable plastics.
+    wrong_KR: "\uD398\uD2B8\uBCD1\uC740 \uC77C\uBC18 \uC4F0\uB808\uAE30\uAC00 \uC544\uB2C8\uBA70,
+      \uC7AC\uD65C\uC6A9 \uD50C\uB77C\uC2A4\uD2F1\uC73C\uB85C \uBD84\uB958\uB429\uB2C8\uB2E4."
+    correct: PET bottles are recyclable waste.
+    correct_KR: "\uD398\uD2B8\uBCD1\uC740 \uC7AC\uD65C\uC6A9(\uD50C\uB77C\uC2A4\uD2F1)
+      \uC4F0\uB808\uAE30\uAC00 \uB9DE\uC2B5\uB2C8\uB2E4."
+    method: Empty the bottle and throw it into the Recyclable bin.
+    method_KR: "\uB0B4\uC6A9\uBB3C\uC744 \uBE44\uC6B0\uACE0 \uD50C\uB77C\uC2A4\uD2F1(\uC7AC\uD65C\uC6A9)
+      \uC4F0\uB808\uAE30\uD1B5\uC5D0 \uBC84\uB824\uC8FC\uC138\uC694."
+    tip: You need to remove the label from the PET bottle before recycling it.
+    tip_KR: "\uD398\uD2B8\uBCD1\uC744 \uC7AC\uD65C\uC6A9\uD558\uAE30 \uC804\uC5D0
+      \uB77C\uBCA8\uC744 \uC81C\uAC70\uD574\uC8FC\uC138\uC694."
   - id: TRASH_002
     correct_bin_id: 2
-    trash_name: Trash_Apple
+    name: Apple
+    name_KR: "\uC0AC\uACFC"
+    item_image: {fileID: 21300000, guid: 4807de860d2363947b940ee8fb81a052, type: 3}
     category: Food waste
-    subcategory: 
-    log_wrong: '[Wrong answer] Apples are not recyclable waste, they are classified
-      as food waste.'
-    log_correct: '[Correct answer] Apples are classified as food waste.'
-    tip_ingame: Apple cores are organic waste. Put them in the food waste bin.
+    wrong: Apples are not recyclable waste, they are classified as food waste.
+    wrong_KR: "\uC0AC\uACFC\uB294 \uC7AC\uD65C\uC6A9 \uC4F0\uB808\uAE30\uAC00 \uC544\uB2C8\uBA70,
+      \uC74C\uC2DD\uBB3C \uC4F0\uB808\uAE30\uB85C \uBD84\uB958\uB429\uB2C8\uB2E4."
+    correct: Apples are classified as food waste.
+    correct_KR: "\uC0AC\uACFC\uB294 \uC74C\uC2DD\uBB3C \uC4F0\uB808\uAE30\uAC00 \uB9DE\uC2B5\uB2C8\uB2E4."
+    method: Apple peels, cores, seeds, and flesh must be disposed of as food waste.
+    method_KR: "\uC0AC\uACFC \uAECD\uC9C8, \uC2EC, \uC528, \uACFC\uC721 \uB4F1\uC740
+      \uC74C\uC2DD\uBB3C\uC4F0\uB808\uAE30\uB85C \uBD84\uB958\uD558\uC5EC \uBC84\uB824\uC57C
+      \uD569\uB2C8\uB2E4."
+    tip: Apple cores are organic waste. Put them in the food waste bin.
+    tip_KR: "\uC0AC\uACFC \uC2EC\uC740 \uC720\uAE30\uC131 \uD3D0\uAE30\uBB3C\uC785\uB2C8\uB2E4.
+      \uC74C\uC2DD\uBB3C \uC4F0\uB808\uAE30\uD1B5\uC5D0 \uBC84\uB824 \uC8FC\uC138\uC694."
   - id: TRASH_003
     correct_bin_id: 2
-    trash_name: Trash_Bone
+    name: Bone
+    name_KR: "\uBF08"
+    item_image: {fileID: 21300000, guid: c0f6e671958d2344fa91e8d3d5f750f6, type: 3}
     category: General waste
-    subcategory: 
-    log_wrong: '[Wrong answer] Bones cannot be recycled and are classified as general
-      waste.'
-    log_correct: '[Correct answer] Bones are classified as general waste.'
-    tip_ingame: Bones cannot be recycled. Dispose of them as general waste.
+    wrong: Bones cannot be recycled and are classified as general waste.
+    wrong_KR: "\uBF08\uB294 \uC7AC\uD65C\uC6A9\uD560 \uC218 \uC5C6\uC73C\uBA70 \uC77C\uBC18\uC4F0\uB808\uAE30\uB85C
+      \uBD84\uB958\uB429\uB2C8\uB2E4."
+    correct: Bones are classified as general waste.
+    correct_KR: "\uBF08\uB2E4\uADC0\uB294 \uC77C\uBC18\uC4F0\uB808\uAE30\uAC00 \uB9DE\uC2B5\uB2C8\uB2E4."
+    method: Bones cannot be recycled into animal feed, so they must be disposed of
+      as general waste.
+    method_KR: "\uBF08\uB294 \uB3D9\uBB3C\uC6A9 \uC0AC\uB8CC\uB85C \uC7AC\uD65C\uC6A9\uD560
+      \uC218 \uC5C6\uC73C\uBBC0\uB85C \uC77C\uBC18\uC4F0\uB808\uAE30\uC5D0 \uBC84\uB824\uC8FC\uC138\uC694."
+    tip: Bones cannot be recycled. Dispose of them as general waste.
+    tip_KR: "\uBF08\uB294 \uC7AC\uD65C\uC6A9\uD560 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4.
+      \uC77C\uBC18 \uC4F0\uB808\uAE30\uB85C \uBC30\uCD9C\uD574 \uC8FC\uC138\uC694."
   - id: TRASH_004
     correct_bin_id: 2
-    trash_name: Trash_Banana
+    name: Banana
+    name_KR: "\uBC14\uB098\uB098"
+    item_image: {fileID: 21300000, guid: f6b8e4a744eed914c95f47b04310bac0, type: 3}
     category: Food waste
-    subcategory: 
-    log_wrong: '[Wrong answer] Banana peels are food waste, not recyclable waste.'
-    log_correct: "[Correct answer] Banana peels are classified as food waste.\t"
-    tip_ingame: Banana peels are  organic waste. Dispose of them in the food waste
-      bin.
+    wrong: Banana peels are food waste, not recyclable waste.
+    wrong_KR: "\uBC14\uB098\uB098 \uAECD\uC9C8\uC740 \uC7AC\uD65C\uC6A9 \uC4F0\uB808\uAE30\uAC00
+      \uC544\uB2C8\uB77C \uC74C\uC2DD\uBB3C \uC4F0\uB808\uAE30\uC785\uB2C8\uB2E4."
+    correct: Banana peels are classified as food waste.
+    correct_KR: "\uBC14\uB098\uB098 \uAECD\uC9C8\uC740 \uC74C\uC2DD\uBB3C \uC4F0\uB808\uAE30\uAC00
+      \uB9DE\uC2B5\uB2C8\uB2E4."
+    method: Dispose of it as food waste, but the hard stem part should be discarded
+      as general waste.
+    method_KR: "\uC74C\uC2DD\uBB3C \uC4F0\uB808\uAE30\uB85C \uBC84\uB9AC\uACE0, \uB531\uB531\uD55C
+      \uAF2D\uC9C0 \uBD80\uBD84\uC740 \uC77C\uBC18 \uC4F0\uB808\uAE30\uB85C \uBC84\uB824\uC8FC\uC138\uC694."
+    tip: Banana peels are  organic waste. Dispose of them in the food waste bin.
+    tip_KR: "\uBC14\uB098\uB098 \uAECD\uC9C8\uC740 \uC720\uAE30\uC131 \uD3D0\uAE30\uBB3C\uC785\uB2C8\uB2E4.
+      \uC74C\uC2DD\uBB3C \uC4F0\uB808\uAE30\uD1B5\uC5D0 \uBC84\uB824\uC8FC\uC138\uC694."
   - id: TRASH_005
     correct_bin_id: 1
-    trash_name: Trash_BlueCan
+    name: Blue Can
+    name_KR: "\uD30C\uB780 \uCE94"
+    item_image: {fileID: 21300000, guid: 9d713dfed93de5d488047e2cd874558d, type: 3}
     category: Recyclable waste (can)
-    subcategory: 
-    log_wrong: '[Wrong answer] Cans are not general waste, they are separated into
-      a distinct category for cans during the recycling process.'
-    log_correct: '[Correct answer] Cans are classified as ''can waste'' during the
-      recycling process.'
-    tip_ingame: Cans should be emptied, rinsed with water to remove any residue,
-      and flattened before disposal.
+    wrong: Cans are not general waste, they are separated into a distinct category
+      for cans during the recycling process.
+    wrong_KR: "\uCE94\uC740 \uC77C\uBC18\uC4F0\uB808\uAE30\uAC00 \uC544\uB2C8\uBA70, 
+      \uC7AC\uD65C\uC6A9 \uACFC\uC815\uC5D0\uC11C \uCE94\uB958\uB85C \uBD84\uB958\uB429\uB2C8\uB2E4."
+    correct: Cans are classified as 'can waste' during the recycling process.
+    correct_KR: "\uCE94\uC740 \uC7AC\uD65C\uC6A9(\uCE94\uB958) \uC4F0\uB808\uAE30\uAC00
+      \uB9DE\uC2B5\uB2C8\uB2E4."
+    method: Empty the contents, wash thoroughly, and dispose of it in the can recycling
+      bin.
+    method_KR: "\uB0B4\uC6A9\uBB3C\uC744 \uBE44\uC6B0\uACE0 \uAE68\uB057\uC774 \uC53B\uC740
+      \uB4A4 \uCE94\uB958\uB85C \uBD84\uB9AC\uBC30\uCD9C\uD574\uC8FC\uC138\uC694."
+    tip: Cans should be emptied, rinsed with water to remove any residue, and flattened
+      before disposal.
+    tip_KR: "\uCE94\uC740 \uB0B4\uC6A9\uBB3C\uC744 \uBE44\uC6B0\uACE0 \uBB3C\uB85C
+      \uD5F9\uAD6C\uC5B4 \uC794\uC5EC\uBB3C\uC744 \uC81C\uAC70\uD55C \uB4A4, \uB0A9\uC791\uD558\uAC8C
+      \uB20C\uB7EC\uC11C \uBC30\uCD9C\uD574\uC8FC\uC138\uC694."
   - id: TRASH_006
     correct_bin_id: 2
-    trash_name: Trash_Bread
+    name: Bread
+    name_KR: "\uBE75"
+    item_image: {fileID: 21300000, guid: 3ac2a0b8ad99a7f4b8e62d7fbe4817c8, type: 3}
     category: Food waste
-    subcategory: 
-    log_wrong: '[Wrong answer] Bread scraps are not recyclable waste, they are classified
-      as food waste.'
-    log_correct: '[Correct answer] Breadcrumbs are classified as food waste.'
-    tip_ingame: Bread pieces are food waste. Dispose of them in the food waste bin.
+    wrong: Bread scraps are not recyclable waste, they are classified as food waste.
+    wrong_KR: "\uBE75 \uC870\uAC01\uC740 \uC7AC\uD65C\uC6A9 \uC4F0\uB808\uAE30\uAC00
+      \uC544\uB2C8\uBA70, \uC74C\uC2DD\uBB3C \uC4F0\uB808\uAE30\uB85C \uBD84\uB958\uB429\uB2C8\uB2E4."
+    correct: Breadcrumbs are classified as food waste.
+    correct_KR: "\uBE75 \uC870\uAC01\uC740 \uC74C\uC2DD\uBB3C \uC4F0\uB808\uAE30\uAC00
+      \uB9DE\uC2B5\uB2C8\uB2E4."
+    method: Leftover bread must be disposed of as food waste.
+    method_KR: "\uB0A8\uC740 \uBE75\uC740 \uC74C\uC2DD\uBB3C \uC4F0\uB808\uAE30\uB85C
+      \uBD84\uB958\uD558\uC5EC \uBC84\uB824\uC8FC\uC138\uC694."
+    tip: Bread pieces are food waste. Dispose of them in the food waste bin.
+    tip_KR: "\uBE75 \uC870\uAC01\uC740 \uC74C\uC2DD\uBB3C \uC4F0\uB808\uAE30\uC785\uB2C8\uB2E4.
+      \uC74C\uC2DD\uBB3C \uC4F0\uB808\uAE30\uD1B5\uC5D0 \uBC84\uB824\uC8FC\uC138\uC694."
   - id: TRASH_007
     correct_bin_id: 1
-    trash_name: Trash_BrownGlassBottle
+    name: Brown Glass Bottle
+    name_KR: "\uAC08\uC0C9 \uC720\uB9AC\uBCD1"
+    item_image: {fileID: 21300000, guid: 25aaf51a92c7d8b4f8b67eef651665eb, type: 3}
     category: Recyclable waste (glass)
-    subcategory: 
-    log_wrong: '[Wrong answer] Glass bottles are not general waste; they are classified
-      as glass for recycling.'
-    log_correct: '[Correct answer] Empty beer bottles are classified as glass waste
-      for recycling.'
-    tip_ingame: Remove the bottle cap, empty and rinse the bottle, then dispose of
-      it in the glass recycling bin.
+    wrong: Glass bottles are not general waste, they are classified as glass for
+      recycling.
+    wrong_KR: "\uC720\uB9AC\uBCD1\uC740 \uC77C\uBC18\uC4F0\uB808\uAE30\uAC00 \uC544\uB2C8\uBA70,
+      \uC720\uB9AC\uB958 \uC7AC\uD65C\uC6A9\uC73C\uB85C \uBD84\uB958\uB429\uB2C8\uB2E4."
+    correct: Empty Glass bottles are classified as glass waste for recycling.
+    correct_KR: "\uBE48 \uC720\uB9AC\uBCD1\uC740 \uC7AC\uD65C\uC6A9(\uC720\uB9AC)
+      \uC4F0\uB808\uAE30\uAC00 \uB9DE\uC2B5\uB2C8\uB2E4."
+    method: Empty and rinse the contents, remove the plastic or metal lid, and dispose
+      of it with glass recyclables.
+    method_KR: "\uB0B4\uC6A9\uBB3C\uC744 \uBE44\uC6B0\uACE0 \uD5F9\uAD70 \uB4A4,
+      \uD50C\uB77C\uC2A4\uD2F1\uC774\uB098 \uAE08\uC18D \uB69C\uAED1\uC744 \uC81C\uAC70\uD558\uACE0
+      \uC720\uB9AC\uB958\uB85C \uBC84\uB824\uC8FC\uC138\uC694."
+    tip: Remove the bottle cap, empty and rinse the bottle, then dispose of it in
+      the glass recycling bin.
+    tip_KR: "\uBCD1\uB69C\uAED1\uC744 \uC81C\uAC70\uD558\uACE0 \uBCD1\uC744 \uBE44\uC6B4
+      \uB4A4 \uD5F9\uAD6C\uC5B4 \uC720\uB9AC \uC7AC\uD65C\uC6A9\uC73C\uB85C \uBC84\uB824\uC8FC\uC138\uC694."
   - id: TRASH_008
     correct_bin_id: 2
-    trash_name: Trash_Egg
+    name: Egg
+    name_KR: "\uACC4\uB780"
+    item_image: {fileID: 21300000, guid: a5133145e33d1ea4f9a3c0a827da8262, type: 3}
     category: General waste
-    subcategory: 
-    log_wrong: '[Wrong answer] Eggshells cannot be recycled and are classified as
-      general waste.'
-    log_correct: '[Correct answer] Eggshells are classified as general waste.'
-    tip_ingame: Eggshells are hard and not suitable for food waste. Dispose of them
-      as general waste.
+    wrong: Eggshells cannot be recycled and are classified as general waste.
+    wrong_KR: "\uACC4\uB780 \uAECD\uB370\uAE30\uB294 \uC7AC\uD65C\uC6A9\uD560 \uC218
+      \uC5C6\uC73C\uBA70 \uC77C\uBC18\uC4F0\uB808\uAE30\uB85C \uBD84\uB958\uB429\uB2C8\uB2E4."
+    correct: Eggshells are classified as general waste.
+    correct_KR: "\uACC4\uB780 \uAECD\uB370\uAE30\uB294 \uC77C\uBC18\uC4F0\uB808\uAE30\uAC00
+      \uB9DE\uC2B5\uB2C8\uB2E4."
+    method: When disposing of eggs, the contents should be discarded as food waste,
+      while the shells should be disposed of as general waste.
+    method_KR: "\uACC4\uB780\uC740 \uB0B4\uC6A9\uBB3C\uC740 \uC74C\uC2DD\uBB3C \uC4F0\uB808\uAE30\uB85C,
+      \uAECD\uC9C8\uC740 \uC77C\uBC18\uC4F0\uB808\uAE30\uB85C \uBD84\uB9AC\uD574\uC11C
+      \uBC84\uB824\uC8FC\uC138\uC694."
+    tip: Eggshells are hard and not suitable for food waste. Dispose of them as general
+      waste.
+    tip_KR: "\uACC4\uB780 \uAECD\uB370\uAE30\uB294 \uB2E8\uB2E8\uD558\uC5EC \uC74C\uC2DD\uBB3C
+      \uC4F0\uB808\uAE30\uB85C \uC801\uD569\uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4.
+      \uC77C\uBC18 \uC4F0\uB808\uAE30\uB85C \uBC30\uCD9C\uD574\uC8FC\uC138\uC694."
   - id: TRASH_009
     correct_bin_id: 2
-    trash_name: Trash_Tissue
+    name: Tissue
+    name_KR: "\uD734\uC9C0"
+    item_image: {fileID: 21300000, guid: 1a789935a0f3dc9448baf8b18f82b5b3, type: 3}
     category: General waste
-    subcategory: 
-    log_wrong: '[Wrong answer] Tissues cannot be recycled and are classified as general
-      waste.'
-    log_correct: '[Correct answer] Used tissues are classified as general waste.'
-    tip_ingame: Used tissues cannot be recycled. Dispose of them as general waste.
+    wrong: Tissues cannot be recycled and are classified as general waste.
+    wrong_KR: "\uD734\uC9C0\uB294 \uC7AC\uD65C\uC6A9\uD560 \uC218 \uC5C6\uC73C\uBA70
+      \uC77C\uBC18\uC4F0\uB808\uAE30\uB85C \uBD84\uB958\uB429\uB2C8\uB2E4."
+    correct: Used tissues are classified as general waste.
+    correct_KR: "\uC0AC\uC6A9\uD55C \uD734\uC9C0\uB294 \uC77C\uBC18\uC4F0\uB808\uAE30\uAC00
+      \uB9DE\uC2B5\uB2C8\uB2E4."
+    method: As it does not dissolve well in water, do not flush it down the toilet;
+      instead, dispose of it as general waste.
+    method_KR: "\uBB3C\uC5D0 \uC798 \uB179\uC9C0 \uC54A\uC73C\uBBC0\uB85C \uBCC0\uAE30\uC5D0
+      \uBC84\uB9AC\uBA74 \uC548 \uB418\uBA70, \uC77C\uBC18\uC4F0\uB808\uAE30\uB85C
+      \uBC30\uCD9C\uD569\uB2C8\uB2E4."
+    tip: Used tissues cannot be recycled. Dispose of them as general waste.
+    tip_KR: "\uC0AC\uC6A9\uD55C \uD734\uC9C0\uB294 \uC7AC\uD65C\uC6A9\uD560 \uC218
+      \uC5C6\uC2B5\uB2C8\uB2E4. \uC77C\uBC18 \uC4F0\uB808\uAE30\uB85C \uBC30\uCD9C\uD574
+      \uC8FC\uC138\uC694."
   shopItemMasterDB:
   - item_id: ITEM_001
     item_name: Bottle1
+    item_name_KR: "\uC720\uB9AC\uBCD11"
     price: 70
     item_image: {fileID: 21300000, guid: a2d85a8eba318c1429cb8aeadb5842ac, type: 3}
     is_sold_out: 0
   - item_id: ITEM_002
     item_name: Bottle2
+    item_name_KR: "\uC720\uB9AC\uBCD12"
     price: 80
     item_image: {fileID: 21300000, guid: 695a3a8bbd6e4014f9a4f0b81ba2e3ff, type: 3}
     is_sold_out: 0
   - item_id: ITEM_003
     item_name: Mushroom
+    item_name_KR: "\uBC84\uC12F"
     price: 120
     item_image: {fileID: 21300000, guid: 8627ba2c0dd58ea4f80ee2c824e6e8d3, type: 3}
     is_sold_out: 0
   - item_id: ITEM_004
     item_name: Frog
+    item_name_KR: "\uAC1C\uAD6C\uB9AC"
     price: 150
     item_image: {fileID: 21300000, guid: 7c62a13d8f0d3774990c7f9ab20b0ca3, type: 3}
     is_sold_out: 0
   - item_id: ITEM_005
     item_name: Snail
+    item_name_KR: "\uB2EC\uD33D\uC774"
     price: 100
     item_image: {fileID: 21300000, guid: 70437437675ae90408f384665a6dc5b2, type: 3}
     is_sold_out: 0
   - item_id: ITEM_006
     item_name: Leaves
+    item_name_KR: "\uB098\uBB47\uC78E \uBB49\uCE58"
     price: 60
     item_image: {fileID: 21300000, guid: b50aac2483dbc9e4bb6ffbbef26607e6, type: 3}
     is_sold_out: 0
   - item_id: ITEM_007
     item_name: Acorn
+    item_name_KR: "\uB3C4\uD1A0\uB9AC"
     price: 70
     item_image: {fileID: 21300000, guid: a17370958748bc94f8aed9031392812a, type: 3}
     is_sold_out: 0
   - item_id: ITEM_008
     item_name: Snowman
+    item_name_KR: "\uB208\uC0AC\uB78C"
     price: 200
     item_image: {fileID: 21300000, guid: f444dba983d5c11459755d3d0eae8486, type: 3}
     is_sold_out: 0
   - item_id: ITEM_009
     item_name: IceCream
+    item_name_KR: "\uC544\uC774\uC2A4\uD06C\uB9BC"
     price: 150
     item_image: {fileID: 21300000, guid: fe08e7112d2b98346bacf1b04972679b, type: 3}
     is_sold_out: 0
   - item_id: ITEM_010
-    item_name: OrangeLeaf
+    item_name: Orange Leaf
+    item_name_KR: "\uC8FC\uD669 \uC740\uD589\uC78E"
     price: 50
     item_image: {fileID: 21300000, guid: 5846337d8e26b9c449be3db460ca283e, type: 3}
     is_sold_out: 0
   - item_id: ITEM_011
     item_name: Quartz
+    item_name_KR: "\uC11D\uC601"
     price: 300
     item_image: {fileID: 21300000, guid: c71272ec4f2eaca4f83c0192025319d4, type: 3}
     is_sold_out: 0
   - item_id: ITEM_012
     item_name: DragonFly
+    item_name_KR: "\uC7A0\uC790\uB9AC"
     price: 100
     item_image: {fileID: 21300000, guid: 4ae52e6552c05854baefe866eaab3920, type: 3}
     is_sold_out: 0
   - item_id: ITEM_013
     item_name: Leaf
+    item_name_KR: "\uB098\uBB47\uC78E"
     price: 50
     item_image: {fileID: 21300000, guid: 35320218a6b617e438bb3890b73487ba, type: 3}
     is_sold_out: 0
   - item_id: ITEM_014
     item_name: Pumpkin
+    item_name_KR: "\uD638\uBC15"
     price: 130
     item_image: {fileID: 21300000, guid: 44ecfe03ff511ea4488dc2319126896f, type: 3}
     is_sold_out: 0
   - item_id: ITEM_015
-    item_name: CherryBlossom
+    item_name: Cherry Blossom
+    item_name_KR: "\uBC9A\uAF43\uC78E"
     price: 150
     item_image: {fileID: 21300000, guid: 10b5236bb24b849449a97c672f25d880, type: 3}
     is_sold_out: 0
   - item_id: ITEM_016
     item_name: Coral
+    item_name_KR: "\uC0B0\uD638"
     price: 140
     item_image: {fileID: 21300000, guid: 7dbd41f1fc8e19c49b5fd40ae8153ffd, type: 3}
     is_sold_out: 0
   - item_id: ITEM_017
-    item_name: Stone
+    item_name: Moss Stone
+    item_name_KR: "\uC774\uB07C \uB080 \uB3CC"
     price: 90
     item_image: {fileID: 21300000, guid: 520259dd19b14db4fa543ce0ced6c48c, type: 3}
     is_sold_out: 0
   - item_id: ITEM_018
     item_name: BonFire
+    item_name_KR: "\uBAA8\uB2E5\uBD88"
     price: 170
     item_image: {fileID: 21300000, guid: a8c24de2f4301dc45987c68e257b4fc5, type: 3}
     is_sold_out: 0
   - item_id: ITEM_019
     item_name: Stub
+    item_name_KR: "\uADF8\uB8E8\uD130\uAE30"
     price: 100
     item_image: {fileID: 21300000, guid: c9ef0a3fc2fd73142802fa399ccb09af, type: 3}
     is_sold_out: 0
   - item_id: ITEM_020
-    item_name: YellowLeaf
+    item_name: Yellow Leaf
+    item_name_KR: "\uB178\uB791 \uC740\uD589\uC78E"
     price: 50
     item_image: {fileID: 21300000, guid: 1babe567baa4ad24fb50aa7789236999, type: 3}
     is_sold_out: 0
   - item_id: ITEM_021
     item_name: WateringCan
+    item_name_KR: "\uBB3C\uBFCC\uB9AC\uAC1C"
     price: 160
     item_image: {fileID: 21300000, guid: 00849558318b011498c0f4898ebe17fe, type: 3}
     is_sold_out: 0
   - item_id: ITEM_022
-    item_name: IceLeaves
+    item_name: Ice Leaves
+    item_name_KR: "\uC5BC\uC74C \uC78E"
     price: 80
     item_image: {fileID: 21300000, guid: 5ab75f5069a789c4ba9c394d8ec78919, type: 3}
     is_sold_out: 0

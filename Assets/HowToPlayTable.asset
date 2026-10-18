@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5be51871efa6c3e4eae1703925c8f5ac, type: 3}
-  m_Name: TrashTable
+  m_Name: HowToPlayTable
   m_EditorClassIdentifier: Unity.Localization.Editor::UnityEditor.Localization.StringTableCollection
-  m_SharedTableData: {fileID: 11400000, guid: b03425dc957317043abdc35321f872c9, type: 2}
+  m_SharedTableData: {fileID: 11400000, guid: 1022314d257708246adb85b4b5900324, type: 2}
   m_Tables:
-  - {fileID: 11400000, guid: 02f6273584098f24db70298c58c30f20, type: 2}
-  - {fileID: 11400000, guid: fd92d773ab876ff4f9f197f162c0d1a7, type: 2}
+  - {fileID: 11400000, guid: 1875ad41e4c03b3458b91e76872122cc, type: 2}
+  - {fileID: 11400000, guid: b57a4009d0b320143bcaedcd5cf03599, type: 2}
   m_Extensions: []
   m_Group: String Table
   references:

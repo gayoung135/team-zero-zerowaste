@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class SwipeTrashSpawner : MonoBehaviour
 {
-    [Header("쓰레기 프리팹 배열")]
-    public GameObject[] trashPrefabs; 
+    [Header("쓰레기 프리팹")]
+    public GameObject trashPrefab; 
 
     public float span = 2.5f;        
     public float moveSpeed = 3.0f;   
@@ -49,36 +49,26 @@ public class SwipeTrashSpawner : MonoBehaviour
 
     void SpawnSwipeTrash()
     {
-        if (GameDBManager.Instance == null || GameDBManager.Instance.trashGuideMasterDB.Count == 0 || trashPrefabs.Length == 0) return;
+        if (GameDBManager.Instance == null || GameDBManager.Instance.trashGuideMasterDB.Count == 0 || trashPrefab == null) return;
 
-        // 1. DB 무작위 추첨
+        //DB 무작위 추첨
         int randomDbIndex = Random.Range(0, GameDBManager.Instance.trashGuideMasterDB.Count);
         TrashGuideData selectedDbData = GameDBManager.Instance.trashGuideMasterDB[randomDbIndex];
 
-        // 2. 프리팹 매칭
-        GameObject targetPrefab = FindPrefabByTrashName(selectedDbData.trash_name);
-        if (targetPrefab == null) targetPrefab = trashPrefabs[0];
-
-        // 3. 생성 및 데이터 세팅
+        //생성 및 데이터 세팅
         Vector3 spawnPosition = new Vector3(spawnX, spawnY, -0.05f); 
-        GameObject instantiatedTrash = Instantiate(targetPrefab, spawnPosition, Quaternion.identity);
-
-        TrashObject trashComponent = instantiatedTrash.GetComponent<TrashObject>();
-        if (trashComponent == null) trashComponent = instantiatedTrash.AddComponent<TrashObject>();
-        trashComponent.trashId = selectedDbData.id; 
-
-        // 4. 이동 컴포넌트 장착
-        SwipeTrashMovement movement = instantiatedTrash.GetComponent<SwipeTrashMovement>();
-        if (movement == null) movement = instantiatedTrash.AddComponent<SwipeTrashMovement>();
-        movement.Setup(moveDirection, moveSpeed, destroyX, leftToRight);
-    }
-
-    private GameObject FindPrefabByTrashName(string trashName)
-    {
-        foreach (GameObject prefab in trashPrefabs)
+        GameObject Trash = Instantiate(trashPrefab, spawnPosition, Quaternion.identity);
+        TrashObject TrashScript = Trash.GetComponent<TrashObject>();
+        if (TrashScript != null)
         {
-            if (prefab.name == trashName) return prefab;
+            TrashScript.TrashID = selectedDbData.id;
+            SpriteRenderer image = Trash.GetComponent<SpriteRenderer>();
+            if (image != null) image.sprite = selectedDbData.item_image;
         }
-        return null;
+
+        //이동 컴포넌트 장착
+        SwipeTrashMovement movement = Trash.GetComponent<SwipeTrashMovement>();
+        if (movement == null) movement = Trash.AddComponent<SwipeTrashMovement>();
+        movement.Setup(moveDirection, moveSpeed, destroyX, leftToRight);
     }
 }

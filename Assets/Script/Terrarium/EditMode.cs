@@ -10,20 +10,16 @@ public class PlacedItemData
     public float posX;
     public float posY;
     public float rotZ;
-    public float scale;
 }
 
 public class EditMode : MonoBehaviour
 {
     public bool isEditMode = false; //에딧모드인지 확인용 (에딧 아니면 취소)
-    public GameObject selectedChild = null; //다른 아이템 변경중인지 확인용
     public GameObject itemPrefab; //복제될 아이템 프리팹
     public GameObject itemParent; //복제된 아이템 배치할 위치
     public GameObject itemButtonPrefab; //아이템 버튼 프리팹
     public Transform itemButtonParent; //인벤토리
     public TextMeshProUGUI NothingText; //인벤토리 비었을때 띄울 텍스트
-    public Transform tempbox; //아이템 배치위치
-    public Transform ground; //땅 
     private RectTransform rectTransform;
     bool hasItem = false;
 
@@ -73,8 +69,6 @@ public class EditMode : MonoBehaviour
     public void EditModeOn() //에딧버튼
     {
         isEditMode = true;
-        tempbox.localScale = Vector3.one;
-        ground.localScale = Vector3.one;
     }
     
     public void save() // 저장버튼
@@ -95,8 +89,7 @@ public class EditMode : MonoBehaviour
                     itemId = itemScript.itemId,
                     posX = rect.anchoredPosition.x,
                     posY = rect.anchoredPosition.y,
-                    rotZ = rect.localEulerAngles.z,
-                    scale = rect.localScale.x
+                    rotZ = rect.localEulerAngles.z
                 };
                 layoutData.Add(data);
             }
@@ -138,8 +131,6 @@ public class EditMode : MonoBehaviour
             {
                 rect.anchoredPosition = new Vector2(data.posX, data.posY);
                 rect.localEulerAngles = new Vector3(0f,0f,data.rotZ);
-                rect.GetChild(0).localEulerAngles = new Vector3(0f, 0f, -data.rotZ);
-                rect.localScale = new Vector3(data.scale, data.scale, 1f);
             }
 
             Image newImage = newItem.GetComponent<Image>();
@@ -148,19 +139,5 @@ public class EditMode : MonoBehaviour
             TerrariumItem itemScript = newItem.GetComponent<TerrariumItem>();
             if (itemScript != null) itemScript.itemId = data.itemId;
         }
-    }
-
-    void Update() //스크롤로 확대/축소
-    {
-        if(isEditMode) return;
-        float scroll = Input.mouseScrollDelta.y;
-        if (scroll == 0) return;
-
-        float scale = tempbox.transform.localScale.x + scroll * 0.1f;
-
-        if (scale < 0.5f) scale = 0.5f;
-        if (scale > 2f) scale = 2f;
-        tempbox.localScale = new Vector3(scale, scale, 1f);
-        ground.localScale = new Vector3(scale, scale, 1f);
     }
 }

@@ -553,107 +553,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 120668167}
   m_CullTransparentMesh: 1
---- !u!1 &121914764
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 121914765}
-  - component: {fileID: 121914768}
-  - component: {fileID: 121914767}
-  - component: {fileID: 121914766}
-  m_Layer: 0
-  m_Name: CollectionManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &121914765
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 121914764}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 960, y: 540}
-  m_SizeDelta: {x: 1920, y: 1080}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &121914766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 121914764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bac190f13741a34fa629b065aa6eb5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CollectionManager
-  collectionPanel: {fileID: 903271273}
-  leftPage: {fileID: 1097247448}
-  rightPage: {fileID: 755825950}
-  trashPrefabs:
-  - {fileID: 2427322747382751704, guid: e76a1d3a7a515ad45bcac15ac2b11f76, type: 3}
-  - {fileID: 7761041508069411494, guid: c86e1b988773b41429763c7b4287aad0, type: 3}
-  - {fileID: 200166174747490314, guid: 38375949677c97d4dbf86a72c7a0938f, type: 3}
-  - {fileID: 7503880733471107131, guid: b52f4eeec711d36409ffccfe0eb63fca, type: 3}
-  - {fileID: 6502457263000452240, guid: 8bca663955b4e7a4eaddb797b71b64cf, type: 3}
-  - {fileID: 200166174747490314, guid: 9a586c3cf1efed446872f8dd90ae17ce, type: 3}
-  - {fileID: 604826059310431329, guid: b974e1e8b3f13b14b823e1e7d34e79e2, type: 3}
-  - {fileID: 200166174747490314, guid: 9631352455df06d47bc5f41d97e12a63, type: 3}
-  - {fileID: 2427322747382751704, guid: 645b0089d2213d948b00303d55461fdf, type: 3}
---- !u!114 &121914767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 121914764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 0.392}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &121914768
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 121914764}
-  m_CullTransparentMesh: 1
 --- !u!1 &130654937
 GameObject:
   m_ObjectHideFlags: 0
@@ -6300,9 +6199,9 @@ RectTransform:
   - {fileID: 1453737472}
   - {fileID: 840145614}
   - {fileID: 357306534}
-  - {fileID: 1164972650}
   - {fileID: 1295231703}
   - {fileID: 903271274}
+  - {fileID: 1164972650}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -7019,6 +6918,7 @@ GameObject:
   - component: {fileID: 1355495887}
   - component: {fileID: 1355495886}
   - component: {fileID: 1355495888}
+  - component: {fileID: 1355495889}
   m_Layer: 0
   m_Name: SettingsManager
   m_TagString: Untagged
@@ -7071,14 +6971,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EditMode
   isEditMode: 0
-  selectedChild: {fileID: 0}
   itemPrefab: {fileID: 4407134891718657334, guid: a2f18a8a4ea9d56409bb4c61bbdf063a, type: 3}
   itemParent: {fileID: 1453737471}
   itemButtonPrefab: {fileID: 5083294950435141271, guid: 1e4fd1ff7fd84e542a6f5bc607096b2a, type: 3}
   itemButtonParent: {fileID: 1577450911}
   NothingText: {fileID: 514606054}
-  tempbox: {fileID: 1453737472}
-  ground: {fileID: 1685315408}
+--- !u!114 &1355495889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355495885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bac190f13741a34fa629b065aa6eb5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollectionManager
+  collectionPanel: {fileID: 903271273}
+  leftPage: {fileID: 1097247448}
+  rightPage: {fileID: 755825950}
 --- !u!1 &1356559741
 GameObject:
   m_ObjectHideFlags: 0
@@ -8931,7 +8843,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 121914766}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CollectionManager, Assembly-CSharp
         m_MethodName: PreviousPage
         m_Mode: 1
@@ -9969,7 +9881,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 121914766}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CollectionManager, Assembly-CSharp
         m_MethodName: CloseCollection
         m_Mode: 1
@@ -10349,7 +10261,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 121914766}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CollectionManager, Assembly-CSharp
         m_MethodName: NextPage
         m_Mode: 1
@@ -10406,7 +10318,6 @@ SceneRoots:
   - {fileID: 234972400}
   - {fileID: 1547479319}
   - {fileID: 1222966036}
-  - {fileID: 121914765}
   - {fileID: 682427308}
   - {fileID: 1742309809}
   - {fileID: 1355495887}

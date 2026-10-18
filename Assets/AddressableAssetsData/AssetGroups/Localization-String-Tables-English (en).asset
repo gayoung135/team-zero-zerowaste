@@ -15,8 +15,8 @@ MonoBehaviour:
   m_GroupName: Localization-String-Tables-English (en)
   m_GUID: fc6faf991aff62b488fafdb71ff75636
   m_SerializeEntries:
-  - m_GUID: 02f6273584098f24db70298c58c30f20
-    m_Address: TrashTable_en
+  - m_GUID: 1875ad41e4c03b3458b91e76872122cc
+    m_Address: HowToPlayTable_en
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en
