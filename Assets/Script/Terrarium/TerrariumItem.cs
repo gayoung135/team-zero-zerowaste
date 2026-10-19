@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Linq;
+using UnityEngine.Animations;
+using UnityEngine.Playables;
 
 public class TerrariumItem : MonoBehaviour, IDragHandler
 {
@@ -11,6 +13,7 @@ public class TerrariumItem : MonoBehaviour, IDragHandler
     private GameObject PreviewUI;
     private RectTransform rectTransform;
     private Canvas canvas;
+    private PlayableGraph graph;
     private bool isItemEditmode = false;
 
     void Awake()
@@ -19,6 +22,11 @@ public class TerrariumItem : MonoBehaviour, IDragHandler
         EditUI = Resources.FindObjectsOfTypeAll<GameObject>().FirstOrDefault(x => x.name == "Edit_UI");
         rectTransform = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
+    }
+
+    void Start()
+    {
+        ApplyAnimation();
     }
 
     public void EditItem() //설정모드
@@ -30,6 +38,19 @@ public class TerrariumItem : MonoBehaviour, IDragHandler
         if(PreviewUI!=null) PreviewUI.SetActive(false);
         isItemEditmode = true;
         manager.selectedChild = this.gameObject;
+    }
+
+    public void ApplyAnimation() //애니메이션 존재 시 불러오기
+    {
+        ShopItemData shopItem = GameDBManager.Instance.GetShopItemData(itemId);
+
+        if (shopItem.animation == null) return;
+
+        //여기부터
+        Animator animator = GetComponent<Animator>();
+        if (animator == null) animator = gameObject.AddComponent<Animator>();
+
+        AnimationPlayableUtilities.PlayClip(animator, shopItem.animation, out graph);
     }
 
     public void OnDrag(PointerEventData eventData) //아이템 이동
@@ -65,5 +86,13 @@ public class TerrariumItem : MonoBehaviour, IDragHandler
         EditUI.SetActive(true);
         Destroy(gameObject);
         isItemEditmode = false;
+    }
+
+    private void OnDestroy()
+    {
+        if (graph.IsValid())
+        {
+            graph.Destroy();
+        }
     }
 }
