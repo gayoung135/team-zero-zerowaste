@@ -15684,132 +15684,154 @@ MonoBehaviour:
     price: 70
     item_image: {fileID: 21300000, guid: a2d85a8eba318c1429cb8aeadb5842ac, type: 3}
     is_sold_out: 0
+    animation: {fileID: 0}
   - item_id: ITEM_002
     item_name: Bottle2
     item_name_KR: "\uC720\uB9AC\uBCD12"
     price: 80
     item_image: {fileID: 21300000, guid: 695a3a8bbd6e4014f9a4f0b81ba2e3ff, type: 3}
     is_sold_out: 0
+    animation: {fileID: 0}
   - item_id: ITEM_003
     item_name: Mushroom
     item_name_KR: "\uBC84\uC12F"
     price: 120
     item_image: {fileID: 21300000, guid: 8627ba2c0dd58ea4f80ee2c824e6e8d3, type: 3}
     is_sold_out: 0
+    animation: {fileID: 0}
   - item_id: ITEM_004
     item_name: Frog
     item_name_KR: "\uAC1C\uAD6C\uB9AC"
     price: 150
     item_image: {fileID: 21300000, guid: 7c62a13d8f0d3774990c7f9ab20b0ca3, type: 3}
     is_sold_out: 0
+    animation: {fileID: 7400000, guid: 11840591d3cdd9b45854046c2b1ed532, type: 2}
   - item_id: ITEM_005
     item_name: Snail
     item_name_KR: "\uB2EC\uD33D\uC774"
     price: 100
     item_image: {fileID: 21300000, guid: 70437437675ae90408f384665a6dc5b2, type: 3}
     is_sold_out: 0
+    animation: {fileID: 0}
   - item_id: ITEM_006
     item_name: Leaves
     item_name_KR: "\uB098\uBB47\uC78E \uBB49\uCE58"
     price: 60
     item_image: {fileID: 21300000, guid: b50aac2483dbc9e4bb6ffbbef26607e6, type: 3}
     is_sold_out: 0
+    animation: {fileID: 0}
   - item_id: ITEM_007
     item_name: Acorn
     item_name_KR: "\uB3C4\uD1A0\uB9AC"
     price: 70
     item_image: {fileID: 21300000, guid: a17370958748bc94f8aed9031392812a, type: 3}
     is_sold_out: 0
+    animation: {fileID: 0}
   - item_id: ITEM_008
     item_name: Snowman
     item_name_KR: "\uB208\uC0AC\uB78C"
     price: 200
     item_image: {fileID: 21300000, guid: f444dba983d5c11459755d3d0eae8486, type: 3}
     is_sold_out: 0
+    animation: {fileID: 0}
   - item_id: ITEM_009
     item_name: IceCream
     item_name_KR: "\uC544\uC774\uC2A4\uD06C\uB9BC"
     price: 150
     item_image: {fileID: 21300000, guid: fe08e7112d2b98346bacf1b04972679b, type: 3}
     is_sold_out: 0
+    animation: {fileID: 7400000, guid: ae7dd61ea25e0d843946076e5a301f1c, type: 2}
   - item_id: ITEM_010
     item_name: Orange Leaf
     item_name_KR: "\uC8FC\uD669 \uC740\uD589\uC78E"
     price: 50
     item_image: {fileID: 21300000, guid: 5846337d8e26b9c449be3db460ca283e, type: 3}
     is_sold_out: 0
+    animation: {fileID: 0}
   - item_id: ITEM_011
     item_name: Quartz
     item_name_KR: "\uC11D\uC601"
     price: 300
     item_image: {fileID: 21300000, guid: c71272ec4f2eaca4f83c0192025319d4, type: 3}
     is_sold_out: 0
+    animation: {fileID: 0}
   - item_id: ITEM_012
     item_name: DragonFly
     item_name_KR: "\uC7A0\uC790\uB9AC"
     price: 100
     item_image: {fileID: 21300000, guid: 4ae52e6552c05854baefe866eaab3920, type: 3}
     is_sold_out: 0
+    animation: {fileID: 7400000, guid: 63817e124ba5605438f358f9b007e05c, type: 2}
   - item_id: ITEM_013
     item_name: Leaf
     item_name_KR: "\uB098\uBB47\uC78E"
     price: 50
     item_image: {fileID: 21300000, guid: 35320218a6b617e438bb3890b73487ba, type: 3}
     is_sold_out: 0
+    animation: {fileID: 0}
   - item_id: ITEM_014
     item_name: Pumpkin
     item_name_KR: "\uD638\uBC15"
     price: 130
     item_image: {fileID: 21300000, guid: 44ecfe03ff511ea4488dc2319126896f, type: 3}
     is_sold_out: 0
+    animation: {fileID: 0}
   - item_id: ITEM_015
     item_name: Cherry Blossom
     item_name_KR: "\uBC9A\uAF43\uC78E"
     price: 150
     item_image: {fileID: 21300000, guid: 10b5236bb24b849449a97c672f25d880, type: 3}
     is_sold_out: 0
+    animation: {fileID: 0}
   - item_id: ITEM_016
     item_name: Coral
     item_name_KR: "\uC0B0\uD638"
     price: 140
     item_image: {fileID: 21300000, guid: 7dbd41f1fc8e19c49b5fd40ae8153ffd, type: 3}
     is_sold_out: 0
+    animation: {fileID: 0}
   - item_id: ITEM_017
     item_name: Moss Stone
     item_name_KR: "\uC774\uB07C \uB080 \uB3CC"
     price: 90
     item_image: {fileID: 21300000, guid: 520259dd19b14db4fa543ce0ced6c48c, type: 3}
     is_sold_out: 0
+    animation: {fileID: 0}
   - item_id: ITEM_018
     item_name: BonFire
     item_name_KR: "\uBAA8\uB2E5\uBD88"
     price: 170
     item_image: {fileID: 21300000, guid: a8c24de2f4301dc45987c68e257b4fc5, type: 3}
     is_sold_out: 0
+    animation: {fileID: 7400000, guid: e4e347b28bde6424c9c2cdb92cd6a5c6, type: 2}
   - item_id: ITEM_019
     item_name: Stub
     item_name_KR: "\uADF8\uB8E8\uD130\uAE30"
     price: 100
     item_image: {fileID: 21300000, guid: c9ef0a3fc2fd73142802fa399ccb09af, type: 3}
     is_sold_out: 0
+    animation: {fileID: 0}
   - item_id: ITEM_020
     item_name: Yellow Leaf
     item_name_KR: "\uB178\uB791 \uC740\uD589\uC78E"
     price: 50
     item_image: {fileID: 21300000, guid: 1babe567baa4ad24fb50aa7789236999, type: 3}
     is_sold_out: 0
+    animation: {fileID: 0}
   - item_id: ITEM_021
     item_name: WateringCan
     item_name_KR: "\uBB3C\uBFCC\uB9AC\uAC1C"
     price: 160
     item_image: {fileID: 21300000, guid: 00849558318b011498c0f4898ebe17fe, type: 3}
     is_sold_out: 0
+    animation: {fileID: 0}
   - item_id: ITEM_022
     item_name: Ice Leaves
     item_name_KR: "\uC5BC\uC74C \uC78E"
     price: 80
     item_image: {fileID: 21300000, guid: 5ab75f5069a789c4ba9c394d8ec78919, type: 3}
     is_sold_out: 0
+    animation: {fileID: 0}
 --- !u!4 &1824627793
 Transform:
   m_ObjectHideFlags: 0

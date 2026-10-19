@@ -36,6 +36,7 @@ public class ShopItemData
     public int price; 
     public Sprite item_image; 
     public bool is_sold_out;
+    public AnimationClip animation;
 }
 
 public class GameDBManager : MonoBehaviour

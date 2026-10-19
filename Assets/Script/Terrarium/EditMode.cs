@@ -67,6 +67,7 @@ public class EditMode : MonoBehaviour
 
         TerrariumItem item = newItem.GetComponent<TerrariumItem>();
         item.itemId = ID;
+        item.ApplyAnimation();
         item.EditItem();
     }
 
