@@ -31,7 +31,7 @@ public class TerrariumItem : MonoBehaviour, IDragHandler
 
     public void EditItem() //설정모드
     {
-        if (!manager.isEditMode) return;
+        if (!manager.isEditMode || manager.selectedChild != null) return;
         UI.SetActive(true);
         EditUI.SetActive(false);
         PreviewUI = GameObject.Find("Preview");
@@ -63,6 +63,7 @@ public class TerrariumItem : MonoBehaviour, IDragHandler
         EditUI.SetActive(true);
         UI.SetActive(false);
         isItemEditmode = false;
+        manager.selectedChild = null;
     } 
 
     public void Rotation() //회전
@@ -84,8 +85,9 @@ public class TerrariumItem : MonoBehaviour, IDragHandler
     public void Delete() //삭제
     {
         EditUI.SetActive(true);
-        Destroy(gameObject);
         isItemEditmode = false;
+        manager.selectedChild = null;
+        Destroy(gameObject);
     }
 
     private void OnDestroy()
