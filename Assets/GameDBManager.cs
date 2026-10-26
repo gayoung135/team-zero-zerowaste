@@ -14,6 +14,7 @@ public class TrashGuideData
     public string name_KR;
     public Sprite item_image;
     public string category;
+    public bool is_unlock;
     [TextArea(2, 4)] public string wrong;
     [TextArea(2, 4)] public string wrong_KR;
     [TextArea(2, 4)] public string correct;

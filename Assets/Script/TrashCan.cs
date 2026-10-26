@@ -35,7 +35,9 @@ public class TrashCan : MonoBehaviour
             gametimer.Correct(BubbleMessage);
 
             // 도감 해금 로직
-            if (CollectionManager.Instance != null) CollectionManager.Instance.UnlockTrash(ItemDB.id);
+            TrashGuideData data = GameDBManager.Instance.GetTrashData(ItemDB.id);
+            if (data != null) data.is_unlock = true;
+            if (UGSManager.Instance != null) UGSManager.Instance.SaveTrashUnlocks();
         }
         else 
         {

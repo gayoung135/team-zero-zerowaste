@@ -30,11 +30,7 @@ public class CollectionPage : MonoBehaviour
             return;
         }
 
-        // 해금 여부 판정
-        bool isUnlocked = false;
-        if (CollectionManager.Instance != null) isUnlocked = CollectionManager.Instance.IsUnlocked(trashData.id);
-
-        if (isUnlocked)
+        if (trashData.is_unlock)
         {
             // [Unlocked State] 해금 완료 상태
             itemImage.color = Color.white;
