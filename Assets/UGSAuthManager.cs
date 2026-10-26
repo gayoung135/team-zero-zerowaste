@@ -10,6 +10,9 @@ public class UGSAuthManager : MonoBehaviour
     public GameObject loginPopup;
     public GameObject startUI;
 
+    [Tooltip("로그인 완료 시 띄울 안내창 팝업 오브젝트 연결")]
+    public GameObject loginSuccessPopup;
+
     [Space(5)]
     [Header("[저장 관련 UI 시스템 확장]")]
     [Tooltip("Do you want to save? 라고 뜨는 저장 확인 패널 오브젝트 연결")]
@@ -26,6 +29,7 @@ public class UGSAuthManager : MonoBehaviour
     [Header("[로그인 전용 UI 입력창]")]
     public TMP_InputField signinEmailInput;
     public TMP_InputField signinPasswordInput;
+    private bool isPasswordHidden = true;
 
     [Space(10)]
     [Header("[로그인 컴포넌트들 직접 연동]")]
@@ -83,6 +87,30 @@ public class UGSAuthManager : MonoBehaviour
         }
 
         SetInputFieldTextSize(24f, 36f);
+
+        if (signinPasswordInput != null)
+        {
+            signinPasswordInput.contentType = TMP_InputField.ContentType.Password;
+            signinPasswordInput.ForceLabelUpdate();
+        }
+    }
+
+    public void OnClickTogglePasswordVisibility()
+    {
+        if (signinPasswordInput == null) return;
+
+        isPasswordHidden = !isPasswordHidden;
+
+        if (isPasswordHidden) // 비밀번호 숨기기
+        {
+            signinPasswordInput.contentType = TMP_InputField.ContentType.Password;
+        }
+        else // 비밀번호 보이기
+        {
+            signinPasswordInput.contentType = TMP_InputField.ContentType.Standard;
+        }
+
+        signinPasswordInput.ForceLabelUpdate();
     }
 
     public void ToggleLoginPopup(bool show)
@@ -238,6 +266,12 @@ public class UGSAuthManager : MonoBehaviour
 
             await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(email, password);
             Debug.Log("<color=green>[성공]</color> UGS 서버 로그인에 성공했습니다!");
+
+            if (loginSuccessPopup != null)
+            {
+                StartCoroutine(ShowAndHidePopup(2.0f));
+            }
+
             UGSManager.Instance.SetLoggedIn(true);
 
             if (rememberMeToggle != null && rememberMeToggle.isOn)
@@ -299,5 +333,13 @@ public class UGSAuthManager : MonoBehaviour
                 }
             }
         }
+    }
+    private System.Collections.IEnumerator ShowAndHidePopup(float delay)
+    {
+        loginSuccessPopup.SetActive(true);
+
+        yield return new WaitForSeconds(delay);
+
+        loginSuccessPopup.SetActive(false);
     }
 }
