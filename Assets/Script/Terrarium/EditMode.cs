@@ -29,6 +29,7 @@ public class EditMode : MonoBehaviour
 
     void Awake()
     {
+        Time.timeScale = 1f;
         rectTransform = GetComponent<RectTransform>();
         foreach (ShopItemData item in GameDBManager.Instance.shopItemMasterDB) //아이템 불러오기
         {

@@ -114,6 +114,34 @@ public class UGSManager : MonoBehaviour
         }
     }
 
+    public async void SaveTrashUnlocks()
+    {
+        if (!IsUGSReady || !isLoggedIn || GameDBManager.Instance == null) return;
+
+        try
+        {
+            List<string> unlockedIds = new List<string>();
+
+            foreach (TrashGuideData data in GameDBManager.Instance.trashGuideMasterDB)
+            {
+                if (data.is_unlock) unlockedIds.Add(data.id);
+            }
+
+            var saveData = new Dictionary<string, object>
+            {
+                { "unlocked_trash_ids", unlockedIds }
+            };
+
+            await CloudSaveService.Instance.Data.Player.SaveAsync(saveData);
+
+            Debug.Log($"[UGS] 도감 해금 상태 저장 완료: {unlockedIds.Count}개");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("[UGS] 도감 해금 상태 저장 실패: " + e.Message);
+        }
+    }
+
     public async void SaveTerrariumLayout(List<PlacedItemData> layout)
     {
         if (!IsUGSReady || !isLoggedIn || layout == null) return;
@@ -135,7 +163,7 @@ public class UGSManager : MonoBehaviour
         if (!IsUGSReady || !isLoggedIn) return;
         try
         {
-            var savedData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "coins", "sold_out_items", "terrarium_layout" });
+            var savedData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "coins", "sold_out_items", "terrarium_layout", "unlocked_trash_ids" });
             
             if (savedData.TryGetValue("coins", out var coinItem))
             {
@@ -154,6 +182,27 @@ public class UGSManager : MonoBehaviour
             else
             {
                 if (GameDBManager.Instance != null) GameDBManager.Instance.SyncInventoryFromServer(new List<string>());
+            }
+
+            if (GameDBManager.Instance != null)
+            {
+
+
+                if (savedData.TryGetValue("unlocked_trash_ids", out var trashLog))
+                {
+                    List<string> unlockedIds = trashLog.Value.GetAs<List<string>>();
+
+                    if (unlockedIds != null)
+                    {
+                        foreach (string id in unlockedIds)
+                        {
+                            TrashGuideData data = GameDBManager.Instance.GetTrashData(id);
+                            if (data != null) data.is_unlock = true;
+                        }
+                    }
+                }
+
+                Debug.Log("[UGS] 도감 해금 상태 불러오기 완료");
             }
 
             if (savedData.TryGetValue("terrarium_layout", out var layoutLog))
