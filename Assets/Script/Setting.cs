@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Mediapipe.Unity.Sample.UI;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 using TMPro;
 
 public class Setting : MonoBehaviour
@@ -65,10 +67,12 @@ public class Setting : MonoBehaviour
         {
             case 0:
                 Debug.Log("영어 적용");
+                LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale("en");
                 break;
 
             case 1:
                 Debug.Log("한국어 적용");
+                LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale("ko");
                 break;
         }
     }

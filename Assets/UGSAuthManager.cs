@@ -10,6 +10,9 @@ public class UGSAuthManager : MonoBehaviour
     public GameObject loginPopup;
     public GameObject startUI;
 
+    [Tooltip("로그인 완료 시 띄울 안내창 팝업 오브젝트 연결")]
+    public GameObject loginSuccessPopup;
+
     [Space(5)]
     [Header("[저장 관련 UI 시스템 확장]")]
     [Tooltip("Do you want to save? 라고 뜨는 저장 확인 패널 오브젝트 연결")]
@@ -26,6 +29,7 @@ public class UGSAuthManager : MonoBehaviour
     [Header("[로그인 전용 UI 입력창]")]
     public TMP_InputField signinEmailInput;
     public TMP_InputField signinPasswordInput;
+    private bool isPasswordHidden = true;
 
     [Space(10)]
     [Header("[로그인 컴포넌트들 직접 연동]")]
@@ -83,6 +87,30 @@ public class UGSAuthManager : MonoBehaviour
         }
 
         SetInputFieldTextSize(24f, 36f);
+
+        if (signinPasswordInput != null)
+        {
+            signinPasswordInput.contentType = TMP_InputField.ContentType.Password;
+            signinPasswordInput.ForceLabelUpdate();
+        }
+    }
+
+    public void OnClickTogglePasswordVisibility()
+    {
+        if (signinPasswordInput == null) return;
+
+        isPasswordHidden = !isPasswordHidden;
+
+        if (isPasswordHidden) // 비밀번호 숨기기
+        {
+            signinPasswordInput.contentType = TMP_InputField.ContentType.Password;
+        }
+        else // 비밀번호 보이기
+        {
+            signinPasswordInput.contentType = TMP_InputField.ContentType.Standard;
+        }
+
+        signinPasswordInput.ForceLabelUpdate();
     }
 
     public void ToggleLoginPopup(bool show)
@@ -218,6 +246,7 @@ public class UGSAuthManager : MonoBehaviour
             Debug.LogError("[로그인 차단] UGS 게이밍 서비스가 아직 초기화(Ready)되지 않았습니다.");
             return;
         }
+
         string email = signinEmailInput.text;
         string password = signinPasswordInput.text;
 
@@ -226,6 +255,7 @@ public class UGSAuthManager : MonoBehaviour
             Debug.LogError("이메일과 비밀번호를 모두 입력해주세요.");
             return;
         }
+
         try
         {
             if (AuthenticationService.Instance.IsSignedIn)
@@ -233,23 +263,33 @@ public class UGSAuthManager : MonoBehaviour
                 Debug.LogWarning("[세션 초기화] 이전 씬의 인증이 발견되어 로그아웃 세션을 비웁니다.");
                 AuthenticationService.Instance.SignOut(true);
             }
+
             await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(email, password);
             Debug.Log("<color=green>[성공]</color> UGS 서버 로그인에 성공했습니다!");
+
+            if (loginSuccessPopup != null)
+            {
+                StartCoroutine(ShowAndHidePopup(2.0f));
+            }
+
             UGSManager.Instance.SetLoggedIn(true);
 
-            if (isRememberMeOn)
+            if (rememberMeToggle != null && rememberMeToggle.isOn)
             {
                 PlayerPrefs.SetString("SavedEmail", email);
+                Debug.Log("[저장] 하드디스크에 이메일이 정상 세이브되었습니다: " + email);
             }
             else
             {
                 PlayerPrefs.DeleteKey("SavedEmail");
             }
+
             PlayerPrefs.Save();
+
             ToggleLoginPopup(false);
             if (startUI != null) startUI.SetActive(true);
 
-            // 코인 등 기존 유저 데이터 불러옴
+            // 데이터 불러옴
             UGSManager.Instance.LoadUserData();
         }
         catch (AuthenticationException e)
@@ -268,8 +308,8 @@ public class UGSAuthManager : MonoBehaviour
 
     private void SetInputFieldTextSize(float minSize, float maxSize)
     {
-        TMP_InputField[] allFields = new TMP_InputField[] { 
-            signupEmailInput, signupIdInput, signupPasswordInput, 
+        TMP_InputField[] allFields = new TMP_InputField[] {
+            signupEmailInput, signupIdInput, signupPasswordInput,
             signupConfirmPasswordInput, signinEmailInput, signinPasswordInput
         };
 
@@ -293,5 +333,13 @@ public class UGSAuthManager : MonoBehaviour
                 }
             }
         }
+    }
+    private System.Collections.IEnumerator ShowAndHidePopup(float delay)
+    {
+        loginSuccessPopup.SetActive(true);
+
+        yield return new WaitForSeconds(delay);
+
+        loginSuccessPopup.SetActive(false);
     }
 }

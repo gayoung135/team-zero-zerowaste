@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Localization.Settings; 
 
 public class CollectionPage : MonoBehaviour
 {
@@ -10,9 +11,9 @@ public class CollectionPage : MonoBehaviour
     public TextMeshProUGUI methodText;
     public TextMeshProUGUI tipText;
 
-    public void UpdatePage(TrashGuideData trashData, Sprite trashSprite)
+    public void UpdatePage(TrashGuideData trashData)
     {
-        // 데이터 없는 페이지면 UI 비활성화
+        // 데이터 검증 방어선
         if (trashData == null)
         {
             gameObject.SetActive(false);
@@ -20,33 +21,50 @@ public class CollectionPage : MonoBehaviour
         }
 
         gameObject.SetActive(true);
+        itemImage.sprite = trashData.item_image;
 
-        if (CollectionManager.Instance != null && CollectionManager.Instance.IsUnlocked(trashData.trash_name))
+        // UI 컴포넌트 유실 방어선
+        if (itemImage == null || nameText == null || methodText == null || tipText == null)
         {
-            // [Unlocked State]
-            if (trashSprite != null)
-            {
-                itemImage.sprite = trashSprite;
-                itemImage.color = Color.white;
-            }
+            Debug.LogError($"[{gameObject.name}] 인스펙터에 TMP 텍스트나 이미지 컴포넌트 연결이 유실되었습니다!");
+            return;
+        }
 
-            // DB 영어 텍스트 출력
-            nameText.text = "Name: " + trashData.trash_name;
-            methodText.text = "How to recycle: " + trashData.log_correct;
-            tipText.text = "Tip: " + trashData.tip_ingame;
+        if (trashData.is_unlock)
+        {
+            // [Unlocked State] 해금 완료 상태
+            itemImage.color = Color.white;
+
+            if (LocalizationSettings.SelectedLocale.Identifier.Code == "ko")
+            {
+                nameText.text = "이름: " + trashData.name_KR;
+                methodText.text = "분류 방법: " + trashData.method_KR;
+                tipText.text = "팁: " + trashData.tip_KR;
+            }
+            else
+            {
+                nameText.text = "Name: " + trashData.name;
+                methodText.text = "How to recycle: " + trashData.method;
+                tipText.text = "Tip: " + trashData.tip;
+            }
         }
         else
         {
-            // [Locked State]
-            if (trashSprite != null)
-            {
-                itemImage.sprite = trashSprite;
-                itemImage.color = new Color(0.1f, 0.1f, 0.1f, 1f); // Silhouette
-            }
+            // [Locked State] 잠긴 상태
+            itemImage.color = new Color(0.1f, 0.1f, 0.1f, 1.0f); // 어두운 실루엣 처리
 
-            nameText.text = "Name: ???";
-            methodText.text = "How to recycle: ???";
-            tipText.text = "Tip: You haven't recycled this item yet.";
+            if (LocalizationSettings.SelectedLocale.Identifier.Code == "ko")
+            {
+                nameText.text = "이름: ???";
+                methodText.text = "분류 방법: ???";
+                tipText.text = "팁: 아직 이 쓰레기를 분리배출하지 못했습니다.";
+            }
+            else
+            {
+                nameText.text = "Name: ???";
+                methodText.text = "How to recycle: ???";
+                tipText.text = "Tip: You haven't recycled this item yet.";
+            }
         }
     }
 }

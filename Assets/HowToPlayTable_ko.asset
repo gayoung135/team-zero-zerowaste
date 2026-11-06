@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: HowToPlayTable_ko
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: ko
+  m_SharedData: {fileID: 11400000, guid: 1022314d257708246adb85b4b5900324, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 61059760128
+    m_Localized: "1. \uC6F9\uCEA0\uC744 \uCF1C\uACE0 \uAC8C\uC784\uC744 \uC2DC\uC791\uD558\uC138\uC694.\r\n(\uB9C8\uC6B0\uC2A4
+      \uC870\uC791 \uC9C0\uC6D0 \uD3EC\uD568)\r\n\r\n2. \uC4F0\uB808\uAE30\uB97C
+      \uC62C\uBC14\uB974\uAC8C \uBD84\uB9AC\uC218\uAC70\uD574 \uC8FC\uC138\uC694.\r\n\r\n3.
+      \uC815\uB2F5\uC77C \uACBD\uC6B0 +10\uC810\r\n\uC624\uB2F5\uC77C \uACBD\uC6B0
+      -5\uC810\r\n\r\n4. \uC4F0\uB808\uAE30\uB97C \uBD84\uB9AC\uC218\uAC70\uD558\uC5EC
+      \uAC00\uB2A5\uD55C \uD55C \uB9CE\uC740 \uCF54\uC778\uC744 \uBAA8\uC544\uBCF4\uC138\uC694.\r\n\r\n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 301837975552
+    m_Localized: "1. \uC6F9\uCEA0\uC744 \uCF1C\uACE0 \uAC8C\uC784\uC744 \uC2DC\uC791\uD558\uC138\uC694.\r\n(\uD0A4\uBCF4\uB4DC
+      \uC870\uC791 \uC9C0\uC6D0 \uD3EC\uD568)\r\n\r\n2. '\uBCF4\uC790\uAE30'\uB294
+      \uCD08\uB85D\uC0C9 \uC4F0\uB808\uAE30\uD1B5\uC73C\uB85C, '\uBC14\uC704'\uB294
+      \uD30C\uB780\uC0C9 \uC4F0\uB808\uAE30\uD1B5\uC73C\uB85C \uBD84\uB958\uB429\uB2C8\uB2E4.\r\n\r\n3.
+      \uC815\uB2F5\uC77C \uACBD\uC6B0 +10\uC810\r\n   \uC624\uB2F5\uC77C \uACBD\uC6B0
+      -5\uC810\r\n\r\n4. \uD504\uB808\uC784 \uBC14\uAE65\uC5D0\uC11C \uBA3C\uC800
+      \uD3EC\uC988\uB97C \uCDE8\uD55C \uB4A4 \uC548\uC73C\uB85C \uB4E4\uC5B4\uC624\uBA74
+      \uC778\uC2DD \uC815\uD655\uB3C4\uAC00 \uD5A5\uC0C1\uB429\uB2C8\uB2E4.\r\n  
+      \uB610\uD55C, \uC67C\uC190\uC744 \uC0AC\uC6A9\uD560 \uB54C \uB354 \uC798 \uC778\uC2DD\uB429\uB2C8\uB2E4.\r\n\r\n"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Localization.Settings;
 
 public class ShopItem : MonoBehaviour
 {
@@ -26,8 +27,14 @@ public class ShopItem : MonoBehaviour
 
     public void OnItem() //아이템에 마우스 올리면 가격 출력하는 함수
     {
-        if(item.is_sold_out == false) ItemPriceText.text = "This item is "+item.price.ToString()+" coin";
-        else ItemPriceText.text = "This item is sold out.";
+        if(item.is_sold_out == false) {
+            if (LocalizationSettings.SelectedLocale.Identifier.Code == "ko") ItemPriceText.text = "이 아이템의 가격은\n"+item.price.ToString()+" 코인 입니다.";
+            else ItemPriceText.text = "This item is\n"+item.price.ToString()+" coin.";
+        }
+        else {
+            if (LocalizationSettings.SelectedLocale.Identifier.Code == "ko") ItemPriceText.text = "해당 아이템은\n매진되었습니다.";
+            else ItemPriceText.text = "This item is\nsold out.";
+        }
         SpeechBubble.SetActive(true);
     }
 

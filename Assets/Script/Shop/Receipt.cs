@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Localization.Settings;
 
 public class Receipt : MonoBehaviour
 {
@@ -26,7 +27,8 @@ public class Receipt : MonoBehaviour
         PriceText.text = ItemPrice.ToString() + " C";
 
         currentReceiptText = Instantiate(ReceiptText, content);
-        currentReceiptText.text = item.item_name + " " + item.price + "C";
+        if (LocalizationSettings.SelectedLocale.Identifier.Code == "ko") currentReceiptText.text = item.item_name_KR + " " + item.price + "C";
+        else currentReceiptText.text = item.item_name + " " + item.price + "C";
         currentReceiptText.name = item.item_id;
 
         if (items.Count == 1) gameObject.SetActive(true);
@@ -89,11 +91,15 @@ public class Receipt : MonoBehaviour
 
                 // 4. 상점 UI 재설정
                 shopDatabase.Setting();
-                shopDatabase.Message("Purchase complete!");
+                if (LocalizationSettings.SelectedLocale.Identifier.Code == "ko") shopDatabase.Message("구매가 완료되었습니다!");
+                else shopDatabase.Message("Purchase complete!");
                 Cancel();
                 gameObject.SetActive(false);
             }
-            else shopDatabase.Message("Isn't enough coin.");
+            else {
+                if (LocalizationSettings.SelectedLocale.Identifier.Code == "ko") shopDatabase.Message("돈이 부족합니다.");
+                else shopDatabase.Message("Isn't enough coin.");
+            }
         }
         else Debug.Log("비로그인 상태");
     }

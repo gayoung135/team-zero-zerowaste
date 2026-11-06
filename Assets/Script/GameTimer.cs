@@ -23,8 +23,9 @@ public class GameTimer : MonoBehaviour
     public TextMeshProUGUI logScoreText;
     public TextMeshProUGUI logContentText;
 
-    [Header("로봇 표정 컨트롤러")]
+    [Header("로봇 컨트롤러")]
     public ImageChange robotReaction;
+    public SpeechBubbleController speechBubbleController;
 
     // 실제 점수와 남은 시간을 계산해서 저장할 데이터 주머니입니다.
     private static int score = 0;
@@ -88,7 +89,7 @@ public class GameTimer : MonoBehaviour
         }
     }
 
-    public void Correct() //정답 신호
+    public void Correct(string tip) //정답 신호
     {
         score += 10;
         scoreNumText.text = score.ToString();
@@ -97,9 +98,10 @@ public class GameTimer : MonoBehaviour
         if(combo<0) combo = 0;
         combo+=1;
         robotReaction.RobotChange(combo);
+        speechBubbleController.ShowBubbleWithTip(tip);
     }
 
-    public void Incorrect()
+    public void Incorrect(string tip)
     {
         score -= 5;
         if (score < 0) score = 0;
@@ -109,6 +111,7 @@ public class GameTimer : MonoBehaviour
         if(combo>0) combo = 0;
         combo-=1;
         robotReaction.RobotChange(combo);
+        speechBubbleController.ShowBubbleWithTip(tip);
     }
 
     // 설정창에서 '그만하기' 눌렀을 때 호출될 함수

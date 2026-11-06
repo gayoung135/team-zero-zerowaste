@@ -24,5 +24,7 @@ EditorBuildSettings:
     path: Assets/Scene/TerrariumStore.unity
     guid: 292dca614e8fbda45ab2eb063095db56
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: a14e25f1755c97946bbbf1a99e68b991, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    com.unity.localization.settings: {fileID: 11400000, guid: 3034d5d157e7abc4da3a8f27c0f11604, type: 2}
   m_UseUCBPForAssetBundles: 0
